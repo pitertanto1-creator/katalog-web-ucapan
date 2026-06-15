@@ -1,0 +1,292 @@
+/* style.css */
+:root {
+    --cream: #fdf8f1;
+    --latte: #d4a373;
+    --dark-brown: #7f5539;
+    --soft-pink: #ffccd5;
+    --white: #ffffff;
+    --note-color: #fffdd0;
+    
+    --font-main: 'Nunito', sans-serif;
+    --font-hand: 'Caveat', cursive;
+}
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+    background-color: var(--cream);
+    background-image: radial-gradient(var(--soft-pink) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    font-family: var(--font-main);
+    color: var(--dark-brown);
+    padding: 40px 20px;
+}
+
+.wireframe-container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+/* UTILITAS SINKRONISASI SEKUENSIAL STEP */
+.section-wrapper.hidden {
+    display: none !important;
+}
+
+/* BARU: MENYESUAIKAN SEKSI KETIKA BADGE DIHAPUS */
+.section-wrapper {
+    width: 100%;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+section {
+    width: 100%;
+    background: var(--white);
+    border: 2.5px solid var(--latte);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 4px 4px 0px var(--latte);
+    position: relative;
+    text-align: center;
+}
+
+/* TYPOGRAPHY */
+h1 { font-size: 2.3rem; font-weight: 800; margin-bottom: 10px;}
+h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px;}
+.subtitle { font-size: 1.1rem; opacity: 0.8; margin-bottom: 25px; line-height: 1.5;}
+
+/* BUTTONS */
+.btn-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 15px;
+    font-family: var(--font-main);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.solid-brown {
+    background: var(--dark-brown);
+    color: var(--white);
+    border: none;
+}
+.solid-brown:hover { background: #5c3d26; }
+
+.outline-brown {
+    background: var(--white);
+    color: var(--dark-brown);
+    border: 2px solid var(--latte);
+}
+.outline-brown:hover { background: var(--cream); }
+.long-btn { text-decoration: none; display: inline-block; padding: 12px 40px;}
+
+/* HINTS */
+.post-it-hint {
+    position: absolute; right: 20px; bottom: 10px;
+    background: #fff9c4; padding: 5px 10px;
+    font-size: 11px; border: 1px dashed var(--latte);
+    transform: rotate(2deg);
+}
+.side-hint { position: absolute; right: -20px; bottom: 40px; font-size: 12px; transform: rotate(-5deg); color: var(--dark-brown); }
+
+/* ILLUSTRATION BOX */
+.bear-illustration-box {
+    width: 100%;
+    max-width: 220px;
+    margin: 15px auto 25px auto;
+    display: flex;
+    justify-content: center;
+    min-height: 150px;
+    align-items: center;
+}
+.bear-illustration-box img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 03 GALLERY (FILMSTRIP + POLAROID) */
+.gallery-layout {
+    display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 30px;
+}
+.side-polaroids {
+    display: flex; flex-direction: column; gap: 20px; width: 28%;
+}
+.polaroid {
+    background: var(--white); padding: 10px 10px 25px 10px;
+    border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    cursor: pointer; transform: rotate(-2deg); transition: transform 0.2s;
+}
+.polaroid:nth-child(even) { transform: rotate(3deg); }
+.polaroid:hover { transform: scale(1.04) rotate(0deg); }
+
+.photo-frame {
+    width: 100%; height: 130px; background: #eee;
+    display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;
+}
+.photo-frame img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.photo-frame span { font-size: 12px; color: #888; font-weight: 600;}
+.polaroid .caption { font-family: var(--font-hand); font-size: 1.2rem; margin-top: 10px; }
+.polaroid input, .strip-item input { display: none; }
+
+/* Filmstrip Center */
+.filmstrip {
+    width: 35%; background: #222; padding: 15px 10px;
+    display: flex; flex-direction: column; gap: 12px; border-radius: 4px;
+}
+.strip-item {
+    width: 100%; height: 100px; background: #444; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;
+}
+.strip-item img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.strip-item span { color: #aaa; font-size: 14px; font-weight: 600; }
+
+/* 04 NOTES GRID */
+.cloud-title-container { display: flex; justify-content: center; margin-bottom: 30px; }
+.cloud-title {
+    background: var(--dark-brown); color: var(--white);
+    padding: 12px 30px; border-radius: 50px; font-weight: 700;
+}
+.notes-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
+}
+.note-item {
+    background: var(--note-color); padding: 25px 20px;
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.04);
+    font-family: var(--font-hand); font-size: 1.4rem; text-align: left;
+    position: relative; border-left: 4px solid var(--latte);
+}
+
+/* 05 LETTER AND MUSIC */
+.split-layout { display: flex; gap: 30px; margin-top: 20px; }
+.notepad {
+    flex: 1.2; background: #fff; border: 1px solid #ddd;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.05); position: relative;
+    display: flex; flex-direction: column;
+}
+.notepad-tape {
+    width: 100px; height: 30px; background: rgba(255, 204, 213, 0.6);
+    position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+}
+.notepad-content {
+    padding: 40px 30px 20px 30px; font-family: var(--font-hand); font-size: 1.5rem;
+    line-height: 2rem; outline: none; text-align: left; white-space: pre-line;
+    background-image: linear-gradient(transparent 96%, #eee 4%); background-size: 100% 2rem;
+}
+.notepad-footer { padding: 0 30px 30px 30px; font-family: var(--font-hand); font-size: 1.5rem; text-align: left; }
+
+/* Music Player */
+.player-card {
+    flex: 0.8; background: #fffdfa; border: 2px solid var(--soft-pink);
+    border-radius: 15px; padding: 25px; display: flex; flex-direction: column; align-items: center;
+}
+.player-disk {
+    width: 80px; height: 80px; background: #eee; border-radius: 12px;
+    margin: 15px 0; display: flex; align-items: center; justify-content: center; font-size: 30px;
+}
+.player-card h4 { font-size: 1.1rem; margin-bottom: 4px; }
+.player-card p { font-size: 0.9rem; opacity: 0.6; margin-bottom: 15px; }
+
+.progress-bar { width: 100%; height: 5px; background: #eee; border-radius: 5px; position: relative; }
+.progress { width: 0%; height: 100%; background: var(--latte); border-radius: 5px; }
+.time-stamp {
+    width: 100%; display: flex; justify-content: space-between; font-size: 11px; margin-top: 5px; opacity: 0.7;
+}
+.player-controls { display: flex; gap: 20px; margin: 15px 0; align-items: center; }
+.control-btn {
+    background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--dark-brown);
+}
+.control-btn.play-trigger {
+    font-size: 1.8rem; background: var(--cream); width: 50px; height: 50px; border-radius: 50%;
+}
+.upload-music-lbl {
+    font-size: 12px; background: var(--soft-pink); padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: 700;
+}
+#music-file { display: none; }
+.player-badge {
+    background: #fff0f2; padding: 6px 12px; font-size: 11px; color: var(--dark-brown);
+    border-radius: 20px; border: 1px solid var(--soft-pink); margin-top: 15px;
+}
+
+/* CUSTOM CUTE MODAL STYLES */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(127, 85, 57, 0.4); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 99999; padding: 20px;
+    transition: opacity 0.3s ease;
+}
+.modal-overlay.hidden { display: none !important; }
+.modal-card {
+    background: var(--white); border: 3px solid var(--latte);
+    border-radius: 24px; padding: 35px 25px; max-width: 400px; width: 100%;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15); text-align: center;
+    animation: popBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.modal-heart { font-size: 40px; margin-bottom: 15px; animation: heartbeat 1.2s infinite; }
+#modal-message { font-size: 1.15rem; font-weight: 700; color: var(--dark-brown); line-height: 1.5; margin-bottom: 25px; }
+
+/* ANIMATIONS */
+@keyframes popBounce {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    20% { transform: scale(1.15); }
+    40% { transform: scale(1); }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 850px) {
+    .gallery-layout { flex-direction: column; }
+    .side-polaroids { width: 100%; }
+    .filmstrip { width: 100%; max-width: 350px; }
+    .split-layout { flex-direction: column; }
+}
+/* --- FITUR KHUSUS JUALAN: MODE ADMIN / PREVIEW --- */
+/* Secara default, sembunyikan text petunjuk upload dan input file */
+.photo-frame span, 
+.strip-item span, 
+.upload-music-lbl {
+    display: none !important; 
+}
+
+/* Matikan efek klik pada bingkai foto saat mode preview agar tidak bisa ditekan */
+.polaroid, .strip-item {
+    pointer-events: none;
+}
+
+/* KETIKA MODE ADMIN AKTIF: Tampilkan kembali semua tombol edit untuk kamu */
+body.admin-mode .photo-frame span, 
+body.admin-mode .strip-item span, 
+body.admin-mode .upload-music-lbl {
+    display: inline-block !important;
+}
+
+body.admin-mode .polaroid, 
+body.admin-mode .strip-item {
+    pointer-events: auto !important;
+}
+
+/* Notifikasi kecil di pojok bawah jika kamu sedang di Mode Admin */
+.admin-indicator {
+    position: fixed; bottom: 10px; left: 10px;
+    background: #4caf50; color: white; padding: 5px 10px;
+    font-size: 11px; border-radius: 5px; font-weight: bold;
+    z-index: 100000; display: none;
+}
+body.admin-mode .admin-indicator { display: block; }

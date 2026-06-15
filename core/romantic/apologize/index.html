@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apology Cute Bear</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+<div class="wireframe-container">
+
+    <div class="section-wrapper" id="wrapper-step1">
+        <section id="hero">
+            <h1 id="hero-title"></h1>
+            <p class="subtitle" id="hero-subtitle"></p>
+            
+            <div class="bear-illustration-box">
+                <img id="img-bear-hero" src="" alt="Cute Bear Interaction">
+            </div>
+
+            <div class="btn-group">
+                <button class="btn solid-brown" id="btn-maaf">iya, aku maafin</button>
+                <button class="btn outline-brown" id="btn-kesempatan">kasih kesempatan</button>
+                <button class="btn outline-brown" id="btn-gamau">gamau dulu</button>
+            </div>
+            <div class="post-it-hint">3 pilihan respons di awal 📌</div>
+        </section>
+    </div>
+
+    <div class="section-wrapper hidden" id="wrapper-step2">
+        <section id="intro">
+            <h2 id="intro-title"></h2>
+            <p class="subtitle" id="intro-subtitle"></p>
+            
+            <div class="bear-illustration-box">
+                <img id="img-bear-intro" src="" alt="Cute Bear Hug">
+            </div>
+
+            <button class="btn solid-brown long-btn" id="btn-to-step3">lanjut liat surprise &gt;</button>
+            <div class="side-hint">ajak user lanjut ke surprise ➜</div>
+        </section>
+    </div>
+
+    <div class="section-wrapper hidden" id="wrapper-step3">
+        <section id="gallery">
+            <h2 id="gallery-heading">momen-momen favorit kita 📸</h2>
+            <p class="subtitle" style="margin-bottom: 20px;">Klik bingkai foto abu-abu di bawah untuk langsung upload foto dari galeri HP/Laptop kamu</p>
+            
+            <div class="gallery-layout">
+                <div class="side-polaroids">
+                    <div class="polaroid" onclick="triggerUpload('upload-p1')">
+                        <div class="photo-frame"><img id="prev-p1" src="" alt=""><span id="ph-p1">📁 Upload Foto</span></div>
+                        <p class="caption" id="cap-0"></p>
+                        <input type="file" id="upload-p1" accept="image/*" onchange="handleImage(this, 'prev-p1', 'ph-p1')">
+                    </div>
+                    <div class="polaroid" onclick="triggerUpload('upload-p2')">
+                        <div class="photo-frame"><img id="prev-p2" src="" alt=""><span id="ph-p2">📁 Upload Foto</span></div>
+                        <p class="caption" id="cap-1"></p>
+                        <input type="file" id="upload-p2" accept="image/*" onchange="handleImage(this, 'prev-p2', 'ph-p2')">
+                    </div>
+                </div>
+
+                <div class="filmstrip">
+                    <div class="strip-item" onclick="triggerUpload('upload-f1')">
+                        <img id="prev-f1" src=""><span id="ph-f1">🎞️ Klik</span>
+                        <input type="file" id="upload-f1" accept="image/*" onchange="handleImage(this, 'prev-f1', 'ph-f1')">
+                    </div>
+                    <div class="strip-item" onclick="triggerUpload('upload-f2')">
+                        <img id="prev-f2" src=""><span id="ph-f2">🎞️ Klik</span>
+                        <input type="file" id="upload-f2" accept="image/*" onchange="handleImage(this, 'prev-f2', 'ph-f2')">
+                    </div>
+                    <div class="strip-item" onclick="triggerUpload('upload-f3')">
+                        <img id="prev-f3" src=""><span id="ph-f3">🎞️ Klik</span>
+                        <input type="file" id="upload-f3" accept="image/*" onchange="handleImage(this, 'prev-f3', 'ph-f3')">
+                    </div>
+                </div>
+
+                <div class="side-polaroids">
+                    <div class="polaroid" onclick="triggerUpload('upload-p3')">
+                        <div class="photo-frame"><img id="prev-p3" src="" alt=""><span id="ph-p3">📁 Upload Foto</span></div>
+                        <p class="caption" id="cap-2"></p>
+                        <input type="file" id="upload-p3" accept="image/*" onchange="handleImage(this, 'prev-p3', 'ph-p3')">
+                    </div>
+                    <div class="polaroid" onclick="triggerUpload('upload-p4')">
+                        <div class="photo-frame"><img id="prev-p4" src="" alt=""><span id="ph-p4">📁 Upload Foto</span></div>
+                        <p class="caption" id="cap-3"></p>
+                        <input type="file" id="upload-p4" accept="image/*" onchange="handleImage(this, 'prev-p4', 'ph-p4')">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn solid-brown long-btn" id="btn-to-step4" style="margin-top: 30px;">Lihat Janji Aku &gt;</button>
+        </section>
+    </div>
+
+    <div class="section-wrapper hidden" id="wrapper-step4">
+        <section id="notes">
+            <div class="cloud-title-container">
+                <div class="cloud-title" id="notes-main-title"></div>
+            </div>
+            <div class="notes-grid" id="notes-container"></div>
+
+            <button class="btn solid-brown long-btn" id="btn-to-step5" style="margin-top: 30px;">Buka Surat Buat Kamu &gt;</button>
+        </section>
+    </div>
+
+    <div class="section-wrapper hidden" id="wrapper-step5">
+        <section id="letter-music">
+            <div class="split-layout">
+                <div class="notepad">
+                    <div class="notepad-tape"></div>
+                    <div class="notepad-content" contenteditable="true" id="editable-letter"></div>
+                    <div class="notepad-footer">love u ♡ <br><small style="font-size: 11px; opacity: 0.6;">(bisa kamu ketik langsung teksnya)</small></div>
+                </div>
+
+                <div class="player-card">
+                    <h3>lagu buat kamu ♡</h3>
+                    <div class="player-disk">🎵</div>
+                    <h4 id="track-title">judul lagu favorit</h4>
+                    <p id="track-artist">penyanyi favorit</p>
+                    
+                    <div class="progress-bar">
+                        <div class="progress" id="music-progress"></div>
+                    </div>
+                    <div class="time-stamp">
+                        <span id="time-current">0:00</span>
+                        <span id="time-total">0:00</span>
+                    </div>
+
+                    <div class="player-controls">
+                        <button class="control-btn">⏮</button>
+                        <button class="control-btn play-trigger" id="play-btn">▶</button>
+                        <button class="control-btn">⏭</button>
+                    </div>
+
+                    <label for="music-file" class="upload-music-lbl">📁 Upload File Lagu</label>
+                    <input type="file" id="music-file" accept="audio/*" onchange="handleMusic(this)">
+                    <audio id="main-audio"></audio>
+                    
+                    <div class="player-badge">lagu ini vibes-nya kamu banget 💖</div>
+                </div>
+            </div>
+
+            <button class="btn solid-brown long-btn" id="btn-to-step6" style="margin-top: 30px;">Klik yang Terakhir... &gt;</button>
+        </section>
+    </div>
+
+    <div class="section-wrapper hidden" id="wrapper-step6">
+        <section id="closing">
+            <h2>jadi... kita baikan ya?</h2>
+            
+            <div class="bear-illustration-box">
+                <img id="img-bear-closing" src="" alt="Cute Bear Love">
+            </div>
+
+            <div class="btn-group">
+                <button class="btn solid-brown" id="btn-baikan">yuk, kita baikan ❤</button>
+                <button class="btn outline-brown" id="btn-butuh-waktu">aku butuh waktu</button>
+            </div>
+        </section>
+    </div>
+
+</div>
+
+<div id="cute-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+        <div class="modal-heart">💖</div>
+        <p id="modal-message">Pesan kustom di sini...</p>
+        <button id="modal-close-btn" class="btn solid-brown">Okey, Lanjut! ✨</button>
+    </div>
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+<div class="admin-indicator">⚙️ MODE ADMIN AKTIF (Siap Edit & Ambil Foto Klien)</div>
+</html>
