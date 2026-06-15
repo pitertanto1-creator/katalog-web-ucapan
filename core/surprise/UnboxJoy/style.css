@@ -1,0 +1,49 @@
+/* Pengaturan dasar seluruh halaman */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    /* Latar belakang gradien Spotify Wrapped (Deep Purple ke Cyan) */
+    background: linear-gradient(135deg, #180c36 0%, #0c071e 40%, #09474d 100%);
+    background-attachment: fixed;
+}
+
+/* Efek Gate Screen agar sesuai dengan tema gelap */
+#gate-screen {
+    background: linear-gradient(135deg, #0c071e 0%, #1c0e3d 100%);
+}
+
+/* Efek Kaca Transparan (Glassmorphism) untuk Kotak Bento */
+.bento-box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Efek Melayang/Membesar saat disentuh atau diarahkan kursor */
+.bento-box:hover {
+    transform: translateY(-4px) scale(1.01);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Kotak Status Sengaja dibuat tabrakan warna (Pop Out Neon) khas Spotify */
+.bento-box-status {
+    background: #4CDBE4; /* Warna cyan neon terang */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bento-box-status:hover {
+    transform: translateY(-4px) scale(1.01);
+    background: #3bc2cb;
+}
+
+/* Animasi Putaran Icon Pemutar Musik */
+.spin-slow {
+    animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

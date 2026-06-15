@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday OS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section id="boot-screen">
+    <div class="boot-box">
+      <h1>WINDOWS 95</h1>
+      <p>Starting Birthday OS...</p>
+      <p>Loading memories...</p>
+      <div class="boot-progress"><span></span></div>
+    </div>
+  </section>
+
+  <main id="desktop" aria-label="Birthday OS Desktop">
+    <div class="desktop-icons">
+      <button class="desktop-icon" data-open="welcome-window">
+        <span class="icon-art computer"></span>
+        <span>My Computer</span>
+      </button>
+      <button class="desktop-icon" data-open="photos-window">
+        <span class="icon-art folder"></span>
+        <span>Our Photos</span>
+      </button>
+      <button class="desktop-icon" data-open="music-window">
+        <span class="icon-art cd"></span>
+        <span>Birthday Song</span>
+      </button>
+      <button class="desktop-icon" data-open="message-window">
+        <span class="icon-art envelope"></span>
+        <span>Message</span>
+      </button>
+      <button class="desktop-icon" data-open="surprise-window">
+        <span class="icon-art gift"></span>
+        <span>Surprise</span>
+      </button>
+      <button class="desktop-icon" data-open="about-window">
+        <span class="icon-art note"></span>
+        <span>About You</span>
+      </button>
+    </div>
+
+    <section class="window welcome-window" id="welcome-window" style="left:10.5%; top:4.2%; width:440px; z-index:6;">
+      <div class="titlebar"><strong>Welcome</strong><button data-close>×</button></div>
+      <div class="window-body welcome-body">
+        <div class="cake">🎂</div>
+        <div>
+          <h2>Welcome to<br>Birthday OS!</h2>
+          <p>Dear <b class="pink" data-name>Juju</b>,</p>
+          <p>Today is your special day.<br>Click the icons to open<br>your surprises!</p>
+          <button class="win-button" data-close>OK</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="window music-window" id="music-window" style="left:15.5%; top:38.7%; width:690px; z-index:5;">
+      <div class="titlebar"><strong>Birthday Song</strong><button data-close>×</button></div>
+      <div class="window-body music-body">
+        <div class="player-panel">
+          <div class="panel-title">Now Playing</div>
+          <div class="cover-art">
+            <div class="cover-text">For You ♥</div>
+          </div>
+          <p class="song-title">Perfect - Ed Sheeran</p>
+          <p id="time-label">01:24 / 04:23</p>
+          <div class="progress-line"><span></span></div>
+          <div class="controls">
+            <button>◀</button><button id="play-btn">▶</button><button>Ⅱ</button><button>▶|</button>
+          </div>
+          <div class="volume">🔊 <input type="range" min="0" max="100" value="65" /></div>
+          <audio id="birthday-audio" src="assets/music/birthday-song.mp3"></audio>
+        </div>
+        <div class="text-panel">
+          <div class="panel-title">For You</div>
+          <div class="scroll-content">
+            <p class="pink">Selamat ulang tahun.</p>
+            <p>Semoga hari ini jadi awal<br>dari banyak hal baik.</p>
+            <p>Terima kasih sudah hadir dan<br>jadi seseorang yang berarti.</p>
+            <p>Semoga kamu selalu diberi bahagia,<br>dikelilingi orang baik,<br>dan semua hal yang kamu impikan<br>pelan-pelan tercapai.</p>
+            <p class="pink">Enjoy your day! 💖</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window message-window" id="message-window" style="right:4%; top:5%; width:465px; z-index:4;">
+      <div class="titlebar"><strong>▣ birthday_message.txt</strong><button data-close>×</button></div>
+      <div class="menu-bar">File&nbsp;&nbsp;&nbsp; Edit&nbsp;&nbsp;&nbsp; Format&nbsp;&nbsp;&nbsp; View&nbsp;&nbsp;&nbsp; Help</div>
+      <div class="window-body notepad-body">
+        <p class="pink">💗 Untuk kamu,</p>
+        <p>Aku tidak pandai menulis panjang,<br>tapi aku ingin kamu tahu satu hal:</p>
+        <p class="pink">Kamu layak bahagia,<br>hari ini dan seterusnya.</p>
+        <p>Semoga semua hal baik datang<br>ke hidupmu, pelan-pelan, tapi pasti.</p>
+        <p>Terima kasih sudah jadi seseorang<br>yang berarti.</p>
+        <p>Happy Birthday! 🎂✨</p>
+      </div>
+    </section>
+
+    <section class="window photos-window" id="photos-window" style="right:4%; top:49%; width:510px; z-index:3;">
+      <div class="titlebar"><strong>Our Photos</strong><button data-close>×</button></div>
+      <div class="window-body photos-body">
+        <div class="photo-card p1"></div>
+        <div class="photo-card p2"></div>
+        <div class="photo-card p3"></div>
+        <div class="photo-card p4"></div>
+        <div class="photo-card p5"></div>
+        <div class="photo-card p6"></div>
+      </div>
+      <div class="status-bar">6 item(s)</div>
+    </section>
+
+    <section class="window alert-window" id="alert-window" style="left:18.5%; bottom:7.2%; width:300px; z-index:7;">
+      <div class="titlebar"><strong>System Alert</strong><button data-close>×</button></div>
+      <div class="window-body alert-body">
+        <span class="warning">⚠</span>
+        <p>Someone is getting older today!</p>
+        <button class="win-button" data-close>OK</button>
+      </div>
+    </section>
+
+    <section class="window reminder-window" id="reminder-window" style="left:42.4%; bottom:6.7%; width:280px; z-index:7;">
+      <div class="titlebar"><strong>Reminder</strong><button data-close>×</button></div>
+      <div class="window-body alert-body">
+        <span class="info">ⓘ</span>
+        <p>But still cute tho :)</p>
+        <button class="win-button" data-close>OK</button>
+      </div>
+    </section>
+
+    <section class="window surprise-window" id="surprise-window" style="right:7.4%; bottom:3.2%; width:330px; z-index:8;">
+      <div class="titlebar"><strong>Happy Birthday!</strong><button data-close>×</button></div>
+      <div class="window-body surprise-body">
+        <div class="heart">💖</div>
+        <div>
+          <p class="pink">Happy Birthday, <span data-name>Juju</span>!</p>
+          <p>Semoga semua hal baik selalu<br>menyertai langkahmu.</p>
+          <p>Stay happy and healthy! 🎂</p>
+          <button class="win-button" id="confetti-btn">OK</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="window about-window" id="about-window" style="left:54%; top:16%; width:350px; z-index:2;">
+      <div class="titlebar"><strong>about_you.txt</strong><button data-close>×</button></div>
+      <div class="window-body notepad-body small-note">
+        <p class="pink">Tentang kamu:</p>
+        <p>Seseorang yang sederhana,<br>tapi punya arti besar.</p>
+        <p>Hari ini bukan cuma tentang umur baru,<br>tapi tentang harapan baik yang baru.</p>
+      </div>
+    </section>
+
+    <nav class="start-menu" id="start-menu">
+      <button data-open="music-window">🎵 Music</button>
+      <button data-open="photos-window">📁 Photos</button>
+      <button data-open="message-window">💌 Message</button>
+      <button data-open="surprise-window">🎁 Surprise</button>
+      <hr />
+      <button>💾 Shut Down...</button>
+    </nav>
+
+    <div id="confetti-layer"></div>
+
+    <div class="photo-viewer-overlay" id="photo-viewer-overlay"></div>
+
+<section class="window photo-viewer-window" id="photo-viewer-window" style="left:50%; top:50%; width:680px; z-index:60; transform:translate(-50%, -50%);">
+  <div class="titlebar">
+    <strong>Photo Viewer</strong>
+    <button id="photo-viewer-close">×</button>
+  </div>
+
+  <div class="window-body photo-viewer-body">
+    <div class="photo-viewer-frame">
+      <img id="photo-viewer-image" src="" alt="Preview photo" />
+    </div>
+  </div>
+
+  <div class="status-bar" id="photo-viewer-caption">Photo preview</div>
+</section>
+
+    <footer class="taskbar">
+      <button class="start-button" id="start-button"><span>▣</span> Start</button>
+      <button class="task" data-open="welcome-window">💌 Welcome</button>
+      <button class="task" data-open="music-window">🎵 Birthday Song</button>
+      <button class="task" data-open="photos-window">📁 Our Photos</button>
+      <button class="task" data-open="message-window">▤ birthday_message.txt</button>
+      <button class="task" data-open="surprise-window">🎁 Surprise</button>
+      <div class="tray">🔊 <span id="clock">10:25 PM</span></div>
+    </footer>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

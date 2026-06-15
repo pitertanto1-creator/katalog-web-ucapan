@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/klien/:name", "destination": "/klien/:name/index.html" }
+  ]
+}

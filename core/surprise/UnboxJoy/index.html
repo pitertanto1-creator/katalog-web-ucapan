@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Birthday Rewind ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white overflow-x-hidden">
+
+    <audio id="bgMusic" loop></audio>
+
+    <div id="gate-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center px-4 transition-all duration-700">
+        <div class="text-center space-y-6 max-w-md bg-white/10 backdrop-blur-xl p-8 rounded-3xl border border-white/20 shadow-2xl">
+            <div class="text-7xl animate-bounce mb-2">🎵</div>
+            <h1 class="text-2xl md:text-3xl font-black tracking-tight text-white uppercase">Your Birthday Wrapped Is Ready!</h1>
+            <p class="text-white/70 text-sm font-light">Kompilasi momen spesial yang dibuat khusus untuk merayakan hari usiamu yang baru.</p>
+            <button onclick="unlockBox()" class="cursor-pointer w-full bg-[#1DB954] hover:bg-[#1ed760] text-black font-extrabold py-4 px-6 rounded-full shadow-lg transform active:scale-95 transition tracking-wider text-xs uppercase">
+                🟢 OPEN YOUR REWIND
+            </button>
+        </div>
+    </div>
+
+    <main id="main-screen" class="hidden opacity-0 transition-opacity duration-1000 max-w-4xl mx-auto px-4 py-8 w-full space-y-6">
+        
+        <div class="bento-box rounded-2xl p-4 flex items-center justify-between shadow-lg sticky top-4 z-40">
+            <div class="flex items-center gap-3">
+                <div id="music-icon" class="w-10 h-10 bg-[#1DB954] rounded-full flex items-center justify-center text-black text-lg font-bold">
+                    📻
+                </div>
+                <div>
+                    <h4 class="text-[10px] font-black text-[#1DB954] uppercase tracking-widest">NOW PLAYING</h4>
+                    <p id="track-name" class="text-sm font-bold text-white max-w-[180px] sm:max-w-xs truncate">Loading track...</p>
+                </div>
+            </div>
+            <button id="play-pause-btn" onclick="toggleMusic()" class="text-xs bg-white text-black font-bold px-4 py-1.5 rounded-full cursor-pointer hover:scale-105 transition">
+                PLAYING
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <div class="bento-box md:col-span-2 rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[350px] relative overflow-hidden">
+                <div class="space-y-3 z-10">
+                    <span class="bg-[#1DB954]/20 text-[#1DB954] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-[#1DB954]/30">PREMIUM CARD</span>
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none">
+                        HAPPY <span id="hero-age" class="text-[#4CDBE4]">--</span><br>BIRTHDAY, <span id="target-name"></span>! 🤍
+                    </h2>
+                </div>
+                <div class="mt-6 w-full h-48 bg-white/5 rounded-2xl overflow-hidden flex items-center justify-center relative border border-white/10">
+                    <img id="hero-img" src="" alt="Hero" class="w-full h-full object-cover hidden">
+                    <span id="hero-placeholder" class="text-white/40 text-xs font-light p-4 text-center">[ Masukkan foto utama kamu ke assets/images/hero.jpg ]</span>
+                </div>
+            </div>
+
+            <div class="bento-box-status rounded-3xl p-6 md:p-8 flex flex-col justify-center items-center text-center shadow-xl">
+                <span class="text-black/50 text-[10px] font-black tracking-widest uppercase mb-1">YOUR CURRENT LEVEL</span>
+                <h3 id="chapter-age" class="text-6xl font-black text-black tracking-tighter my-1">CH. --</h3>
+                <p id="quote-text" class="text-xs text-black/70 mt-2 font-medium italic leading-relaxed"></p>
+            </div>
+
+            <div class="bento-box rounded-3xl p-6 flex flex-col justify-between overflow-hidden min-h-[240px]">
+                <div>
+                    <h4 class="font-black text-sm text-white uppercase tracking-wider">🎁 UNWRAP YOUR GIFT</h4>
+                    <p class="text-white/60 text-xs font-light">Gosok area abu-abu di bawah untuk melihat hadiahmu!</p>
+                </div>
+                <div class="relative w-full h-32 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden select-none">
+                    <div class="absolute text-center p-3 w-full">
+                        <p class="text-[10px] text-[#4CDBE4] font-black uppercase tracking-widest mb-1">CLAIMABLE REWARD</p>
+                        <p id="scratch-reward" class="font-extrabold text-sm text-white px-2"></p>
+                    </div>
+                    <canvas id="scratchCanvas" class="absolute inset-0 w-full h-full cursor-pointer touch-none z-10"></canvas>
+                </div>
+            </div>
+
+            <div class="bento-box md:col-span-2 rounded-3xl p-6 flex flex-col justify-between min-h-[240px]">
+                <div>
+                    <h4 class="font-black text-sm text-white uppercase tracking-wider">📸 ON REPEAT MEMORIES</h4>
+                    <p class="text-white/60 text-xs font-light mb-4">Beberapa potongan momen paling favorit sepanjang tahun ini.</p>
+                </div>
+                <div id="polaroid-container" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    </div>
+            </div>
+
+            <div id="love-notes-container" class="bento-box md:col-span-3 rounded-3xl p-6 md:p-8 space-y-4">
+                <h4 class="font-black text-sm text-[#4CDBE4] uppercase tracking-widest mb-2">💌 TOP STORIES FOR YOU</h4>
+                </div>
+
+        </div>
+
+        <footer class="text-center text-white/40 text-xs pt-8 pb-4 font-light tracking-widest uppercase">
+            Wrapped with Love by <span id="sender-name" class="text-white font-bold">--</span>
+        </footer>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

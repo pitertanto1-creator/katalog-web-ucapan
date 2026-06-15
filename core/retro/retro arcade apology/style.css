@@ -1,0 +1,309 @@
+/* ==================== CORE RETRO DESIGN TEMPLATE ==================== */
+body {
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* BOX UTAMA KABINET DINGDONG */
+.arcade-cabinet {
+    background: #2b2b2b;
+    border: 4px solid #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.8), inset 0 0 10px #000;
+    width: 340px;
+    box-sizing: border-box;
+}
+
+/* BINGKAI MONITOR JALUR HITAM (Kunci agar Teks Tidak Luber Keluar) */
+.arcade-screen {
+    background-color: #050505;
+    border: 3px solid #00ff66; /* Bingkai Hijau Neon */
+    border-radius: 4px;
+    padding: 10px;
+    height: 380px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.2);
+}
+
+/* UTILITAS UNTUK MENYEMBUNYIKAN LAYER STAGE */
+.hidden {
+    display: none !important;
+}
+
+/* ==================== STAGE 1: DESAIN GAME MEMORY CARD ==================== */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* HP Progress Bar */
+.hp-bar-container {
+    margin-bottom: 10px;
+}
+.hp-label {
+    font-size: 10px;
+    color: #00ff66;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px;
+}
+.hp-border {
+    border: 2px solid #fff;
+    background: #000;
+    height: 12px;
+    padding: 1px;
+}
+.hp-fill {
+    background: #00ff66;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+.hp-percent {
+    font-size: 9px;
+    float: right;
+    margin-top: 2px;
+}
+
+/* Grid Kartu */
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin: 5px auto;
+    width: 100%;
+    max-width: 280px;
+    perspective: 1000px;
+}
+.memory-card {
+    aspect-ratio: 3 / 4;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+    cursor: pointer;
+}
+.memory-card.flipped {
+    transform: rotateY(180deg);
+}
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 3px;
+}
+.card-back {
+    background: #ff0055;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #fff;
+}
+.card-front {
+    background: #111;
+    border: 2px solid #00ff66;
+    transform: rotateY(180deg);
+}
+.card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.game-hint {
+    font-size: 9px;
+    color: #888;
+    text-align: center;
+    margin: auto 0 0 0;
+    line-height: 1.2;
+}
+
+/* ==================== STAGE 2: DESAIN MONITOR REWARD (KAPSUL WAKTU) ==================== */
+.reward-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.stage-clear-banner {
+    background: #ff0055;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 12px;
+    border: 2px solid #fff;
+    margin-bottom: 8px;
+    box-shadow: 2px 2px 0px #000;
+}
+
+/* Sistem Scroll di dalam Monitor */
+.arcade-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 275px;
+}
+.section-title {
+    font-size: 10px;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+}
+
+/* Box Surat Perjanjian */
+.retro-letter-box {
+    background: #000;
+    border: 2px solid #00ff66;
+    padding: 8px;
+}
+.pixel-text-flow {
+    font-size: 10px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Linimasa Hubungan */
+.retro-timeline-section {
+    background: #000;
+    border: 2px solid #ffcc00;
+    padding: 8px;
+}
+.timeline-container {
+    border-left: 2px dashed #ffcc00;
+    padding-left: 8px;
+    margin-left: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.timeline-date {
+    font-size: 10px;
+    color: #00ff66;
+    font-weight: bold;
+}
+.timeline-desc {
+    font-size: 9px;
+    color: #fff;
+    margin: 1px 0 0 0;
+}
+
+/* Galeri Unggah Foto */
+.retro-gallery-section {
+    background: #000;
+    border: 2px solid #00ffff;
+    padding: 8px;
+}
+.pixel-grid-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+.pixel-frame {
+    background: #111;
+    border: 2px dashed #ff0055;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+.upload-placeholder {
+    text-align: center;
+}
+.plus-icon {
+    color: #ff0055;
+    font-size: 16px;
+    font-weight: bold;
+}
+.slot-text {
+    color: #666;
+    font-size: 8px;
+    margin: 0;
+}
+
+/* Tombol Menu Surat Darurat */
+.open-when-section {
+    background: #000;
+    border: 2px solid #ff0055;
+    padding: 8px;
+}
+.open-when-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+
+/* ATURAN UMUM TOMBOL PIXEL ARCADE */
+.pixel-btn {
+    border: 2px solid #fff;
+    color: #000;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px #000;
+}
+.pixel-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0px #000;
+}
+.btn-yellow { background: #ffcc00; font-size: 8px; padding: 4px 0; }
+.btn-green { background: #00ff66; font-size: 11px; padding: 6px 0; width: 100%; margin-top: 4px;}
+
+/* MODAL INTERAKTIF */
+.retro-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center; align-items: center;
+    z-index: 100;
+}
+.modal-content {
+    background: #000;
+    border: 3px solid #ff0055;
+    padding: 15px;
+    width: 260px;
+    text-align: center;
+    color: #fff;
+    font-size: 10px;
+}
+
+/* Custom Scrollbar Monitor Dingdong */
+.arcade-scroll-content::-webkit-scrollbar { width: 4px; }
+.arcade-scroll-content::-webkit-scrollbar-track { background: #000; }
+.arcade-scroll-content::-webkit-scrollbar-thumb { background: #00ff66; }
+/* --- ANIMASI RETRO SCREEN SHAKE KETIKA LOCK PEACE --- */
+@keyframes screen-shake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(-2px, 2px) rotate(-0.5deg); }
+    40% { transform: translate(2px, -1px) rotate(0.5deg); }
+    60% { transform: translate(-1px, -1px) rotate(0deg); }
+    80% { transform: translate(2px, 2px) rotate(0.5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Animasi kilatan lampu saat tombol perdamaian sukses ditekan */
+#btn-final-baikaan:disabled {
+    cursor: not-allowed;
+    border: 2px solid #00ffff;
+    box-shadow: 0px 0px 10px #00ffff;
+    animation: neon-pulse 1.5s infinite alternate;
+}
+
+@keyframes neon-pulse {
+    from { opacity: 0.8; }
+    to { opacity: 1; box-shadow: 0px 0px 15px #00ffff; }
+}

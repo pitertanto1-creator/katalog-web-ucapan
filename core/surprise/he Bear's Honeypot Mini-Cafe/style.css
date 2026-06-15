@@ -1,0 +1,120 @@
+/* ==================== BASE CAFE STYLE ==================== */
+body {
+    background-color: #fff5f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+}
+
+.cute-cabinet {
+    background: #ffdee6;
+    border: 5px solid #fff;
+    padding: 12px;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.6);
+    width: 335px;
+    box-sizing: border-box;
+}
+
+.cute-screen {
+    background-color: #fffdf9;
+    border: 3px solid #ffb6c1;
+    border-radius: 16px;
+    padding: 12px;
+    height: 395px;
+    position: relative;
+    overflow: hidden;
+    color: #5c4033;
+    box-sizing: border-box;
+}
+
+.hidden { display: none !important; }
+
+/* ==================== GEOMETRI PERMAINAN BALON ==================== */
+.cake-game-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.cafe-header { text-align: center; margin-bottom: 5px; }
+.cafe-title { font-size: 15px; font-weight: bold; color: #ff6584; display: block;}
+.cafe-subtitle { font-size: 9px; color: #a18276; margin: 2px 0; }
+.cake-score-board { background: #fff0f3; border: 1px solid #ffb6c1; border-radius: 12px; padding: 1px 10px; display: inline-block; font-size: 11px; font-weight: bold; color: #ff6584; }
+
+/* Wadah Utama (Wajib Relative dan Mengunci Tinggi Layar) */
+#balloon-area {
+    width: 100%;
+    height: 275px;
+    background: #ffffff;
+    border: 2px dashed #ffdee6;
+    border-radius: 12px;
+    position: relative; /* Mengunci jangkar balon */
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+/* Pengaturan Fisik Balon Individu */
+.flying-balloon {
+    position: absolute; /* Sangat krusial agar left/top berfungsi */
+    font-size: 32px;
+    line-height: 1;
+    user-select: none;
+    cursor: pointer;
+    animation: flyUpwards linear forwards;
+    z-index: 10;
+}
+
+/* Animasi Inti: Bergerak meluncur dari dasar kontainer ke atas luar layar */
+@keyframes flyUpwards {
+    0% {
+        top: 280px;
+    }
+    100% {
+        top: -50px;
+    }
+}
+
+/* Efek Letusan Percikan */
+.pop-effect {
+    position: absolute;
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 15;
+    animation: fadeScatter 0.4s ease-out forwards;
+}
+@keyframes fadeScatter {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ==================== STAGE TEKA-TEKI & SURAT ==================== */
+.order-box { background: #fff0f3; border: 2px dashed #ffb6c1; border-radius: 12px; padding: 12px; text-align: center; margin-top: 10px; }
+.menu-tag { background: #ff6584; color: #fff; font-size: 11px; padding: 3px 10px; border-radius: 20px; display: inline-block; }
+.menu-hint { font-size: 11px; margin: 10px 0; color: #7c5c4c; line-height: 1.3; }
+.input-row { display: flex; gap: 6px; }
+#cafe-answer-input { flex: 1; border: 2px solid #ffb6c1; border-radius: 8px; padding: 5px; font-size: 11px; outline: none; }
+.cafe-reward-container { display: flex; flex-direction: column; height: 100%; }
+.grand-opening-banner { background: #ff6584; color: #fff; text-align: center; padding: 4px; font-weight: bold; font-size: 12px; border-radius: 8px; }
+.cafe-scroll-view { flex: 1; overflow-y: auto; max-height: 285px; display: flex; flex-direction: column; gap: 10px; }
+.cafe-letter-card { background: #fff5f7; border: 2px solid #ffe3e8; border-radius: 8px; padding: 8px; }
+.cafe-letter-card h4 { margin: 0 0 4px 0; font-size: 11px; color: #ff6584; }
+.cafe-letter-card p { margin: 0; font-size: 10px; line-height: 1.3; }
+.polaroid-section h5, .wishlist-section h5 { font-size: 9px; color: #ff6584; margin: 5px 0; }
+.polaroid-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.polaroid-card { background: #fff; padding: 4px 4px 10px 4px; border: 1px solid #ddd; text-align: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.polaroid-card img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.polaroid-text { font-size: 7px; margin-top: 4px; color: #5c4033; }
+.wishlist-group { display: flex; flex-direction: column; gap: 4px; }
+.wishlist-item { display: flex; align-items: center; gap: 6px; background: #fffdf9; padding: 4px; font-size: 9px; }
+.cute-btn { border: none; font-weight: bold; cursor: pointer; border-radius: 6px; }
+.btn-pink { background: #ff6584; color: #fff; font-size: 10px; padding: 4px 10px; }
+.btn-pink-wide { background: #ff6584; color: #fff; font-size: 11px; padding: 8px; width: 100%; margin-top: auto; }
+.error-text { font-size: 9px; color: #ff476c; margin-top: 4px; }
+.chef-status { display: flex; justify-content: space-between; font-size: 9px; margin-top: auto; }
+.cute-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; z-index: 100; }
+.cute-modal-content { background: #fff; padding: 15px; width: 220px; text-align: center; border-radius: 12px; border: 3px solid #ffdee6; font-size: 11px; }
+.cafe-scroll-view::-webkit-scrollbar { width: 3px; }
+.cafe-scroll-view::-webkit-scrollbar-thumb { background: #ffdee6; }

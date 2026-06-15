@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luxe Scrapbook Atelier</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="site">
+    <section class="cover-screen active" id="cover-screen">
+      <div class="cover-glow"></div>
+
+      <div class="cover-book">
+        <div class="cover-mark">LSA</div>
+        <p class="overline">Premium Digital Keepsake</p>
+        <h1 data-text="siteTitle">Luxe Scrapbook<br>Atelier</h1>
+        <p data-text="siteSubtitle">
+          A premium aesthetic memory experience.
+        </p>
+        <button class="btn primary" id="open-btn">KLIK TOMBOL INI</button>
+      </div>
+    </section>
+
+    <section class="atelier" id="atelier">
+      <div class="decor-layer">
+        <span class="decor decor-1">✦</span>
+        <span class="decor decor-2">♡</span>
+        <span class="decor decor-3">✧</span>
+        <span class="decor decor-4">◌</span>
+        <span class="decor decor-5">✦</span>
+      </div>
+
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-badge">LSA</div>
+          <div>
+            <h2 data-text="siteTitle">Luxe Scrapbook Atelier</h2>
+            <p data-text="siteSubtitle">A premium aesthetic memory experience.</p>
+          </div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-label">
+            <span>Experience Progress</span>
+            <b id="progress-number">0%</b>
+          </div>
+          <div class="progress-track">
+            <i id="progress-fill"></i>
+          </div>
+        </div>
+      </header>
+
+      <nav class="nav">
+        <button class="active" data-page="home">Home</button>
+        <button data-page="quiz">Quiz</button>
+        <button data-page="gallery">Gallery</button>
+        <button data-page="timeline">Story</button>
+        <button data-page="music">Music</button>
+        <button data-page="letter">Letter</button>
+      </nav>
+
+      <section class="book">
+        <aside class="left-panel">
+          <section class="main-polaroid">
+            <div class="tape tape-top"></div>
+            <img id="main-photo" alt="Main photo" />
+            <div class="photo-fallback">PHOTO</div>
+            <p data-text="mainCaption">curated memory no. 01</p>
+          </section>
+
+          <section class="profile-note">
+            <p class="overline">Curated For</p>
+            <h3 data-text="recipientName">Someone Special</h3>
+            <p data-text="shortMessage">
+              A little archive of warm memories, soft moments, and quiet feelings.
+            </p>
+          </section>
+
+          <section class="detail-grid">
+            <div>
+              <small>Style</small>
+              <b data-text="styleText">Premium Aesthetic</b>
+            </div>
+            <div>
+              <small>Moment</small>
+              <b data-text="momentText">Anniversary / Farewell</b>
+            </div>
+          </section>
+        </aside>
+
+        <section class="right-panel">
+          <section class="page active" id="page-home">
+            <div class="hero-layout">
+              <div class="hero-card">
+                <p class="overline">Chapter 01</p>
+                <h1 data-text="heroTitle">A Curated<br>Memory Journal</h1>
+                <p data-text="heroDescription">
+                  Sebuah scrapbook digital premium berisi foto, cerita, musik, quiz kecil, dan surat rahasia yang dibuka secara bertahap.
+                </p>
+
+                <div class="hero-actions">
+                  <button class="btn primary" data-page="quiz">Start Experience</button>
+                  <button class="btn soft" data-page="gallery">View Gallery</button>
+                </div>
+              </div>
+
+              <div class="mood-card">
+                <div class="mini-photo-stack">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <p class="overline">Moodboard</p>
+                <h3 data-text="moodTitle">Soft, Warm, Timeless</h3>
+                <span data-text="moodTag">ivory · blush · champagne</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="page" id="page-quiz">
+            <div class="access-card">
+              <div class="access-icon">🔐</div>
+
+              <p class="overline">Private Access</p>
+              <h2 data-text="accessTitle">Enter Special Date</h2>
+
+              <p class="access-desc" data-text="accessSubtitle">
+                Masukkan tanggal spesial untuk membuka halaman kenangan.
+              </p>
+
+              <div class="date-display" data-text="specialDateDisplay">
+                DD • MM • YYYY
+              </div>
+
+              <div class="access-form">
+                <input
+                  type="text"
+                  id="access-input"
+                  placeholder="Contoh: 12062024"
+                  autocomplete="off"
+                />
+                <button class="btn primary" id="access-btn" type="button">
+                  Unlock Memory
+                </button>
+              </div>
+
+              <p class="access-hint" data-text="accessHint">
+                Gunakan format tanggal tanpa spasi, contoh: 12062024
+              </p>
+
+              <p class="access-status" id="access-status"></p>
+            </div>
+          </section>
+
+          <section class="page" id="page-gallery">
+            <div class="section-head">
+              <p class="overline">Chapter 02</p>
+              <h2>Editorial Gallery</h2>
+              <span>Curated photos in a premium scrapbook layout.</span>
+            </div>
+
+            <div class="visual-tags">
+              <span>Camera Roll</span>
+              <span>Love Notes</span>
+              <span>Soft Memories</span>
+              <span>Golden Hour</span>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid"></div>
+
+            <div class="next-card">
+              <p>Gallery sudah terbuka. Lanjut ke halaman cerita.</p>
+              <button class="btn primary small" data-page="timeline">Open Story</button>
+            </div>
+          </section>
+
+          <section class="page" id="page-timeline">
+            <div class="section-head">
+              <p class="overline">Chapter 03</p>
+              <h2>Story Archive</h2>
+              <span>Little chapters, carefully preserved.</span>
+            </div>
+
+            <div class="timeline-list" id="timeline-list"></div>
+
+            <div class="next-card">
+              <p>Cerita sudah tersimpan. Sekarang buka halaman musik.</p>
+              <button class="btn primary small" data-page="music">Open Music</button>
+            </div>
+          </section>
+
+          <section class="page" id="page-music">
+            <div class="music-layout">
+              <div class="music-card">
+                <div class="album">
+                  <div class="album-disc">
+                    <span>♪</span>
+                  </div>
+                </div>
+
+                <p class="overline">Chapter 04</p>
+                <h2 data-text="songTitle">Our Favorite Song</h2>
+                <p class="song-subtitle" data-text="songSubtitle">Atelier Version</p>
+
+                <div class="song-progress">
+                  <i></i>
+                </div>
+
+                <div class="time-row">
+                  <span>0:24</span>
+                  <span data-text="songDuration">1:28</span>
+                </div>
+
+                <div class="music-controls">
+                  <button type="button">↺</button>
+                  <button type="button">◀</button>
+                  <button type="button" id="play-btn">▶</button>
+                  <button type="button">▶</button>
+                  <button type="button">↻</button>
+                </div>
+
+                <audio id="audio"></audio>
+              </div>
+
+              <div class="unlock-letter">
+                <p class="overline">Final Chapter</p>
+                <h3>Secret letter is waiting.</h3>
+                <p>Buka halaman terakhir untuk membaca pesan yang disimpan khusus.</p>
+                <button class="btn primary small" data-page="letter">Unlock Letter</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="page" id="page-letter">
+            <div class="letter-paper">
+              <p class="overline">Chapter 05</p>
+              <h2 data-text="letterTitle">A Letter Inside The Atelier</h2>
+              <div id="letter-content"></div>
+              <button class="btn primary small" id="finish-btn">Finish Experience ✨</button>
+            </div>
+          </section>
+
+          <section class="page" id="page-ending">
+            <div class="ending-card">
+              <div class="ending-icon">✦</div>
+              <h2 data-text="endingTitle">The Atelier is Complete</h2>
+              <p data-text="endingMessage">
+                Semua halaman sudah terbuka. Semoga scrapbook premium ini menjadi ruang kecil untuk menyimpan kenangan yang tidak ingin dilupakan.
+              </p>
+              <button class="btn primary" id="restart-btn">Open Again</button>
+            </div>
+          </section>
+        </section>
+      </section>
+    </section>
+
+    <div class="modal-bg" id="modal-bg"></div>
+
+    <section class="photo-modal" id="photo-modal">
+      <div class="modal-head">
+        <b id="photo-title">Memory Photo</b>
+        <button type="button" data-close>×</button>
+      </div>
+      <img id="photo-preview" alt="Photo preview" />
+    </section>
+
+    <div id="confetti"></div>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
