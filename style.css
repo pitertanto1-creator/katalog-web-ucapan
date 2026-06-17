@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fff7f2;
+  color: #2b1b16;
+}
+
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+section {
+  width: 100%;
+  max-width: 520px;
+  padding: 32px;
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow: 0 20px 60px rgba(70, 35, 20, 0.12);
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 48px;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+a {
+  display: block;
+  margin-top: 12px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: #ff7a59;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
