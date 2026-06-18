@@ -7,143 +7,221 @@
   <title>KadoLink - Website Ucapan Digital</title>
   <meta
     name="description"
-    content="KadoLink adalah website ucapan digital berbentuk link dan QR untuk ulang tahun, anniversary, minta maaf, surprise, dan momen spesial."
+    content="KadoLink adalah jasa pembuatan website ucapan digital berbentuk link dan QR untuk ulang tahun, anniversary, minta maaf, dan surprise."
   />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet"
-  >
+  />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <main class="page">
-    <nav class="nav">
-      <a href="/" class="logo">
+    <header class="navbar">
+      <a href="/" class="brand">
         <span>🎁</span>
-        KadoLink
+        <b>KadoLink</b>
       </a>
 
+      <nav class="nav-menu">
+        <a href="#layanan">Layanan</a>
+        <a href="#kenapa">Keunggulan</a>
+        <a href="#cara-order">Cara Order</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+
       <a
-        class="nav-btn"
+        class="nav-button"
         href="https://wa.me/6281234567890?text=Halo%20KadoLink%2C%20saya%20mau%20order%20website%20ucapan%20digital."
         target="_blank"
         rel="noopener"
       >
         Order
       </a>
-    </nav>
+    </header>
 
     <section class="hero">
-      <div class="hero-text">
+      <div class="hero-content">
         <div class="badge">Website ucapan digital berbentuk link & QR</div>
 
         <h1>
-          Kado digital yang bisa dibuka lewat link.
+          Bikin ucapanmu
+          <span>jadi kado digital.</span>
         </h1>
 
         <p>
-          Buat ucapan ulang tahun, anniversary, minta maaf, atau surprise jadi lebih
-          manis dengan halaman berisi foto, lagu, dan pesan personal.
+          Buat website ucapan digital berisi foto, lagu, pesan personal, dan QR Code.
+          Cocok untuk ulang tahun, anniversary, minta maaf, atau surprise kecil yang lebih niat.
         </p>
 
         <div class="hero-actions">
-          <a href="#template" class="btn primary">Lihat Template</a>
           <a
+            class="btn btn-primary"
             href="https://wa.me/6281234567890?text=Halo%20KadoLink%2C%20saya%20mau%20order%20website%20ucapan%20digital."
-            class="btn secondary"
             target="_blank"
             rel="noopener"
           >
-            Chat WhatsApp
+            Order via WhatsApp
+          </a>
+
+          <a class="btn btn-secondary" href="#cara-order">
+            Lihat Cara Order
           </a>
         </div>
 
-        <div class="mini-info">
-          <span>✅ Custom teks</span>
-          <span>✅ Pakai foto</span>
-          <span>✅ Bisa QR</span>
+        <div class="trust-strip">
+          <span>Mulai Rp15K</span>
+          <span>Custom Foto</span>
+          <span>Custom Lagu</span>
+          <span>Link & QR</span>
         </div>
       </div>
 
-      <div class="preview">
-        <div class="phone">
-          <div class="phone-bar"></div>
-          <div class="gift">🎁</div>
-          <small>For someone special</small>
-          <h2>Happy Birthday!</h2>
-          <p>Semoga harimu penuh senyum dan kejutan manis.</p>
-          <button>Buka Kadonya</button>
+      <div class="hero-card">
+        <div class="phone-mockup">
+          <div class="phone-top"></div>
+
+          <div class="phone-screen">
+            <div class="phone-slider">
+              <div class="phone-slide active">
+                <img src="assets/preview/retro-preview.jpg" alt="Preview Retro Birthday" />
+                <div class="slide-caption">
+                  <b>Retro Birthday</b>
+                  <span>Template ulang tahun dengan vibe desktop pink.</span>
+                </div>
+              </div>
+
+              <div class="phone-slide">
+                <img src="assets/preview/romantic-preview.jpg" alt="Preview Romantic Gift" />
+                <div class="slide-caption">
+                  <b>Romantic Gift</b>
+                  <span>Untuk pasangan, anniversary, dan ucapan sayang.</span>
+                </div>
+              </div>
+
+              <div class="phone-slide">
+                <img src="assets/preview/aesthetic-preview.jpg" alt="Preview Aesthetic Gift" />
+                <div class="slide-caption">
+                  <b>Aesthetic Soft</b>
+                  <span>Tampilan soft, clean, dan manis.</span>
+                </div>
+              </div>
+            </div>
+
+            <button class="slider-btn prev" type="button" aria-label="Slide sebelumnya">‹</button>
+            <button class="slider-btn next" type="button" aria-label="Slide berikutnya">›</button>
+
+            <div class="slider-dots">
+              <button class="active" type="button" aria-label="Slide 1"></button>
+              <button type="button" aria-label="Slide 2"></button>
+              <button type="button" aria-label="Slide 3"></button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="content-box">
-      <div class="section-head" id="template">
-        <h2>Pilih Template</h2>
-        <p>Pilih desain yang cocok dengan momenmu.</p>
+    <section class="section" id="layanan">
+      <div class="section-heading">
+        <span>Layanan</span>
+        <h2>Pilih momen yang mau kamu buat lebih spesial</h2>
+        <p>
+          Setiap ucapan bisa dibuat custom dengan nama penerima, foto, lagu,
+          pesan personal, dan QR Code.
+        </p>
       </div>
 
-      <div class="template-grid">
-        <a href="/core/romantic/" class="template-card">
-          <span>💖</span>
-          <div>
-            <h3>Romantic</h3>
-            <p>Untuk pasangan & anniversary.</p>
-          </div>
-        </a>
+      <div class="service-grid">
+        <article class="service-card">
+          <div class="service-icon">🎂</div>
+          <small>Mulai Rp15K</small>
+          <h3>Birthday Gift</h3>
+          <p>Website ucapan ulang tahun dengan foto, lagu, dan surprise kecil yang manis.</p>
+        </article>
 
-        <a href="/core/aesthetic/" class="template-card">
-          <span>🌸</span>
-          <div>
-            <h3>Aesthetic</h3>
-            <p>Soft, clean, dan manis.</p>
-          </div>
-        </a>
+        <article class="service-card">
+          <div class="service-icon">💖</div>
+          <small>Custom Foto</small>
+          <h3>Romantic Gift</h3>
+          <p>Untuk anniversary, couple, confession, atau ucapan sayang yang lebih niat.</p>
+        </article>
 
-        <a href="/core/retro/" class="template-card">
-          <span>🕹️</span>
-          <div>
-            <h3>Retro</h3>
-            <p>Playful dan beda dari biasa.</p>
-          </div>
-        </a>
+        <article class="service-card">
+          <div class="service-icon">🧸</div>
+          <small>Cute Concept</small>
+          <h3>Apology Page</h3>
+          <p>Minta maaf dengan cara yang lebih lucu, soft, dan nggak kaku.</p>
+        </article>
 
-        <a href="/core/surprise/" class="template-card">
-          <span>🎉</span>
-          <div>
-            <h3>Surprise</h3>
-            <p>Untuk ulang tahun & kejutan.</p>
-          </div>
-        </a>
+        <article class="service-card">
+          <div class="service-icon">🎁</div>
+          <small>QR Ready</small>
+          <h3>Surprise Link</h3>
+          <p>Link kejutan yang bisa dikirim lewat WhatsApp atau dijadikan QR Code.</p>
+        </article>
       </div>
+    </section>
 
-      <div class="order-strip">
+    <section class="section why-section" id="kenapa">
+      <div class="why-card">
         <div>
-          <strong>1. Pilih template</strong>
-          <span>Tentukan konsep</span>
+          <span class="mini-badge">Kenapa KadoLink?</span>
+          <h2>Bukan cuma chat biasa.</h2>
+          <p>
+            KadoLink bikin ucapan terasa lebih personal, lebih niat, dan bisa
+            dibuka kapan saja lewat HP.
+          </p>
         </div>
 
-        <div>
-          <strong>2. Kirim data</strong>
-          <span>Nama, foto, lagu, teks</span>
-        </div>
-
-        <div>
-          <strong>3. Dapat link</strong>
-          <span>Siap dikirim / discan QR</span>
+        <div class="why-list">
+          <div>✅ Bisa pakai foto sendiri</div>
+          <div>✅ Bisa pakai lagu pilihan</div>
+          <div>✅ Bisa dibuat QR Code</div>
+          <div>✅ Cocok untuk hadiah digital dadakan</div>
         </div>
       </div>
     </section>
 
-    <section class="bottom-cta">
+    <section class="section order-section" id="cara-order">
+      <div class="section-heading">
+        <span>Cara Order</span>
+        <h2>Order simpel, hasilnya tinggal kirim link.</h2>
+      </div>
+
+      <div class="steps">
+        <div class="step-card">
+          <b>01</b>
+          <h3>Pilih konsep</h3>
+          <p>Pilih momen: birthday, romantic, apology, atau surprise.</p>
+        </div>
+
+        <div class="step-card">
+          <b>02</b>
+          <h3>Kirim bahan</h3>
+          <p>Kirim nama, ucapan, foto, lagu, dan catatan tambahan.</p>
+        </div>
+
+        <div class="step-card">
+          <b>03</b>
+          <h3>Terima link</h3>
+          <p>Website selesai, kamu dapat link dan QR yang siap dikirim.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="kontak">
       <div>
-        <h2>Mau dibuatkan sekarang?</h2>
-        <p>Kirim format order, nanti kami bantu buatkan link KadoLink kamu.</p>
+        <span>Siap bikin ucapan yang nggak biasa?</span>
+        <h2>Kirim surprise yang lebih niat lewat KadoLink.</h2>
+        <p>
+          Kirim data kamu lewat WhatsApp, nanti KadoLink bantu ubah jadi website
+          ucapan digital yang siap dikirim lewat link atau QR.
+        </p>
       </div>
 
       <a
@@ -151,12 +229,12 @@
         target="_blank"
         rel="noopener"
       >
-        Order via WhatsApp
+        Chat WhatsApp Sekarang
       </a>
     </section>
 
-    <footer>
-      © 2026 KadoLink. Website ucapan digital berbentuk link & QR.
+    <footer class="footer">
+      <p>© 2026 KadoLink. Website ucapan digital berbentuk link & QR.</p>
     </footer>
   </main>
 
