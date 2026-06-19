@@ -989,3 +989,60 @@ a {
     0 12px 28px rgba(80, 130, 220, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
+/* =====================================================
+   KADOLINK BRAND LOGO
+===================================================== */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #f5f8ff;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  padding: 6px;
+  border-radius: 18px;
+  background: #f5f8ff;
+  border: 1px solid rgba(159, 196, 255, 0.2);
+  box-shadow:
+    0 12px 28px rgba(80, 130, 220, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+@media (max-width: 768px) {
+  .brand span {
+    display: none;
+  }
+
+  .brand-logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 15px;
+  }
+
+  .nav-menu {
+    gap: 16px;
+  }
+}
