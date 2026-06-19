@@ -8,8 +8,8 @@ window.BIRTHDAY_DATA = {
 
   songTitle: "Your Favorite Song",
   songTime: "Now Playing",
-  musicFile: "assets/music/birthday-song.mp3",
-  coverImage: "assets/images/foto1.jpg",
+  musicFile: "/core/retro/birthday-retro-windows/assets/music/birthday-song.mp3",
+  coverImage:"/core/retro/birthday-retro-windows/assets/images/foto4.jpg",
   coverText: "For You ♥",
 
   musicMessage: [
@@ -57,10 +57,10 @@ window.BIRTHDAY_DATA = {
   ],
 
   photos: [
-    "assets/images/foto1.jpg",
-    "assets/images/foto2.jpg",
-    "assets/images/foto3.jpg",
-    "assets/images/foto4.jpg"
+  "/core/retro/birthday-retro-windows/assets/images/foto1.jpg",
+  "/core/retro/birthday-retro-windows/assets/images/foto2.jpg",
+  "/core/retro/birthday-retro-windows/assets/images/foto3.jpg",
+  "/core/retro/birthday-retro-windows/assets/images/foto4.jpg"
   ],
 
   alertText: "Ada kejutan kecil buat kamu!",
