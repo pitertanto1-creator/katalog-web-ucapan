@@ -1185,3 +1185,10 @@ a {
     display: none !important;
   }
 }
+.nav-button {
+  display: none !important;
+}
+
+.nav-order {
+  text-decoration: none !important;
+}
