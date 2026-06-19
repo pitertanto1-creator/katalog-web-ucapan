@@ -1165,3 +1165,644 @@ button {
     font-size: 17px;
   }
 }
+/* =====================================================
+   FINAL FIX - Birthday Retro Windows Product
+   Fokus: mobile friendly, 4 photo grid, cleaner flow
+===================================================== */
+
+.photos-window {
+  width: 430px !important;
+  min-width: 0 !important;
+}
+
+.photos-body {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 12px !important;
+}
+
+.photo-card {
+  height: 135px !important;
+}
+
+.welcome-window {
+  max-width: 92vw !important;
+}
+
+.welcome-body {
+  min-height: 210px;
+}
+
+.welcome-body h2 {
+  font-size: 30px;
+}
+
+.welcome-body p {
+  font-size: 17px;
+}
+
+@media (max-width: 768px) {
+  .welcome-window {
+    width: 86vw !important;
+    left: 7vw !important;
+    top: 16vh !important;
+  }
+
+  .welcome-body {
+    min-height: auto !important;
+    padding: 18px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 25px !important;
+    line-height: 1.05 !important;
+  }
+
+  .welcome-body p {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+
+  .cake {
+    font-size: 56px !important;
+  }
+
+  .photos-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    top: 13vh !important;
+    right: auto !important;
+    min-width: 0 !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    max-height: 58vh !important;
+    overflow-y: auto !important;
+  }
+
+  .photo-card {
+    height: 130px !important;
+  }
+
+  .message-window,
+  .about-window,
+  .surprise-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    right: auto !important;
+    top: 13vh !important;
+  }
+
+  .notepad-body {
+    height: 300px !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .surprise-body {
+    flex-direction: column !important;
+    text-align: center !important;
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+
+  .heart {
+    font-size: 48px !important;
+  }
+
+  .desktop-hint {
+    display: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .photos-window {
+    width: 90vw !important;
+    left: 5vw !important;
+  }
+
+  .photo-card {
+    height: 112px !important;
+  }
+
+  .welcome-window,
+  .message-window,
+  .about-window,
+  .surprise-window {
+    width: 90vw !important;
+    left: 5vw !important;
+  }
+
+  .notepad-body {
+    height: 280px !important;
+    font-size: 14px !important;
+  }
+}
+/* =====================================================
+   PRODUCT FLOW FINAL FIX
+   Birthday Retro Windows
+===================================================== */
+
+.photos-window {
+  width: 430px !important;
+  min-width: 0 !important;
+}
+
+.photos-body {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 14px !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.photo-card {
+  height: 140px !important;
+}
+
+@media (min-width: 769px) {
+  .welcome-window {
+    left: 11% !important;
+    top: 7% !important;
+    width: 440px !important;
+  }
+
+  .photos-window {
+    left: 46% !important;
+    top: 16% !important;
+    right: auto !important;
+    width: 430px !important;
+  }
+
+  .message-window {
+    right: 4% !important;
+    top: 10% !important;
+    width: 465px !important;
+  }
+
+  .alert-window {
+    left: 34% !important;
+    bottom: 12% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    top: 15vh !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .welcome-body {
+    min-height: auto !important;
+    padding: 18px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 25px !important;
+    line-height: 1.05 !important;
+  }
+
+  .welcome-body p {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+
+  .photos-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    top: 13vh !important;
+    right: auto !important;
+    bottom: auto !important;
+    min-width: 0 !important;
+    transform: none !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    max-height: 58vh !important;
+    overflow-y: auto !important;
+  }
+
+  .photo-card {
+    height: 125px !important;
+  }
+
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    right: auto !important;
+    top: 13vh !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .notepad-body {
+    height: 300px !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .surprise-body {
+    flex-direction: column !important;
+    text-align: center !important;
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+
+  .desktop-hint {
+    display: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 90vw !important;
+    left: 5vw !important;
+  }
+
+  .photo-card {
+    height: 108px !important;
+  }
+
+  .notepad-body {
+    height: 280px !important;
+    font-size: 14px !important;
+  }
+}
+/* =====================================================
+   FINAL MOBILE PRODUCT FIX - Birthday Retro Windows
+===================================================== */
+
+.photos-window {
+  width: 430px !important;
+  min-width: 0 !important;
+}
+
+.photos-body {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 14px !important;
+  background: #dcdcdc !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.photo-card {
+  height: 140px !important;
+}
+
+.photos-body .photo-card:nth-child(n + 5) {
+  display: none !important;
+}
+
+@media (min-width: 769px) {
+  .welcome-window {
+    left: 11% !important;
+    top: 7% !important;
+    width: 440px !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .photos-window {
+    left: 46% !important;
+    top: 15% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 430px !important;
+    transform: none !important;
+  }
+
+  .message-window {
+    right: 4% !important;
+    top: 10% !important;
+    width: 465px !important;
+  }
+
+  .about-window {
+    left: 52% !important;
+    top: 18% !important;
+    width: 360px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    right: auto !important;
+    top: 13vh !important;
+    bottom: auto !important;
+    transform: none !important;
+    max-width: 88vw !important;
+  }
+
+  .welcome-window {
+    top: 15vh !important;
+  }
+
+  .welcome-body {
+    min-height: auto !important;
+    padding: 18px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 10px !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 25px !important;
+    line-height: 1.05 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .welcome-body p {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+
+  .cake {
+    font-size: 54px !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    max-height: 56vh !important;
+    overflow-y: auto !important;
+  }
+
+  .photo-card {
+    height: 126px !important;
+  }
+
+  .notepad-body {
+    height: 300px !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .surprise-body,
+  .alert-body {
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+
+  .desktop-hint {
+    display: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 90vw !important;
+    left: 5vw !important;
+    max-width: 90vw !important;
+  }
+
+  .photo-card {
+    height: 108px !important;
+  }
+
+  .notepad-body {
+    height: 280px !important;
+    font-size: 14px !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 23px !important;
+  }
+}
+/* =====================================================
+   FINAL PRODUCT FIX - Birthday Retro Windows
+   2x2 Photo Grid + Mobile Safe Windows
+===================================================== */
+
+.photos-window {
+  width: 430px !important;
+  min-width: 0 !important;
+}
+
+.photos-body {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 14px !important;
+  background: #dcdcdc !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.photo-card {
+  height: 140px !important;
+}
+
+.photos-body .photo-card:nth-child(n + 5) {
+  display: none !important;
+}
+
+.window.active {
+  display: block !important;
+}
+
+@media (min-width: 769px) {
+  .welcome-window {
+    left: 11% !important;
+    top: 7% !important;
+    width: 440px !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .photos-window {
+    left: 46% !important;
+    top: 15% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 430px !important;
+    transform: none !important;
+  }
+
+  .message-window {
+    right: 4% !important;
+    top: 10% !important;
+    width: 465px !important;
+  }
+
+  .about-window {
+    left: 52% !important;
+    top: 18% !important;
+    width: 360px !important;
+  }
+
+  .alert-window {
+    left: 34% !important;
+    bottom: 12% !important;
+  }
+
+  .reminder-window {
+    left: 38% !important;
+    bottom: 12% !important;
+  }
+
+  .surprise-window {
+    right: 7% !important;
+    bottom: 7% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    right: auto !important;
+    top: 13vh !important;
+    bottom: auto !important;
+    transform: none !important;
+    max-width: 88vw !important;
+  }
+
+  .welcome-window {
+    top: 15vh !important;
+  }
+
+  .welcome-body {
+    min-height: auto !important;
+    padding: 18px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 10px !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 25px !important;
+    line-height: 1.05 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .welcome-body p {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+
+  .cake {
+    font-size: 54px !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    max-height: 56vh !important;
+    overflow-y: auto !important;
+  }
+
+  .photo-card {
+    height: 126px !important;
+  }
+
+  .notepad-body {
+    height: 300px !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .surprise-body,
+  .alert-body {
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+
+  .surprise-body {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .desktop-hint {
+    display: none !important;
+  }
+
+  .photo-viewer-window {
+    width: 92vw !important;
+    max-width: 92vw !important;
+    left: 4vw !important;
+    top: 10vh !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 90vw !important;
+    left: 5vw !important;
+    max-width: 90vw !important;
+  }
+
+  .photo-card {
+    height: 108px !important;
+  }
+
+  .notepad-body {
+    height: 280px !important;
+    font-size: 14px !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 23px !important;
+  }
+}
