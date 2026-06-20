@@ -1,80 +1,83 @@
-const MEMORY_CAPSULE_DATA = {
-  title: "MIDNIGHT MEMORY CAPSULE",
-  subtitle: "MATCH THE CARDS • UNLOCK THE HEART",
+const ANNIVERSARY_DATA = {
+  title: "ANNIVERSARY MEMORY QUEST",
+  subtitle: "MATCH THE SYMBOLS • UNLOCK OUR STORY",
 
-  progressLabel: "MEMORY SYNC",
+  coupleNames: "You & Me",
+  anniversaryDate: "Happy Anniversary",
+
+  progressLabel: "ANNIVERSARY BOND",
 
   cards: [
     {
-      id: "smile",
-      code: "SMILE",
-      image: "assets/nadya-happy.png",
-      alt: "Smile Memory"
+      id: "letter",
+      icon: "💌",
+      label: "LETTER",
+      desc: "Love Letter"
     },
     {
-      id: "sorry",
-      code: "SORRY",
-      image: "assets/nadya-sad.png",
-      alt: "Sorry Memory"
+      id: "rose",
+      icon: "🌹",
+      label: "ROSE",
+      desc: "Romantic Rose"
     },
     {
-      id: "heart",
-      code: "HEART",
-      image: "assets/nadya-happy.png",
-      alt: "Heart Memory"
+      id: "gift",
+      icon: "🎁",
+      label: "GIFT",
+      desc: "Special Gift"
     },
     {
-      id: "peace",
-      code: "PEACE",
-      image: "assets/nadya-sad.png",
-      alt: "Peace Memory"
+      id: "camera",
+      icon: "📸",
+      label: "PHOTO",
+      desc: "Photo Memory"
     },
     {
-      id: "hug",
-      code: "HUG",
-      image: "assets/nadya-happy.png",
-      alt: "Hug Memory"
+      id: "song",
+      icon: "🎵",
+      label: "SONG",
+      desc: "Our Song"
     },
     {
-      id: "star",
-      code: "STAR",
-      image: "assets/nadya-sad.png",
-      alt: "Star Memory"
+      id: "lock",
+      icon: "🔐",
+      label: "PROMISE",
+      desc: "Love Promise"
     }
   ],
 
-  mainLetterText: `SYSTEM_LOG: HEART_REPAIR_SUCCESS
+  mainLetterText: `Dear you,
 
-Hai kamu,
+Setiap momen bersamamu selalu punya tempat khusus di hati.
 
-Maaf ya kalau kemarin aku sempat bikin suasana jadi nggak enak.
-Aku tahu mungkin ada hal yang bikin kamu kecewa, kesel, atau bad mood.
+Hari ini bukan cuma tentang tanggal yang kita rayakan,
+tapi tentang semua tawa, cerita, perjuangan, dan kenangan kecil
+yang membuat hubungan ini terasa berarti.
 
-Lewat kapsul kecil ini, aku cuma mau bilang:
-aku masih peduli, aku masih sayang, dan aku masih ingin memperbaiki semuanya.
+Terima kasih sudah hadir,
+terima kasih sudah bertahan,
+dan terima kasih sudah menjadi bagian paling indah
+dari perjalanan ini.
 
-Semoga setelah semua kartu ini terbuka,
-hati kita juga ikut terbuka lagi.
-
-Let's restart the system.
-Let's be okay again. 💜`,
+Happy anniversary.
+May our story keep growing, one memory at a time. 💖`,
 
   timeline: [
     {
-      date: "12 Nov 2024",
-      desc: "🌙 First Signal — awal pertama kali kita saling kenal."
+      date: "First Meet",
+      desc: "Awal dari cerita yang tidak pernah kita sangka akan jadi seberarti ini."
     },
     {
-      date: "25 Jan 2025",
-      desc: "💫 Co-Op Mode — hari ketika semuanya mulai terasa lebih dekat."
+      date: "First Date",
+      desc: "Momen sederhana yang berubah jadi kenangan favorit."
     },
     {
-      date: "14 Jun 2026",
-      desc: "⚡ System Glitch — hari ketika ada salah paham, tapi masih bisa diperbaiki."
+      date: "Our Journey",
+      desc: "Banyak cerita, tawa, drama kecil, dan hal manis yang kita lewati bersama."
     },
     {
       date: "Today",
-      desc: "🔐 Peace Restored — misi baikan dimulai kembali."
+      desc: "Hari ini kita rayakan lagi cerita yang masih terus berjalan."
     }
   ],
 
@@ -88,32 +91,75 @@ Let's be okay again. 💜`,
       image: "assets/photo-2.jpg"
     },
     {
-      label: "FUNNY SNAP",
+      label: "FAVORITE PHOTO",
       image: "assets/photo-3.jpg"
     },
     {
-      label: "OUR CAPSULE",
+      label: "OUR STORY",
       image: "assets/photo-4.jpg"
     }
   ],
 
-  emergencyLetters: {
+  openWhenLetters: {
     kangen:
-      "📂 MEMORY CHIP OPENED:\n\nKalau lagi kangen, jangan dipendam sendiri ya. Kamu boleh cari aku. Aku masih di sini, masih peduli, dan masih ingin jadi rumah paling nyaman buat kamu. 💜",
-
-    marah:
-      "⚠️ ERROR MESSAGE:\n\nKalau kamu masih marah, aku paham. Aku nggak akan maksa kamu langsung baik-baik aja. Tapi aku benar-benar ingin memperbaiki semuanya pelan-pelan. 🥺",
+      "💌 OPEN WHEN YOU MISS ME\n\nKalau lagi kangen, ingat bahwa jarak atau waktu tidak pernah benar-benar menghapus rasa. Aku tetap di sini, tetap memilih kamu.",
 
     sedih:
-      "🛡️ COMFORT MODE ACTIVE:\n\nKalau hari ini berat, tarik napas dulu ya. Kamu nggak harus kuat sendirian. Kita bisa lewati ini bareng-bareng. 🌙",
+      "🌙 OPEN WHEN YOU FEEL SAD\n\nKalau hari ini terasa berat, pelan-pelan ya. Kamu tidak harus kuat sendirian. Semoga pesan kecil ini bisa jadi pelukan yang menenangkan.",
 
-    rindu:
-      "💌 SECRET SIGNAL:\n\nAku mungkin nggak selalu sempurna, tapi kamu tetap seseorang yang aku pilih. Semoga kita bisa lanjut lagi tanpa banyak glitch. ✨"
+    ragu:
+      "🔐 OPEN WHEN YOU DOUBT US\n\nKalau suatu hari kamu ragu, ingat lagi semua hal kecil yang sudah kita lewati. Kita pernah sampai sejauh ini, dan itu bukan hal yang biasa.",
+
+    bahagia:
+      "✨ OPEN WHEN YOU ARE HAPPY\n\nSimpan bahagia ini baik-baik. Semoga hari seperti ini sering datang, dan semoga aku selalu menjadi salah satu alasannya."
   },
 
-  winMessage:
-    "💜 ACCESS GRANTED!\n\nSemua memory card berhasil dicocokkan.\nKapsul kenangan berhasil terbuka.",
+  vouchers: [
+    {
+      icon: "🍽️",
+      title: "Dinner Date",
+      desc: "Voucher makan malam bareng tanpa alasan, cuma karena kita pantas bahagia."
+    },
+    {
+      icon: "🎬",
+      title: "Movie Night",
+      desc: "Voucher nonton film pilihan kamu, lengkap dengan snack favorit."
+    },
+    {
+      icon: "🤍",
+      title: "One Free Hug",
+      desc: "Voucher peluk lama sampai mood membaik."
+    },
+    {
+      icon: "🍰",
+      title: "Sweet Treat",
+      desc: "Voucher dessert, jajanan, atau minuman favorit kamu."
+    },
+    {
+      icon: "🌹",
+      title: "Romantic Walk",
+      desc: "Voucher jalan santai berdua sambil cerita apa saja."
+    },
+    {
+      icon: "🎧",
+      title: "Our Song Replay",
+      desc: "Voucher dengerin lagu kita sambil mengingat momen favorit."
+    },
+    {
+      icon: "💬",
+      title: "Deep Talk Night",
+      desc: "Voucher ngobrol jujur dari hati ke hati tanpa distraksi."
+    },
+    {
+      icon: "🕊️",
+      title: "No Drama Ticket",
+      desc: "Voucher satu malam damai, tanpa ngambek, tanpa debat kecil."
+    }
+  ],
 
-  lockPeaceMessage:
-    "🏆 MISSION COMPLETE!\n\nStatus sistem: HEART RESTORED 100%.\nMode hubungan: CO-OP ACTIVE.\n\nMulai sekarang, kita baikan ya.\nNo more silent mode. No more glitch.\nI choose you. 💜"
+  winMessage:
+    "💖 ACCESS GRANTED!\n\nSemua pasangan simbol berhasil dicocokkan.\nAnniversary capsule berhasil terbuka.",
+
+  finalMessage:
+    "🏆 LOVE QUEST COMPLETE!\n\nAnniversary bond restored to 100%.\nTerima kasih sudah menjadi bagian dari cerita ini.\n\nLet's keep choosing each other. 💖"
 };

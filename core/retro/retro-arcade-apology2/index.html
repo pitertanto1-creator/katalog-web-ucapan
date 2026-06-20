@@ -8,12 +8,12 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   />
 
-  <title>Midnight Memory Capsule</title>
+  <title>Anniversary Memory Quest</title>
 
   <link rel="stylesheet" href="style.css" />
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
     rel="stylesheet"
   />
 
@@ -21,92 +21,174 @@
 </head>
 
 <body>
-  <main class="memory-machine">
-    <header class="machine-header">
-      <div class="top-chip">DIGITAL GIFT SYSTEM</div>
+  <div class="background-decor">
+    <span class="heart h1">♡</span>
+    <span class="heart h2">♡</span>
+    <span class="heart h3">♡</span>
+    <span class="heart h4">♡</span>
+  </div>
 
-      <h1 id="app-title">MIDNIGHT MEMORY CAPSULE</h1>
-      <p id="app-subtitle">MATCH THE CARDS • UNLOCK THE HEART</p>
-
-      <div class="status-row">
-        <span>PLAYER 1</span>
-        <span id="score-text">SCORE: 0000</span>
-        <span>PLAYER 2</span>
+  <main class="anniversary-shell">
+    <aside class="side-panel left-panel">
+      <div class="side-card">
+        <div class="side-icon">🌹</div>
+        <p>Every moment with you is my favorite memory.</p>
       </div>
-    </header>
+    </aside>
 
-    <section class="machine-screen">
-      <section id="stage-game" class="stage-game">
-        <div class="progress-panel">
-          <div class="progress-top">
-            <span id="progress-label">MEMORY SYNC</span>
-            <span id="hp-text">0/6 PAIRS</span>
-          </div>
+    <section class="game-panel">
+      <header class="hero-header">
+        <p class="small-chip">MADE WITH LOVE</p>
 
-          <div class="hp-border">
-            <div id="hp-progress" class="hp-fill"></div>
-          </div>
+        <h1 id="app-title">ANNIVERSARY MEMORY QUEST</h1>
+        <p id="app-subtitle">MATCH THE SYMBOLS • UNLOCK OUR STORY</p>
+
+        <div class="couple-card">
+          <span id="couple-names">You & Me</span>
+          <span id="anniversary-date">Happy Anniversary</span>
         </div>
+      </header>
 
-        <div id="memory-grid" class="memory-grid"></div>
-
-        <p class="game-hint">
-          Tap dua kartu untuk mencocokkan memory chip. Selesaikan semua pasangan untuk membuka kapsul kenangan.
-        </p>
-      </section>
-
-      <section id="stage-reward" class="stage-reward hidden">
-        <div class="access-banner">
-          <span>👑 ACCESS GRANTED 👑</span>
-          <small>HEART CAPSULE UNLOCKED</small>
-        </div>
-
-        <div class="reward-scroll">
-          <section class="reward-card letter-card">
-            <h2>📋 HEART_REPAIR_LOG.TXT</h2>
-            <pre id="letter-text"></pre>
-          </section>
-
-          <section class="reward-card">
-            <h2>📅 OUR TIMELINE</h2>
-            <div id="timeline-list" class="timeline-list"></div>
-          </section>
-
-          <section class="reward-card">
-            <h2>📸 SNAPSHOT CAPSULE</h2>
-            <div id="gallery-grid" class="gallery-grid"></div>
-          </section>
-
-          <section class="reward-card">
-            <h2>✉️ OPEN WHEN... CHIPS</h2>
-
-            <div class="open-when-grid">
-              <button class="pixel-btn mini-btn" data-letter="kangen">💜 Kangen</button>
-              <button class="pixel-btn mini-btn" data-letter="marah">⚡ Kesel</button>
-              <button class="pixel-btn mini-btn" data-letter="sedih">🌙 BadMood</button>
-              <button class="pixel-btn mini-btn" data-letter="rindu">✨ Rindu</button>
+      <section class="screen-card">
+        <section id="stage-game" class="stage-game">
+          <div class="score-row">
+            <div>
+              <span>PLAYER 1</span>
+              <strong>♡ 1200</strong>
             </div>
-          </section>
-        </div>
 
-        <button id="btn-lock-peace" class="pixel-btn lock-btn">
-          🔐 PRESS TO LOCK PEACE
-        </button>
+            <div>
+              <span>SCORE</span>
+              <strong id="score-text">0000</strong>
+            </div>
+
+            <div>
+              <span>PLAYER 2</span>
+              <strong>♡ 1200</strong>
+            </div>
+          </div>
+
+          <div class="progress-panel">
+            <div class="progress-top">
+              <span id="progress-label">ANNIVERSARY BOND</span>
+              <span id="progress-text">0/6 PAIRS</span>
+            </div>
+
+            <div class="progress-track">
+              <div id="progress-fill" class="progress-fill"></div>
+            </div>
+          </div>
+
+          <div id="memory-grid" class="memory-grid"></div>
+
+          <p class="game-hint">
+            Cocokkan semua simbol romantis untuk membuka kapsul anniversary.
+          </p>
+        </section>
+
+        <section id="stage-reward" class="stage-reward hidden">
+          <div class="access-banner">
+            <strong>💖 ACCESS GRANTED 💖</strong>
+            <span>Anniversary capsule unlocked</span>
+          </div>
+
+          <div class="reward-scroll">
+            <section class="reward-card letter-card">
+              <h2>💌 LOVE_LETTER.TXT</h2>
+              <pre id="letter-text"></pre>
+            </section>
+
+            <section class="reward-card">
+              <h2>📅 OUR STORY TIMELINE</h2>
+              <div id="timeline-list" class="timeline-list"></div>
+            </section>
+
+            <section class="reward-card">
+              <h2>📸 PHOTO MEMORY CAPSULE</h2>
+              <div id="gallery-grid" class="gallery-grid"></div>
+            </section>
+
+            <section class="reward-card">
+              <h2>✉️ OPEN WHEN... LETTERS</h2>
+
+              <div class="open-when-grid">
+                <button class="soft-btn" data-letter="kangen">💌 Kangen</button>
+                <button class="soft-btn" data-letter="sedih">🌙 Sedih</button>
+                <button class="soft-btn" data-letter="ragu">🔐 Ragu</button>
+                <button class="soft-btn" data-letter="bahagia">✨ Bahagia</button>
+              </div>
+            </section>
+
+            <section class="reward-card voucher-card">
+              <div class="voucher-head">
+                <div>
+                  <h2>🎁 LOVE VOUCHER CAPSULE</h2>
+                  <p>Claim 3 voucher kejutan romantis.</p>
+                </div>
+
+                <span id="voucher-count">0/3 CLAIMED</span>
+              </div>
+
+              <div id="voucher-display" class="voucher-display">
+                <div class="voucher-empty">
+                  <strong>🎟️</strong>
+                  <span>Tekan tombol claim untuk membuka voucher cinta.</span>
+                </div>
+              </div>
+
+              <button id="btn-claim-voucher" class="main-btn voucher-btn">
+                CLAIM LOVE VOUCHER
+              </button>
+
+              <div id="voucher-inventory" class="voucher-inventory"></div>
+            </section>
+          </div>
+
+          <button id="btn-final" class="main-btn final-btn">
+            🔐 LOCK ANNIVERSARY PROMISE
+          </button>
+        </section>
       </section>
     </section>
+
+    <aside class="side-panel right-panel">
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon">🎮</div>
+          <div>
+            <strong>Play With Love</strong>
+            <span>Game interaktif untuk pasangan</span>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">🔓</div>
+          <div>
+            <strong>Unlock Memories</strong>
+            <span>Buka surat dan foto setelah menang</span>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">🎁</div>
+          <div>
+            <strong>Love Voucher</strong>
+            <span>Hadiah kecil yang bisa diklaim</span>
+          </div>
+        </div>
+      </div>
+    </aside>
   </main>
 
-  <div id="retro-modal" class="retro-modal hidden">
-    <div class="modal-card">
-      <div class="modal-label">[ SYSTEM MESSAGE ]</div>
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <p class="modal-label">[ LOVE SYSTEM MESSAGE ]</p>
       <p id="modal-message">Message</p>
-      <button id="modal-close" class="pixel-btn modal-btn">OK</button>
+      <button id="modal-close" class="main-btn modal-btn">OK</button>
     </div>
   </div>
 
-  <div class="admin-badge">
-    ⚙️ ADMIN MODE ACTIVE
-  </div>
+  <div class="admin-badge">ADMIN MODE ACTIVE</div>
 
   <script src="data.js"></script>
   <script src="script.js"></script>

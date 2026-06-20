@@ -1,28 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const DATA = window.MEMORY_CAPSULE_DATA || MEMORY_CAPSULE_DATA;
+  const DATA = window.ANNIVERSARY_DATA || ANNIVERSARY_DATA;
 
-  const titleEl = document.getElementById("app-title");
-  const subtitleEl = document.getElementById("app-subtitle");
-  const progressLabel = document.getElementById("progress-label");
+  const appTitle = document.getElementById("app-title");
+  const appSubtitle = document.getElementById("app-subtitle");
+  const coupleNames = document.getElementById("couple-names");
+  const anniversaryDate = document.getElementById("anniversary-date");
 
   const memoryGrid = document.getElementById("memory-grid");
-  const hpFill = document.getElementById("hp-progress");
-  const hpText = document.getElementById("hp-text");
+  const progressLabel = document.getElementById("progress-label");
+  const progressText = document.getElementById("progress-text");
+  const progressFill = document.getElementById("progress-fill");
   const scoreText = document.getElementById("score-text");
 
   const stageGame = document.getElementById("stage-game");
   const stageReward = document.getElementById("stage-reward");
-  const machineScreen = document.querySelector(".machine-screen");
+  const screenCard = document.querySelector(".screen-card");
 
   const letterText = document.getElementById("letter-text");
   const timelineList = document.getElementById("timeline-list");
   const galleryGrid = document.getElementById("gallery-grid");
 
-  const modal = document.getElementById("retro-modal");
+  const modal = document.getElementById("modal");
   const modalMessage = document.getElementById("modal-message");
   const modalClose = document.getElementById("modal-close");
 
-  const lockPeaceBtn = document.getElementById("btn-lock-peace");
+  const btnFinal = document.getElementById("btn-final");
+  const btnClaimVoucher = document.getElementById("btn-claim-voucher");
+  const voucherDisplay = document.getElementById("voucher-display");
+  const voucherInventory = document.getElementById("voucher-inventory");
+  const voucherCount = document.getElementById("voucher-count");
 
   let firstCard = null;
   let secondCard = null;
@@ -31,44 +37,48 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
   let titleClickCount = 0;
 
+  let claimedVouchers = [];
+  const maxVoucherClaim = 3;
+
   const totalPairs = DATA.cards.length;
 
-  initContent();
+  initPage();
   createMemoryCards();
 
-  function initContent() {
-    titleEl.textContent = DATA.title;
-    subtitleEl.textContent = DATA.subtitle;
+  function initPage() {
+    appTitle.textContent = DATA.title;
+    appSubtitle.textContent = DATA.subtitle;
+    coupleNames.textContent = DATA.coupleNames;
+    anniversaryDate.textContent = DATA.anniversaryDate;
     progressLabel.textContent = DATA.progressLabel;
-    hpText.textContent = `0/${totalPairs} PAIRS`;
+    progressText.textContent = `0/${totalPairs} PAIRS`;
+
     letterText.textContent = DATA.mainLetterText;
 
     renderTimeline();
     renderGallery();
     bindOpenWhenButtons();
+    updateVoucherUI();
   }
 
-  function duplicateAndShuffleCards(cards) {
-    const duplicated = [];
+  function duplicateAndShuffle(cards) {
+    const result = [];
 
     cards.forEach((card) => {
-      duplicated.push({ ...card, pairKey: card.id, uniqueKey: `${card.id}-a` });
-      duplicated.push({ ...card, pairKey: card.id, uniqueKey: `${card.id}-b` });
+      result.push({ ...card, pairKey: card.id, uniqueKey: `${card.id}-a` });
+      result.push({ ...card, pairKey: card.id, uniqueKey: `${card.id}-b` });
     });
 
-    for (let i = duplicated.length - 1; i > 0; i--) {
+    for (let i = result.length - 1; i > 0; i--) {
       const randomIndex = Math.floor(Math.random() * (i + 1));
-      [duplicated[i], duplicated[randomIndex]] = [
-        duplicated[randomIndex],
-        duplicated[i]
-      ];
+      [result[i], result[randomIndex]] = [result[randomIndex], result[i]];
     }
 
-    return duplicated;
+    return result;
   }
 
   function createMemoryCards() {
-    const cards = duplicateAndShuffleCards(DATA.cards);
+    const cards = duplicateAndShuffle(DATA.cards);
 
     memoryGrid.innerHTML = "";
 
@@ -78,32 +88,27 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "memory-card";
       card.dataset.pair = cardData.pairKey;
       card.dataset.unique = cardData.uniqueKey;
-      card.setAttribute("aria-label", `Open ${cardData.code}`);
+      card.setAttribute("aria-label", cardData.desc);
 
       card.innerHTML = `
         <div class="card-inner">
-          <div class="card-front">
-            <img src="${cardData.image}" alt="${cardData.alt}" />
-            <span class="card-code">${cardData.code}</span>
+          <div class="card-face card-front">
+            <div>
+              <span class="card-symbol">${cardData.icon}</span>
+              <span class="card-label">${cardData.label}</span>
+            </div>
           </div>
-          <div class="card-back">
-            <span class="card-back-symbol">💠</span>
+
+          <div class="card-face card-back">
+            <div class="card-back-content">
+              <span class="card-back-icon">♡</span>
+              <span class="card-back-text">MEMORY</span>
+            </div>
           </div>
         </div>
       `;
 
-      const img = card.querySelector("img");
-
-      img.onerror = () => {
-        img.style.display = "none";
-        const front = card.querySelector(".card-front");
-        front.innerHTML = `<span class="card-code">${cardData.code}</span>`;
-        front.style.display = "grid";
-        front.style.placeItems = "center";
-      };
-
       card.addEventListener("click", () => flipCard(card));
-
       memoryGrid.appendChild(card);
     });
   }
@@ -129,10 +134,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isMatch) {
       handleMatch();
-      return;
+    } else {
+      handleMismatch();
     }
-
-    handleMismatch();
   }
 
   function handleMatch() {
@@ -140,13 +144,13 @@ document.addEventListener("DOMContentLoaded", () => {
     secondCard.classList.add("matched");
 
     matchedPairs++;
-    score += 250;
+    score += 200;
 
     updateProgress();
     resetBoard();
 
     if (matchedPairs >= totalPairs) {
-      setTimeout(showRewardStage, 800);
+      setTimeout(showReward, 850);
     }
   }
 
@@ -155,7 +159,10 @@ document.addEventListener("DOMContentLoaded", () => {
     score = Math.max(0, score - 50);
     updateScore();
 
+    screenCard.classList.add("screen-shake");
+
     setTimeout(() => {
+      screenCard.classList.remove("screen-shake");
       firstCard.classList.remove("flipped");
       secondCard.classList.remove("flipped");
       resetBoard();
@@ -169,31 +176,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateProgress() {
-    const progressPercent = (matchedPairs / totalPairs) * 100;
+    const percent = (matchedPairs / totalPairs) * 100;
 
-    hpFill.style.width = `${progressPercent}%`;
-    hpText.textContent = `${matchedPairs}/${totalPairs} PAIRS`;
+    progressFill.style.width = `${percent}%`;
+    progressText.textContent = `${matchedPairs}/${totalPairs} PAIRS`;
 
     updateScore();
   }
 
   function updateScore() {
-    scoreText.textContent = `SCORE: ${String(score).padStart(4, "0")}`;
+    scoreText.textContent = String(score).padStart(4, "0");
   }
 
-  function showRewardStage() {
-    showModal(DATA.winMessage);
-
+  function showReward() {
     stageGame.classList.add("hidden");
     stageReward.classList.remove("hidden");
+    screenCard.scrollTop = 0;
 
-    machineScreen.scrollTop = 0;
+    showModal(DATA.winMessage);
 
     if (typeof confetti === "function") {
       confetti({
         particleCount: 150,
-        spread: 85,
-        origin: { y: 0.62 }
+        spread: 90,
+        origin: { y: 0.65 }
       });
     }
   }
@@ -238,8 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
-      const savedImage = savedGallery[index];
-      const imageSource = savedImage || item.image;
+      const imageSource = savedGallery[index] || item.image;
 
       if (imageSource) {
         img.src = imageSource;
@@ -288,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
       savedGallery[index] = base64Image;
 
       localStorage.setItem(
-        "midnightMemoryCapsuleGallery",
+        "anniversaryMemoryGallery",
         JSON.stringify(savedGallery)
       );
     });
@@ -296,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function loadSavedGallery() {
     try {
-      const saved = localStorage.getItem("midnightMemoryCapsuleGallery");
+      const saved = localStorage.getItem("anniversaryMemoryGallery");
       return saved ? JSON.parse(saved) : [];
     } catch (error) {
       return [];
@@ -347,11 +352,69 @@ document.addEventListener("DOMContentLoaded", () => {
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
         const type = button.dataset.letter;
-        const message = DATA.emergencyLetters[type];
+        const message = DATA.openWhenLetters[type];
 
-        showModal(message || "Memory chip belum tersedia.");
+        showModal(message || "Pesan belum tersedia.");
       });
     });
+  }
+
+  function claimVoucher() {
+    if (claimedVouchers.length >= maxVoucherClaim) {
+      showModal("🎟️ Semua love voucher sudah berhasil diklaim.");
+      return;
+    }
+
+    const available = DATA.vouchers.filter((voucher) => {
+      return !claimedVouchers.some((claimed) => claimed.title === voucher.title);
+    });
+
+    if (available.length === 0) {
+      showModal("Voucher sudah habis.");
+      return;
+    }
+
+    const randomVoucher = available[Math.floor(Math.random() * available.length)];
+
+    claimedVouchers.push(randomVoucher);
+    updateVoucherUI(randomVoucher);
+
+    if (typeof confetti === "function") {
+      confetti({
+        particleCount: 90,
+        spread: 75,
+        origin: { y: 0.72 }
+      });
+    }
+  }
+
+  function updateVoucherUI(latestVoucher = null) {
+    voucherCount.textContent = `${claimedVouchers.length}/${maxVoucherClaim} CLAIMED`;
+
+    if (latestVoucher) {
+      voucherDisplay.innerHTML = `
+        <div class="voucher-result">
+          <strong>${latestVoucher.icon}</strong>
+          <h3>${latestVoucher.title}</h3>
+          <p>${latestVoucher.desc}</p>
+        </div>
+      `;
+    }
+
+    voucherInventory.innerHTML = "";
+
+    claimedVouchers.forEach((voucher, index) => {
+      const item = document.createElement("div");
+      item.className = "voucher-item";
+      item.textContent = `${index + 1}. ${voucher.icon} ${voucher.title}`;
+
+      voucherInventory.appendChild(item);
+    });
+
+    if (claimedVouchers.length >= maxVoucherClaim) {
+      btnClaimVoucher.disabled = true;
+      btnClaimVoucher.textContent = "ALL VOUCHERS CLAIMED";
+    }
   }
 
   function showModal(message) {
@@ -366,48 +429,48 @@ document.addEventListener("DOMContentLoaded", () => {
   modalClose.addEventListener("click", closeModal);
 
   modal.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      closeModal();
-    }
+    if (event.target === modal) closeModal();
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeModal();
-    }
+    if (event.key === "Escape") closeModal();
   });
 
-  lockPeaceBtn.addEventListener("click", () => {
-    machineScreen.classList.add("screen-shake");
+  btnClaimVoucher.addEventListener("click", claimVoucher);
+
+  btnFinal.addEventListener("click", () => {
+    screenCard.classList.add("screen-shake");
 
     setTimeout(() => {
-      machineScreen.classList.remove("screen-shake");
+      screenCard.classList.remove("screen-shake");
     }, 350);
 
-    showModal(DATA.lockPeaceMessage);
+    showModal(DATA.finalMessage);
 
-    lockPeaceBtn.textContent = "🔒 PEACE LOCKED & SECURED";
-    lockPeaceBtn.disabled = true;
+    btnFinal.textContent = "🔒 ANNIVERSARY PROMISE LOCKED";
+    btnFinal.disabled = true;
 
     if (typeof confetti === "function") {
       confetti({
-        particleCount: 180,
+        particleCount: 170,
         spread: 100,
         origin: { y: 0.7 }
       });
     }
   });
 
-  titleEl.addEventListener("click", () => {
+  appTitle.addEventListener("click", () => {
     titleClickCount++;
 
     if (titleClickCount >= 5) {
       document.body.classList.toggle("admin-mode");
+
       showModal(
         document.body.classList.contains("admin-mode")
-          ? "⚙️ ADMIN MODE ACTIVE\n\nKlik foto gallery untuk upload sementara. Foto akan tersimpan di browser ini."
-          : "⚙️ ADMIN MODE OFF"
+          ? "ADMIN MODE ACTIVE\n\nKlik foto gallery untuk upload sementara. Foto tersimpan di browser ini."
+          : "ADMIN MODE OFF"
       );
+
       titleClickCount = 0;
     }
 
