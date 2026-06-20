@@ -60,3 +60,21 @@ if (nextBtn && prevBtn && slides.length) {
   showSlide(0);
   startAutoSlide();
 }
+// Logika Aktivasi Hamburger Menu KadoLink
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+const navLinks = document.querySelectorAll('.nav-menu a');
+
+// 1. Ketika tombol garis 3 diklik
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('active');
+  navMenu.classList.toggle('active');
+});
+
+// 2. Ketika salah satu link menu diklik (Produk, Kontak, dll), menu otomatis menutup kembali
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    menuToggle.classList.remove('active');
+    navMenu.classList.remove('active');
+  });
+});

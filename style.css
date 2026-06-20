@@ -858,3 +858,97 @@ a {
     font-size: 13px;
   }
 }
+/* =====================================================
+   FITUR HAMBURGER MENU (GARIS 3) UNTUK HP
+===================================================== */
+
+/* Secara default tombol garis 3 disembunyikan di laptop/desktop */
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 110;
+}
+
+.hamburger {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background: #ffffff;
+  transition: background 0.2s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background: #ffffff;
+  transition: transform 0.3s ease, top 0.3s ease;
+}
+
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+/* Animasi Merubah Garis 3 Menjadi Huruf 'X' saat diklik */
+.menu-toggle.active .hamburger {
+  background: transparent;
+}
+.menu-toggle.active .hamburger::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+.menu-toggle.active .hamburger::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* KETIKA LAYAR HP / TABLET (Mengganti aturan media query lama) */
+@media (max-width: 980px) {
+  .menu-toggle {
+    display: block; /* Memunculkan tombol garis 3 */
+    order: 2;
+  }
+  
+  .nav-cta {
+    display: block !important;
+    order: 3;
+  }
+
+  /* Mengubah Nav Menu menjadi dropdown melayang di HP */
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 10px;
+    padding: 24px;
+    background: rgba(14, 18, 28, 0.98);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    
+    /* Keadaan awal: tersembunyi (slide up & transparan) */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 99;
+  }
+
+  /* Ketika tombol garis 3 diklik, menu ini akan muncul (di-trigger lewat JS) */
+  .nav-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
