@@ -1,4 +1,5 @@
-const PRODUCT_BASE = "/core/retro/retro-arcade-apology/";
+// PERBAIKAN: Diubah menjadi jalur relatif "./" agar otomatis mendeteksi folder di hosting Anda tanpa peduli letak subfolder
+const PRODUCT_BASE = "./"; 
 const retroData = {
   title: "RETRO ARCADE APOLOGY",
   subtitle: "LOVE HP QUEST",
@@ -7,17 +8,17 @@ const retroData = {
   playerEmoji: "🐻",
 
   assets: {
-  bgMusic: PRODUCT_BASE + "assets/retro-theme.mp3",
-  happyFace: PRODUCT_BASE + "assets/nadya-happy.png",
-  sadFace: PRODUCT_BASE + "assets/nadya-sad.png",
+    bgMusic: PRODUCT_BASE + "assets/retro-theme.mp3",
+    happyFace: PRODUCT_BASE + "assets/nadya-happy.png",
+    sadFace: PRODUCT_BASE + "assets/nadya-sad.png",
 
-  memoryImages: [
-    PRODUCT_BASE + "assets/photo-1.jpg",
-    PRODUCT_BASE + "assets/photo-2.jpg",
-    PRODUCT_BASE + "assets/photo-3.jpg",
-    PRODUCT_BASE + "assets/photo-4.jpg"
-  ]
-},
+    memoryImages: [
+      PRODUCT_BASE + "assets/photo-1.jpg",
+      PRODUCT_BASE + "assets/photo-2.jpg",
+      PRODUCT_BASE + "assets/photo-3.jpg",
+      PRODUCT_BASE + "assets/photo-4.jpg"
+    ]
+  },
 
   messages: {
     gameWin: "💥 ACCESS GRANTED! LOVE HP 100%!",
