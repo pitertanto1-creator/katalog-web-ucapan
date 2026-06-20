@@ -113,12 +113,13 @@ body {
 
 .falling-item {
   position: absolute;
-  top: -70px;
+  top: -90px;
   z-index: 10;
-  width: 58px;
-  height: 58px;
+  width: 82px;
+  height: 82px;
   display: grid;
   place-items: center;
+  pointer-events: none;
 }
 
 .falling-item img {
@@ -126,7 +127,9 @@ body {
   height: 100%;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.75));
+  filter:
+    drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.8))
+    drop-shadow(0 0 8px rgba(0, 255, 102, 0.35));
 }
 
 .falling-item.emoji-fallback {
@@ -486,8 +489,8 @@ body.admin-mode .admin-indicator {
   }
 
   .falling-item {
-    width: 48px;
-    height: 48px;
+    width: 68px;
+    height: 68px;
   }
 
   .catcher-char {
@@ -532,4 +535,30 @@ body.admin-mode .admin-indicator {
   .inv-slot {
     font-size: 18px;
   }
+}
+/* =====================================================
+   FIX MOBILE DOUBLE TAP ZOOM SAAT MAIN GAME
+===================================================== */
+
+html,
+body {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+.arcade-cabinet,
+.arcade-screen,
+.game-play-area,
+.game-controls,
+.pixel-btn,
+.pixel-btn-sm {
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pixel-btn,
+.pixel-btn-sm {
+  -webkit-touch-callout: none;
 }
