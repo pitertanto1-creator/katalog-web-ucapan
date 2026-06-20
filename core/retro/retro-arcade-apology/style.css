@@ -715,3 +715,92 @@ body.admin-mode .upload-music-lbl {
   justify-content: center !important;
   filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.65));
 }
+/* =====================================================
+   FINAL FIX - MEMORY SNAPSHOTS TIDAK KEPOTONG
+===================================================== */
+
+.pixel-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  margin-bottom: 22px !important;
+}
+
+.pixel-frame {
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 8px !important;
+  background: #050505 !important;
+  border: 3px dashed #00ff66 !important;
+  overflow: hidden !important;
+}
+
+.img-slot {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+  background:
+    radial-gradient(circle at center, rgba(0, 255, 102, 0.08), transparent 55%),
+    #000 !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.img-slot img {
+  width: 100% !important;
+  height: 100% !important;
+
+  /* INI YANG MEMBUAT FOTO TIDAK KEPOTONG */
+  object-fit: contain !important;
+  object-position: center !important;
+
+  display: block !important;
+  background: #000 !important;
+  padding: 4px !important;
+}
+
+/* Placeholder LOAD_IMG hanya untuk slot kosong */
+.img-slot span {
+  position: absolute !important;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  color: #777 !important;
+  font-size: 8px !important;
+  background: rgba(0, 0, 0, 0.92) !important;
+  pointer-events: none !important;
+}
+
+.img-slot.has-image span {
+  display: none !important;
+}
+
+body.admin-mode .img-slot.has-image span {
+  display: none !important;
+}
+
+body.admin-mode .img-slot:not(.has-image) span {
+  display: grid !important;
+}
+
+@media (max-width: 520px) {
+  .pixel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .pixel-frame {
+    padding: 6px !important;
+    border-width: 2px !important;
+  }
+
+  .img-slot {
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  .img-slot img {
+    padding: 3px !important;
+  }
+}
