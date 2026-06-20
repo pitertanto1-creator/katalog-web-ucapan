@@ -1,102 +1,114 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro Arcade Apology</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+
+  <title>Midnight Memory Capsule</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
+
 <body>
+  <main class="memory-machine">
+    <header class="machine-header">
+      <div class="top-chip">DIGITAL GIFT SYSTEM</div>
 
-    <div class="arcade-cabinet">
-        <div class="arcade-screen">
-            
-            <div id="stage-game" class="game-container">
-                <div class="hp-bar-container">
-                    <span class="hp-label">MATCH PROGRESS</span>
-                    <div class="hp-border">
-                        <div class="hp-fill" id="hp-progress" style="width: 0%;"></div>
-                    </div>
-                    <span class="hp-percent" id="hp-text">0/6 Pairs</span>
-                </div>
+      <h1 id="app-title">MIDNIGHT MEMORY CAPSULE</h1>
+      <p id="app-subtitle">MATCH THE CARDS • UNLOCK THE HEART</p>
 
-                <div class="memory-grid" id="memory-grid"></div>
+      <div class="status-row">
+        <span>PLAYER 1</span>
+        <span id="score-text">SCORE: 0000</span>
+        <span>PLAYER 2</span>
+      </div>
+    </header>
 
-                <p class="game-hint">MISI: Cocokkan semua kartu wajah ber-topi beruang untuk unlock Master Chip Kenangan!</p>
-            </div>
+    <section class="machine-screen">
+      <section id="stage-game" class="stage-game">
+        <div class="progress-panel">
+          <div class="progress-top">
+            <span id="progress-label">MEMORY SYNC</span>
+            <span id="hp-text">0/6 PAIRS</span>
+          </div>
 
-            <div id="stage-reward" class="reward-container hidden">
-                <div class="stage-clear-banner">👑 ACCESS GRANTED 👑</div>
-                
-                <div class="arcade-scroll-content">
-                    
-                    <div class="retro-letter-box">
-                        <h3 class="section-title" style="color: #00ff66;">📋 SYSTEM_LOG: RECONCILIATION.TXT</h3>
-                        <p id="retro-text-letter" class="pixel-text-flow">
-                            Hai sayang, maaf ya udah bikin sistemnya glitch kemarin... Aku sayang banget sama kamu! ❤️
-                        </p>
-                    </div>
-
-                    <div class="retro-timeline-section">
-                        <h3 class="section-title" style="color: #ffcc00;">📅 OUR VALUABLE TIMELINE</h3>
-                        <div class="timeline-container">
-                            <div class="timeline-item">
-                                <span class="timeline-date">12 Nov 2024</span>
-                                <p class="timeline-desc">👾 First Met (Hari pertama kenal, kamu jaim bgt!)</p>
-                            </div>
-                            <div class="timeline-item">
-                                <span class="timeline-date">25 Jan 2025</span>
-                                <p class="timeline-desc">🌹 Co-Op Player (Hari kita resmi bareng-bareng).</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="retro-gallery-section">
-                        <h3 class="section-title" style="color: #00ffff;">📸 SNAPSHOT MEMORY CAPSULE</h3>
-                        <div class="pixel-grid-gallery">
-                            
-                            <div class="pixel-frame" onclick="document.getElementById('up-n1').click()">
-                                <img id="prev-n1" style="display:none; width:100%; height:100%; object-fit:cover;">
-                                <div id="slot-n1" class="upload-placeholder">
-                                    <span class="plus-icon">+</span>
-                                    <p class="slot-text">DATE PHOTO</p>
-                                </div>
-                                <input type="file" id="up-n1" accept="image/*" style="display: none;" onchange="handleImage(this, 'prev-n1', 'slot-n1')">
-                            </div>
-
-                            <div class="pixel-frame" onclick="document.getElementById('up-n2').click()">
-                                <img id="prev-n2" style="display:none; width:100%; height:100%; object-fit:cover;">
-                                <div id="slot-n2" class="upload-placeholder">
-                                    <span class="plus-icon">+</span>
-                                    <p class="slot-text">FUNNY MOMENT</p>
-                                </div>
-                                <input type="file" id="up-n2" accept="image/*" style="display: none;" onchange="handleImage(this, 'prev-n2', 'slot-n2')">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="open-when-section">
-                        <h3 class="section-title" style="color: #ff0055;">✉️ "OPEN WHEN..." EMERGENCY CHIPS</h3>
-                        <div class="open-when-grid">
-                            <button class="pixel-btn btn-yellow" onclick="openEmergencyLetter('kangen')">❤️ Kangen</button>
-                            <button class="pixel-btn btn-yellow" onclick="openEmergencyLetter('marah')">💢 Kesel</button>
-                            <button class="pixel-btn btn-yellow" onclick="openEmergencyLetter('sedih')">😢 BadMood</button>
-                        </div>
-                    </div>
-
-                </div> <button class="pixel-btn btn-green" id="btn-final-baikaan">
-                    🤝 PRESS TO LOCK PEACE (BAIKAN)
-                </button>
-                
-            </div> </div> </div> <div id="retro-modal" class="retro-modal hidden">
-        <div class="modal-content">
-            <p id="modal-message">Sinyal Pesan Rahasia Terbuka!</p>
-            <button class="pixel-btn btn-green" onclick="document.getElementById('retro-modal').classList.add('hidden')">OK</button>
+          <div class="hp-border">
+            <div id="hp-progress" class="hp-fill"></div>
+          </div>
         </div>
-    </div>
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+        <div id="memory-grid" class="memory-grid"></div>
+
+        <p class="game-hint">
+          Tap dua kartu untuk mencocokkan memory chip. Selesaikan semua pasangan untuk membuka kapsul kenangan.
+        </p>
+      </section>
+
+      <section id="stage-reward" class="stage-reward hidden">
+        <div class="access-banner">
+          <span>👑 ACCESS GRANTED 👑</span>
+          <small>HEART CAPSULE UNLOCKED</small>
+        </div>
+
+        <div class="reward-scroll">
+          <section class="reward-card letter-card">
+            <h2>📋 HEART_REPAIR_LOG.TXT</h2>
+            <pre id="letter-text"></pre>
+          </section>
+
+          <section class="reward-card">
+            <h2>📅 OUR TIMELINE</h2>
+            <div id="timeline-list" class="timeline-list"></div>
+          </section>
+
+          <section class="reward-card">
+            <h2>📸 SNAPSHOT CAPSULE</h2>
+            <div id="gallery-grid" class="gallery-grid"></div>
+          </section>
+
+          <section class="reward-card">
+            <h2>✉️ OPEN WHEN... CHIPS</h2>
+
+            <div class="open-when-grid">
+              <button class="pixel-btn mini-btn" data-letter="kangen">💜 Kangen</button>
+              <button class="pixel-btn mini-btn" data-letter="marah">⚡ Kesel</button>
+              <button class="pixel-btn mini-btn" data-letter="sedih">🌙 BadMood</button>
+              <button class="pixel-btn mini-btn" data-letter="rindu">✨ Rindu</button>
+            </div>
+          </section>
+        </div>
+
+        <button id="btn-lock-peace" class="pixel-btn lock-btn">
+          🔐 PRESS TO LOCK PEACE
+        </button>
+      </section>
+    </section>
+  </main>
+
+  <div id="retro-modal" class="retro-modal hidden">
+    <div class="modal-card">
+      <div class="modal-label">[ SYSTEM MESSAGE ]</div>
+      <p id="modal-message">Message</p>
+      <button id="modal-close" class="pixel-btn modal-btn">OK</button>
+    </div>
+  </div>
+
+  <div class="admin-badge">
+    ⚙️ ADMIN MODE ACTIVE
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

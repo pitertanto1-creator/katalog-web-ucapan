@@ -1,309 +1,692 @@
-/* ==================== CORE RETRO DESIGN TEMPLATE ==================== */
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
-    background-color: #1a1a1a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  min-height: 100%;
+  background: #070314;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
 }
 
-/* BOX UTAMA KABINET DINGDONG */
-.arcade-cabinet {
-    background: #2b2b2b;
-    border: 4px solid #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.8), inset 0 0 10px #000;
-    width: 340px;
-    box-sizing: border-box;
+body {
+  min-height: 100vh;
+  padding: 18px 10px;
+  overflow-x: hidden;
+  color: #ffffff;
+  font-family: "Press Start 2P", monospace;
+  background:
+    radial-gradient(circle at top left, rgba(140, 82, 255, 0.35), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(0, 229, 255, 0.22), transparent 34%),
+    linear-gradient(180deg, #120827 0%, #070314 52%, #020106 100%);
 }
 
-/* BINGKAI MONITOR JALUR HITAM (Kunci agar Teks Tidak Luber Keluar) */
-.arcade-screen {
-    background-color: #050505;
-    border: 3px solid #00ff66; /* Bingkai Hijau Neon */
-    border-radius: 4px;
-    padding: 10px;
-    height: 380px;
-    position: relative;
-    overflow: hidden;
-    color: #fff;
-    box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.2);
-}
-
-/* UTILITAS UNTUK MENYEMBUNYIKAN LAYER STAGE */
 .hidden {
-    display: none !important;
+  display: none !important;
 }
 
-/* ==================== STAGE 1: DESAIN GAME MEMORY CARD ==================== */
-.game-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+.memory-machine {
+  width: min(100%, 720px);
+  margin: 0 auto;
+  padding: 18px;
+  border: 3px solid #b66cff;
+  border-radius: 26px;
+  background:
+    linear-gradient(145deg, rgba(37, 14, 72, 0.96), rgba(8, 4, 22, 0.98)),
+    #090314;
+  box-shadow:
+    0 0 30px rgba(182, 108, 255, 0.34),
+    0 0 70px rgba(0, 229, 255, 0.13),
+    inset 0 0 28px rgba(255, 255, 255, 0.04);
 }
 
-/* HP Progress Bar */
-.hp-bar-container {
-    margin-bottom: 10px;
+.machine-header {
+  position: relative;
+  padding: 18px 12px 20px;
+  margin-bottom: 16px;
+  text-align: center;
+  border: 2px solid rgba(0, 229, 255, 0.7);
+  border-radius: 18px;
+  background:
+    linear-gradient(90deg, rgba(0, 229, 255, 0.08), rgba(255, 75, 216, 0.1)),
+    rgba(0, 0, 0, 0.34);
 }
-.hp-label {
-    font-size: 10px;
-    color: #00ff66;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 2px;
+
+.top-chip {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 7px 10px;
+  color: #ffd166;
+  font-size: 8px;
+  line-height: 1.4;
+  border: 1px solid rgba(255, 209, 102, 0.8);
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.08);
 }
+
+#app-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(15px, 3vw, 24px);
+  line-height: 1.45;
+  text-shadow:
+    0 0 10px rgba(182, 108, 255, 0.9),
+    0 0 18px rgba(0, 229, 255, 0.35);
+}
+
+#app-subtitle {
+  margin: 12px 0 0;
+  color: #00e5ff;
+  font-size: clamp(8px, 2vw, 11px);
+  line-height: 1.6;
+}
+
+.status-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px;
+  margin-top: 16px;
+  color: #ffd166;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.status-row span:first-child {
+  text-align: left;
+}
+
+.status-row span:last-child {
+  text-align: right;
+}
+
+.machine-screen {
+  min-height: 520px;
+  max-height: 78vh;
+  padding: 18px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.75);
+  border-radius: 22px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 50%, rgba(0, 0, 0, 0.12) 50%),
+    radial-gradient(circle at center, rgba(0, 229, 255, 0.09), transparent 58%),
+    #070314;
+  background-size: 100% 4px, auto, auto;
+  box-shadow:
+    inset 0 0 30px rgba(0, 229, 255, 0.12),
+    inset 0 0 60px rgba(182, 108, 255, 0.08);
+}
+
+.machine-screen::-webkit-scrollbar,
+.reward-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.machine-screen::-webkit-scrollbar-track,
+.reward-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.machine-screen::-webkit-scrollbar-thumb,
+.reward-scroll::-webkit-scrollbar-thumb {
+  background: #b66cff;
+  border-radius: 999px;
+}
+
+.progress-panel {
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 2px solid rgba(0, 229, 255, 0.8);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: #ffd166;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
 .hp-border {
-    border: 2px solid #fff;
-    background: #000;
-    height: 12px;
-    padding: 1px;
+  width: 100%;
+  height: 20px;
+  padding: 3px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: #05010c;
+  overflow: hidden;
 }
+
 .hp-fill {
-    background: #00ff66;
-    height: 100%;
-    transition: width 0.3s ease;
-}
-.hp-percent {
-    font-size: 9px;
-    float: right;
-    margin-top: 2px;
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff4bd8, #b66cff, #00e5ff, #ffd166);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.55);
+  transition: width 0.28s ease;
 }
 
-/* Grid Kartu */
 .memory-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    margin: 5px auto;
-    width: 100%;
-    max-width: 280px;
-    perspective: 1000px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
 }
+
 .memory-card {
-    aspect-ratio: 3 / 4;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.4s ease;
-    cursor: pointer;
+  position: relative;
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+  perspective: 900px;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
-.memory-card.flipped {
-    transform: rotateY(180deg);
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.42s ease;
 }
-.card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 3px;
+
+.memory-card.flipped .card-inner,
+.memory-card.matched .card-inner {
+  transform: rotateY(180deg);
 }
+
+.card-front,
 .card-back {
-    background: #ff0055;
-    border: 2px solid #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    color: #fff;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
+
+.card-back {
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 209, 102, 0.3), transparent 24%),
+    linear-gradient(145deg, #25104f, #0d0323);
+  box-shadow:
+    inset 0 0 18px rgba(182, 108, 255, 0.28),
+    0 0 14px rgba(182, 108, 255, 0.18);
+}
+
+.card-back-symbol {
+  font-size: clamp(20px, 6vw, 38px);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.45));
+}
+
 .card-front {
-    background: #111;
-    border: 2px solid #00ff66;
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  border: 2px solid #00e5ff;
+  background: #05010c;
+  box-shadow: inset 0 0 18px rgba(0, 229, 255, 0.15);
 }
+
 .card-front img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
+
+.card-code {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  padding: 6px 4px;
+  color: #070314;
+  text-align: center;
+  font-size: 7px;
+  line-height: 1.2;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ffd166, #00e5ff);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+}
+
+.memory-card.matched {
+  pointer-events: none;
+}
+
+.memory-card.matched .card-front {
+  border-color: #ffd166;
+  box-shadow:
+    0 0 14px rgba(255, 209, 102, 0.5),
+    inset 0 0 18px rgba(255, 209, 102, 0.15);
+}
+
 .game-hint {
-    font-size: 9px;
-    color: #888;
-    text-align: center;
-    margin: auto 0 0 0;
-    line-height: 1.2;
+  margin: 18px 0 0;
+  color: #d7caff;
+  font-family: "VT323", monospace;
+  font-size: 23px;
+  line-height: 1.25;
+  text-align: center;
 }
 
-/* ==================== STAGE 2: DESAIN MONITOR REWARD (KAPSUL WAKTU) ==================== */
-.reward-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-}
-.stage-clear-banner {
-    background: #ff0055;
-    color: #fff;
-    text-align: center;
-    padding: 5px;
-    font-weight: bold;
-    font-size: 12px;
-    border: 2px solid #fff;
-    margin-bottom: 8px;
-    box-shadow: 2px 2px 0px #000;
+.access-banner {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 16px 12px;
+  text-align: center;
+  border: 2px solid #ffd166;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at top, rgba(255, 209, 102, 0.22), transparent 55%),
+    rgba(0, 0, 0, 0.38);
+  box-shadow: 0 0 18px rgba(255, 209, 102, 0.16);
 }
 
-/* Sistem Scroll di dalam Monitor */
-.arcade-scroll-content {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: 275px;
-}
-.section-title {
-    font-size: 10px;
-    margin: 0 0 5px 0;
-    font-weight: bold;
+.access-banner span {
+  color: #ffd166;
+  font-size: clamp(12px, 3vw, 18px);
+  line-height: 1.45;
 }
 
-/* Box Surat Perjanjian */
-.retro-letter-box {
-    background: #000;
-    border: 2px solid #00ff66;
-    padding: 8px;
-}
-.pixel-text-flow {
-    font-size: 10px;
-    margin: 0;
-    line-height: 1.3;
+.access-banner small {
+  color: #00e5ff;
+  font-size: 8px;
+  line-height: 1.4;
 }
 
-/* Linimasa Hubungan */
-.retro-timeline-section {
-    background: #000;
-    border: 2px solid #ffcc00;
-    padding: 8px;
+.reward-scroll {
+  display: grid;
+  gap: 16px;
 }
-.timeline-container {
-    border-left: 2px dashed #ffcc00;
-    padding-left: 8px;
-    margin-left: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+
+.reward-card {
+  padding: 16px;
+  border: 2px solid rgba(182, 108, 255, 0.78);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(182, 108, 255, 0.08), rgba(0, 229, 255, 0.06)),
+    rgba(0, 0, 0, 0.35);
 }
+
+.reward-card h2 {
+  margin: 0 0 13px;
+  color: #ff4bd8;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+#letter-text {
+  margin: 0;
+  white-space: pre-wrap;
+  color: #f4edff;
+  font-family: "VT323", monospace;
+  font-size: 23px;
+  line-height: 1.18;
+}
+
+.timeline-list {
+  display: grid;
+  gap: 12px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 18px;
+  border-left: 2px dashed rgba(255, 209, 102, 0.72);
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #00e5ff;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.8);
+}
+
 .timeline-date {
-    font-size: 10px;
-    color: #00ff66;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+  color: #ffd166;
+  font-size: 9px;
+  line-height: 1.4;
 }
+
 .timeline-desc {
-    font-size: 9px;
-    color: #fff;
-    margin: 1px 0 0 0;
+  margin: 0;
+  color: #ffffff;
+  font-family: "VT323", monospace;
+  font-size: 22px;
+  line-height: 1.15;
 }
 
-/* Galeri Unggah Foto */
-.retro-gallery-section {
-    background: #000;
-    border: 2px solid #00ffff;
-    padding: 8px;
-}
-.pixel-grid-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-}
-.pixel-frame {
-    background: #111;
-    border: 2px dashed #ff0055;
-    aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    overflow: hidden;
-}
-.upload-placeholder {
-    text-align: center;
-}
-.plus-icon {
-    color: #ff0055;
-    font-size: 16px;
-    font-weight: bold;
-}
-.slot-text {
-    color: #666;
-    font-size: 8px;
-    margin: 0;
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
-/* Tombol Menu Surat Darurat */
-.open-when-section {
-    background: #000;
-    border: 2px solid #ff0055;
-    padding: 8px;
+.gallery-frame {
+  padding: 8px;
+  border: 2px dashed #00e5ff;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.36);
+  cursor: default;
+  overflow: hidden;
 }
+
+body.admin-mode .gallery-frame {
+  cursor: pointer;
+}
+
+.gallery-slot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at center, rgba(182, 108, 255, 0.18), transparent 55%),
+    #06020d;
+}
+
+.gallery-slot img {
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  background: #05010c;
+}
+
+.gallery-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  color: #d7caff;
+  text-align: center;
+  background: rgba(5, 1, 12, 0.94);
+}
+
+.gallery-placeholder strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffd166;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.gallery-placeholder span {
+  display: block;
+  color: #d7caff;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.gallery-slot.has-image .gallery-placeholder {
+  display: none !important;
+}
+
+.gallery-frame input {
+  display: none;
+}
+
 .open-when-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
 }
 
-/* ATURAN UMUM TOMBOL PIXEL ARCADE */
 .pixel-btn {
-    border: 2px solid #fff;
-    color: #000;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 2px 2px 0px #000;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  color: #070314;
+  font-family: "Press Start 2P", monospace;
+  font-weight: 700;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
+
 .pixel-btn:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px #000;
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
 }
-.btn-yellow { background: #ffcc00; font-size: 8px; padding: 4px 0; }
-.btn-green { background: #00ff66; font-size: 11px; padding: 6px 0; width: 100%; margin-top: 4px;}
 
-/* MODAL INTERAKTIF */
+.mini-btn {
+  min-height: 48px;
+  padding: 10px 8px;
+  font-size: 8px;
+  line-height: 1.45;
+  background: linear-gradient(135deg, #ffd166, #ff4bd8);
+}
+
+.lock-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 15px 12px;
+  color: #070314;
+  font-size: 10px;
+  line-height: 1.5;
+  border-color: #ffffff;
+  background: linear-gradient(90deg, #00e5ff, #b66cff, #ff4bd8);
+}
+
+.lock-btn:disabled {
+  cursor: not-allowed;
+  color: #070314;
+  background: linear-gradient(90deg, #ffd166, #00e5ff);
+  box-shadow:
+    0 0 18px rgba(0, 229, 255, 0.42),
+    4px 4px 0 rgba(0, 0, 0, 0.8);
+}
+
 .retro-modal {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center; align-items: center;
-    z-index: 100;
-}
-.modal-content {
-    background: #000;
-    border: 3px solid #ff0055;
-    padding: 15px;
-    width: 260px;
-    text-align: center;
-    color: #fff;
-    font-size: 10px;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(3, 1, 10, 0.78);
+  backdrop-filter: blur(5px);
 }
 
-/* Custom Scrollbar Monitor Dingdong */
-.arcade-scroll-content::-webkit-scrollbar { width: 4px; }
-.arcade-scroll-content::-webkit-scrollbar-track { background: #000; }
-.arcade-scroll-content::-webkit-scrollbar-thumb { background: #00ff66; }
-/* --- ANIMASI RETRO SCREEN SHAKE KETIKA LOCK PEACE --- */
-@keyframes screen-shake {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    20% { transform: translate(-2px, 2px) rotate(-0.5deg); }
-    40% { transform: translate(2px, -1px) rotate(0.5deg); }
-    60% { transform: translate(-1px, -1px) rotate(0deg); }
-    80% { transform: translate(2px, 2px) rotate(0.5deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+.modal-card {
+  width: min(100%, 430px);
+  padding: 22px;
+  text-align: center;
+  border: 3px solid #ff4bd8;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top, rgba(182, 108, 255, 0.2), transparent 52%),
+    #070314;
+  box-shadow:
+    0 0 30px rgba(255, 75, 216, 0.32),
+    0 0 60px rgba(0, 229, 255, 0.12);
 }
 
-/* Animasi kilatan lampu saat tombol perdamaian sukses ditekan */
-#btn-final-baikaan:disabled {
-    cursor: not-allowed;
-    border: 2px solid #00ffff;
-    box-shadow: 0px 0px 10px #00ffff;
-    animation: neon-pulse 1.5s infinite alternate;
+.modal-label {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 7px 10px;
+  color: #ffd166;
+  font-size: 8px;
+  border: 1px solid rgba(255, 209, 102, 0.7);
+  border-radius: 999px;
 }
 
-@keyframes neon-pulse {
-    from { opacity: 0.8; }
-    to { opacity: 1; box-shadow: 0px 0px 15px #00ffff; }
+#modal-message {
+  margin: 0 0 18px;
+  white-space: pre-wrap;
+  color: #ffffff;
+  font-family: "VT323", monospace;
+  font-size: 26px;
+  line-height: 1.18;
+}
+
+.modal-btn {
+  padding: 12px 18px;
+  font-size: 9px;
+  background: #00e5ff;
+}
+
+.admin-badge {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 100;
+  display: none;
+  padding: 9px 11px;
+  color: #070314;
+  font-size: 8px;
+  line-height: 1.4;
+  border: 2px solid #ffffff;
+  background: #ffd166;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.75);
+}
+
+body.admin-mode .admin-badge {
+  display: block;
+}
+
+.screen-shake {
+  animation: screenShake 0.3s ease-in-out;
+}
+
+@keyframes screenShake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3px, 2px); }
+  40% { transform: translate(3px, -2px); }
+  60% { transform: translate(-2px, -1px); }
+  80% { transform: translate(2px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+
+@media (max-width: 620px) {
+  body {
+    padding: 8px 5px;
+  }
+
+  .memory-machine {
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  .machine-header {
+    padding: 14px 9px;
+    border-radius: 14px;
+  }
+
+  .top-chip {
+    font-size: 7px;
+  }
+
+  .status-row {
+    font-size: 6px;
+    gap: 6px;
+  }
+
+  .machine-screen {
+    min-height: 510px;
+    max-height: 82vh;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .progress-panel {
+    padding: 11px;
+  }
+
+  .progress-top {
+    font-size: 7px;
+  }
+
+  .memory-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .card-front,
+  .card-back {
+    border-radius: 12px;
+  }
+
+  .card-code {
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    padding: 5px 3px;
+    font-size: 6px;
+  }
+
+  .game-hint {
+    font-size: 19px;
+  }
+
+  .reward-card {
+    padding: 13px;
+    border-radius: 14px;
+  }
+
+  .reward-card h2 {
+    font-size: 8px;
+  }
+
+  #letter-text,
+  .timeline-desc {
+    font-size: 20px;
+  }
+
+  .gallery-grid {
+    gap: 9px;
+  }
+
+  .gallery-frame {
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  .gallery-slot {
+    border-radius: 9px;
+  }
+
+  .open-when-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .mini-btn {
+    font-size: 7px;
+    min-height: 44px;
+  }
+
+  .lock-btn {
+    font-size: 8px;
+  }
+
+  #modal-message {
+    font-size: 23px;
+  }
 }
