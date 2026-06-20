@@ -1,3 +1,4 @@
+const PRODUCT_BASE = "/core/retro/retro-arcade-apology/";
 const retroData = {
   title: "RETRO ARCADE APOLOGY",
   subtitle: "LOVE HP QUEST",
@@ -6,17 +7,17 @@ const retroData = {
   playerEmoji: "🐻",
 
   assets: {
-    bgMusic: "assets/retro-theme.mp3",
-    happyFace: "assets/nadya-happy.png",
-    sadFace: "assets/nadya-sad.png",
+  bgMusic: PRODUCT_BASE + "assets/retro-theme.mp3",
+  happyFace: PRODUCT_BASE + "assets/nadya-happy.png",
+  sadFace: PRODUCT_BASE + "assets/nadya-sad.png",
 
-    memoryImages: [
-      "assets/photo-1.jpg",
-      "assets/photo-2.jpg",
-      "assets/photo-3.jpg",
-      "assets/photo-4.jpg"
-    ]
-  },
+  memoryImages: [
+    PRODUCT_BASE + "assets/photo-1.jpg",
+    PRODUCT_BASE + "assets/photo-2.jpg",
+    PRODUCT_BASE + "assets/photo-3.jpg",
+    PRODUCT_BASE + "assets/photo-4.jpg"
+  ]
+},
 
   messages: {
     gameWin: "💥 ACCESS GRANTED! LOVE HP 100%!",
