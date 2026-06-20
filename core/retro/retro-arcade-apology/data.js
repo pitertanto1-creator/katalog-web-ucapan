@@ -1,41 +1,62 @@
-// data.js - PUSAT DATA KONTEN KAPSUL WAKTU (EDIT DI SINI)
-const RETRO_GAME_DATA = {
-    // 1. Jalur file gambar kartu memory beruang (Pastikan nama filenya cocok di folder assets)
-    cardImages: [
-        "assets/nadya-happy.png",
-        "assets/nadya-sad.png",
-        "assets/nadya-happy.png", 
-        "assets/nadya-sad.png",   
-        "assets/nadya-happy.png",
-        "assets/nadya-sad.png"
-    ],
+const retroData = {
+  title: "RETRO ARCADE APOLOGY",
+  subtitle: "LOVE HP QUEST",
 
-    // 2. Isi pesan teks surat utama baikan setelah menang game
-    mainLetterText: "Hai sayang, maaf ya udah bikin sistemnya glitch kemarin... Aku sayang banget sama kamu! ❤️ Kumpulkan momen-momen kita di bawah ini ya!",
+  targetName: "Someone Special",
+  playerEmoji: "🐻",
 
-    // 3. Data Linimasa Hubungan (Bisa kamu tambah atau kurangi sesuka hati)
-    timeline: [
-        {
-            date: "12 Nov 2024",
-            desc: "👾 First Met (Hari pertama kenal, kamu jaim bgt!)"
-        },
-        {
-            date: "25 Jan 2025",
-            desc: "🌹 Co-Op Player (Hari kita resmi bareng-bareng)."
-        },
-        {
-            date: "14 Jun 2026",
-            desc: "💥 The System Glitch (Hari ini, maaf ya udah bikin kesel, tapi kita sukses baikan!)"
-        }
-    ],
+  assets: {
+    bgMusic: "assets/retro-theme.mp3",
+    happyFace: "assets/nadya-happy.png",
+    sadFace: "assets/nadya-sad.png",
 
-    // 4. Isi teks pesan rahasia tombol emergency (Open When... Chips)
-    emergencyLetters: {
-        kangen: "📂 MEMORY_FOUND: Kalo lagi kangen, langsung telfon aku ya! Jangan dipendem terus dipake ngambek. Aku selalu ada buat kamu. 🐻❤️",
-        marah: "⚠️ WARNING_SYSTEM: Yah, jangan ngambek lagi dong... Inget ga game memory beruang susah ini aja bisa kamu tamatin demi baikan? Maafin aku ya? 🥺🌹",
-        sedih: "🛡️ ANTIVIRUS_ACTIVE: Hey, jangan sedih. Apapun masalah hari ini yang bikin kamu bad mood, kita selesaiin bareng-bareng Player 2! 🍦✨"
-    },
+    memoryImages: [
+      "assets/photo-1.jpg",
+      "assets/photo-2.jpg",
+      "assets/photo-3.jpg",
+      "assets/photo-4.jpg"
+    ]
+  },
 
-    // 5. Pesan akhir pop-up ketika tombol LOCK PEACE diklik
-    lockPeaceMessage: "🏆 CO-OP MISSION ACCOMPLISHED!\n\nSistem mendeteksi tingkat keharmonisan telah kembali ke 100%.\nStatus hubungan: Resmi Baikan! \n\nJangan ngambek-ngambek lagi ya Player 2, I Love You! 🐻❤️"
+  messages: {
+    gameWin: "💥 ACCESS GRANTED! LOVE HP 100%!",
+    outOfCoins: "🪙 ERROR: OUT OF COINS!<br>Semua koin arcade sudah dipakai.",
+    finalBaikan:
+      "🎮 PLAYER 1 & PLAYER 2 CO-OP CONNECTED!<br>Sistem error berhasil diperbaiki.<br>Kita baikan ya? 🥺💖",
+    adminUnlock:
+      "⚙️ MASTER CHIP ACTIVE!<br>Mode edit foto dan musik sekarang terbuka."
+  },
+
+  letterText: `SYSTEM_LOG [SUCCESS]
+=========================
+Hai kamu,
+
+Aku tahu mungkin kemarin ada hal
+yang bikin mood kamu turun.
+
+Jadi lewat game kecil ini,
+aku cuma mau bilang:
+
+Maaf ya.
+
+Aku bukan player paling jago,
+tapi aku mau belajar jadi partner
+yang lebih baik buat kamu.
+
+Semoga setelah ini,
+kita bisa lanjut co-op lagi
+tanpa banyak error.
+
+I miss you.
+I choose you.
+Let's play again. 🎮💖`,
+
+  vouchers: [
+    "🎟️ VOUCHER: DITRAKTIR JAJAN FAVORIT",
+    "🎟️ VOUCHER: PELUK ERAT 1 MENIT",
+    "🎟️ VOUCHER: DITEMENIN SAMPAI MOOD BALIK",
+    "🎟️ VOUCHER: BOLEH PILIH TEMPAT JALAN",
+    "🎟️ VOUCHER: SATU PERMINTAAN MANIS",
+    "🎟️ VOUCHER: MAAF TANPA DRAMA"
+  ]
 };

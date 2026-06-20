@@ -1,165 +1,499 @@
-// ==================== ENGINE GAME & DATA MOMENT CAPSULE ====================
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // Jalur file foto wajah ber-topi beruang yang sudah ada di folder assets kamu
-    const cardImages = [
-        "assets/nadya-happy.png",
-        "assets/nadya-sad.png",
-        "assets/nadya-happy.png", 
-        "assets/nadya-sad.png",   
-        "assets/nadya-happy.png",
-        "assets/nadya-sad.png"
-    ];
+  const DATA = typeof retroData !== "undefined" ? retroData : {};
 
-    // Menggandakan array untuk membuat 6 pasang kartu (Total 12 kartu)
-    let gameCards = [...cardImages, ...cardImages];
-    
-    // Algoritma Pengacak Posisi Kartu Otomatis (Fisher-Yates)
-    gameCards.sort(() => Math.random() - 0.5);
+  let hpValue = 0;
+  let score = 0;
+  let arcadeCoins = 3;
+  let claimedCount = 0;
+  let playerLeftPercent = 50;
+  let isGameRunning = true;
+  let activeItems = [];
 
-    const memoryGrid = document.getElementById('memory-grid');
-    const hpFill = document.getElementById('hp-progress');
-    const hpText = document.getElementById('hp-text');
+  const hpFill = document.getElementById("hp-progress");
+  const hpText = document.getElementById("hp-text");
+  const scoreVal = document.getElementById("score-val");
+  const gameArea = document.getElementById("game-area");
+  const playerBear = document.getElementById("pixel-player");
 
-    let hasFlippedCard = false;
-    let lockBoard = false;
-    let firstCard, secondCard;
-    let matchedPairs = 0;
-    const totalPairs = cardImages.length;
+  const stageGame = document.getElementById("stage-game");
+  const stageReward = document.getElementById("stage-reward");
 
-    // JALANKAN GENERATE KARTU KELUAR DI LAYAR MONITOR
-    function createCards() {
-        memoryGrid.innerHTML = "";
-        gameCards.forEach((imagePath) => {
-            const card = document.createElement('div');
-            card.className = 'memory-card';
-            card.dataset.framework = imagePath;
+  const audio = document.getElementById("main-audio");
+  const playBtn = document.getElementById("play-btn");
+  const trackTitle = document.getElementById("track-title");
 
-            card.innerHTML = `
-                <div class="card-front">
-                    <img src="${imagePath}" alt="Nadya Face">
-                </div>
-                <div class="card-back">🐻</div>
-            `;
+  const retroModal = document.getElementById("retro-modal");
+  const modalMessage = document.getElementById("modal-message");
+  const modalCloseBtn = document.getElementById("modal-close-btn");
 
-            card.addEventListener('click', flipCard);
-            memoryGrid.appendChild(card);
-        });
+  const btnSpin = document.getElementById("btn-spin-gacha");
+  const gachaScreen = document.getElementById("gacha-screen");
+  const coinCountDisplay = document.getElementById("coin-count");
+
+  const titleTrigger = document.getElementById("arcade-title");
+
+  let gameLoopInterval = null;
+  let spawnInterval = null;
+
+  // ================================
+  // APPLY DATA
+  // ================================
+
+  document.title = DATA.title || "Retro Arcade Apology";
+
+  if (titleTrigger) {
+    titleTrigger.textContent = DATA.title || "RETRO ARCADE APOLOGY";
+  }
+
+  const subtitle = document.querySelector(".arcade-subtitle");
+  if (subtitle) {
+    subtitle.textContent = DATA.subtitle || "LOVE HP QUEST";
+  }
+
+  if (playerBear) {
+    playerBear.textContent = DATA.playerEmoji || "🐻";
+  }
+
+  const letterBox = document.getElementById("retro-text-letter");
+  if (letterBox) {
+    letterBox.innerText = DATA.letterText || "";
+  }
+
+  if (audio && DATA.assets?.bgMusic) {
+    audio.src = DATA.assets.bgMusic;
+  }
+
+  renderMemoryImages();
+
+  // ================================
+  // MODAL
+  // ================================
+
+  function showRetroAlert(message) {
+    if (!retroModal || !modalMessage) return;
+    modalMessage.innerHTML = message;
+    retroModal.classList.remove("hidden");
+  }
+
+  function closeRetroAlert() {
+    if (!retroModal) return;
+    retroModal.classList.add("hidden");
+  }
+
+  modalCloseBtn?.addEventListener("click", closeRetroAlert);
+
+  retroModal?.addEventListener("click", (event) => {
+    if (event.target === retroModal) closeRetroAlert();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeRetroAlert();
+  });
+
+  // ================================
+  // GAME CONTROL
+  // ================================
+
+  function movePlayer(direction) {
+    if (!isGameRunning) return;
+
+    const playerSpeed = 8;
+
+    if (direction === "left") {
+      playerLeftPercent -= playerSpeed;
     }
 
-    function flipCard() {
-        if (lockBoard) return;
-        if (this === firstCard) return;
+    if (direction === "right") {
+      playerLeftPercent += playerSpeed;
+    }
 
-        this.classList.add('flipped');
+    playerLeftPercent = Math.max(6, Math.min(94, playerLeftPercent));
+    playerBear.style.left = `${playerLeftPercent}%`;
+  }
 
-        if (!hasFlippedCard) {
-            hasFlippedCard = true;
-            firstCard = this;
-            return;
+  document.getElementById("btn-move-left")?.addEventListener("click", () => {
+    movePlayer("left");
+  });
+
+  document.getElementById("btn-move-right")?.addEventListener("click", () => {
+    movePlayer("right");
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") movePlayer("left");
+    if (event.key === "ArrowRight") movePlayer("right");
+  });
+
+  // Touch swipe control for HP
+  let touchStartX = null;
+
+  gameArea?.addEventListener("touchstart", (event) => {
+    touchStartX = event.touches[0].clientX;
+  });
+
+  gameArea?.addEventListener("touchmove", (event) => {
+    if (touchStartX === null) return;
+
+    const touchX = event.touches[0].clientX;
+    const diff = touchX - touchStartX;
+
+    if (Math.abs(diff) > 18) {
+      movePlayer(diff > 0 ? "right" : "left");
+      touchStartX = touchX;
+    }
+  });
+
+  // ================================
+  // FALLING ITEM
+  // ================================
+
+  function createFallingItem() {
+    if (!isGameRunning || !gameArea) return;
+
+    const item = document.createElement("div");
+    item.className = "falling-item";
+
+    const img = document.createElement("img");
+    const isGood = Math.random() > 0.35;
+
+    img.src = isGood
+      ? DATA.assets?.happyFace || "assets/nadya-happy.png"
+      : DATA.assets?.sadFace || "assets/nadya-sad.png";
+
+    img.alt = isGood ? "Senyum" : "Mood Buruk";
+
+    item.appendChild(img);
+
+    const randomLeft = Math.floor(Math.random() * 82) + 7;
+
+    item.style.left = `${randomLeft}%`;
+    item.style.top = "-70px";
+
+    gameArea.appendChild(item);
+
+    activeItems.push({
+      element: item,
+      leftPercent: randomLeft,
+      topPx: -70,
+      type: isGood ? "good" : "bad"
+    });
+  }
+
+  function updateGameEngine() {
+    if (!isGameRunning || !gameArea || !playerBear) return;
+
+    const gameRect = gameArea.getBoundingClientRect();
+    const playerRect = playerBear.getBoundingClientRect();
+
+    for (let i = activeItems.length - 1; i >= 0; i--) {
+      const item = activeItems[i];
+
+      item.topPx += 4.8;
+      item.element.style.top = `${item.topPx}px`;
+
+      const itemRect = item.element.getBoundingClientRect();
+
+      const isColliding =
+        itemRect.left < playerRect.right &&
+        itemRect.right > playerRect.left &&
+        itemRect.top < playerRect.bottom &&
+        itemRect.bottom > playerRect.top;
+
+      if (isColliding) {
+        if (item.type === "good") {
+          updateHP(5);
+          score += 100;
+        } else {
+          updateHP(-5);
+          score = Math.max(0, score - 50);
+          showScreenShake();
         }
 
-        secondCard = this;
-        checkForMatch();
+        scoreVal.textContent = String(score).padStart(4, "0");
+
+        item.element.remove();
+        activeItems.splice(i, 1);
+        continue;
+      }
+
+      if (itemRect.top > gameRect.bottom + 20) {
+        item.element.remove();
+        activeItems.splice(i, 1);
+      }
+    }
+  }
+
+  function updateHP(amount) {
+    hpValue += amount;
+    hpValue = Math.max(0, Math.min(100, hpValue));
+
+    hpFill.style.width = `${hpValue}%`;
+    hpText.textContent = `${hpValue}%`;
+
+    if (hpValue >= 100) {
+      winGame();
+    }
+  }
+
+  function winGame() {
+    if (!isGameRunning) return;
+
+    isGameRunning = false;
+
+    clearInterval(gameLoopInterval);
+    clearInterval(spawnInterval);
+
+    activeItems.forEach((item) => item.element.remove());
+    activeItems = [];
+
+    if (typeof confetti === "function") {
+      confetti({
+        particleCount: 160,
+        spread: 80,
+        origin: { y: 0.62 }
+      });
     }
 
-    function checkForMatch() {
-        let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
-        isMatch ? disableCards() : unflipCards();
+    showRetroAlert(DATA.messages?.gameWin || "💥 ACCESS GRANTED!");
+
+    setTimeout(() => {
+      stageGame.classList.add("hidden");
+      stageReward.classList.remove("hidden");
+      closeRetroAlert();
+    }, 1400);
+  }
+
+  function showScreenShake() {
+    document.body.classList.add("shake");
+    setTimeout(() => {
+      document.body.classList.remove("shake");
+    }, 240);
+  }
+
+  gameLoopInterval = setInterval(updateGameEngine, 30);
+  spawnInterval = setInterval(createFallingItem, 850);
+
+  // ================================
+  // MUSIC
+  // ================================
+
+  playBtn?.addEventListener("click", () => {
+    if (!audio || !audio.src) return;
+
+    if (audio.paused) {
+      audio.play();
+      playBtn.textContent = "PAUSE";
+    } else {
+      audio.pause();
+      playBtn.textContent = "PLAY";
+    }
+  });
+
+  // ================================
+  // GACHA
+  // ================================
+
+  btnSpin?.addEventListener("click", () => {
+    if (arcadeCoins <= 0) {
+      showRetroAlert(DATA.messages?.outOfCoins || "OUT OF COINS!");
+      return;
     }
 
-    function disableCards() {
-        firstCard.removeEventListener('click', flipCard);
-        secondCard.removeEventListener('click', flipCard);
-        
-        matchedPairs++;
-        updateProgress();
-        resetBoard();
-    }
+    arcadeCoins--;
+    coinCountDisplay.textContent = arcadeCoins;
+    btnSpin.disabled = true;
+    gachaScreen.textContent = "⚡ SPINNING... ⚡";
 
-    function unflipCards() {
-        lockBoard = true;
-        setTimeout(() => {
-            firstCard.classList.remove('flipped');
-            secondCard.classList.remove('flipped');
-            resetBoard();
-        }, 800);
-    }
+    let spinCount = 0;
 
-    function resetBoard() {
-        [hasFlippedCard, lockBoard] = [false, false];
-        [firstCard, secondCard] = [null, null];
-    }
+    const shuffleInterval = setInterval(() => {
+      const vouchers = DATA.vouchers || [];
+      const tempIndex = Math.floor(Math.random() * vouchers.length);
 
-    function updateProgress() {
-        let progressPercent = (matchedPairs / totalPairs) * 100;
-        hpFill.style.width = progressPercent + '%';
-        hpText.innerText = `${matchedPairs}/${totalPairs} Pairs`;
+      gachaScreen.textContent = vouchers[tempIndex] || "🎟️ ROMANTIC VOUCHER";
 
-        // KONDISI MENANG: JIKA SELESAI, PINDAH SCREEN KE REWARD CAPSULE
-        if (matchedPairs === totalPairs) {
-            setTimeout(() => {
-                document.getElementById('stage-game').classList.add('hidden');
-                document.getElementById('stage-reward').classList.remove('hidden');
-            }, 1000);
+      spinCount++;
+
+      if (spinCount > 10) {
+        clearInterval(shuffleInterval);
+
+        const finalVoucher =
+          vouchers[Math.floor(Math.random() * vouchers.length)] ||
+          "🎟️ VOUCHER MANIS";
+
+        gachaScreen.innerHTML = `🎉 GOT:<br>${finalVoucher}`;
+
+        claimedCount++;
+
+        const activeSlot = document.getElementById(`inv-${claimedCount}`);
+        if (activeSlot) {
+          activeSlot.innerText = finalVoucher;
+          activeSlot.classList.add("claimed");
         }
+
+        if (typeof confetti === "function") {
+          confetti({
+            particleCount: 50,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+          });
+
+          confetti({
+            particleCount: 50,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+          });
+        }
+
+        btnSpin.disabled = false;
+      }
+    }, 140);
+  });
+
+  // ================================
+  // FINAL BUTTON
+  // ================================
+
+  document.getElementById("btn-final-baikaan")?.addEventListener("click", () => {
+    showRetroAlert(DATA.messages?.finalBaikan || "CO-OP CONNECTED!");
+
+    if (typeof confetti === "function") {
+      confetti({
+        particleCount: 120,
+        spread: 90,
+        origin: { y: 0.65 }
+      });
+    }
+  });
+
+  // ================================
+  // ADMIN MODE
+  // klik judul 5 kali
+  // ================================
+
+  let titleClickCount = 0;
+
+  titleTrigger?.addEventListener("click", () => {
+    titleClickCount++;
+
+    if (titleClickCount === 5) {
+      document.body.classList.toggle("admin-mode");
+
+      const status = document.body.classList.contains("admin-mode")
+        ? "UNLOCKED"
+        : "LOCKED";
+
+      showRetroAlert(
+        `⚙️ SECURITY MASTER CHIP: ${status}<br>${DATA.messages?.adminUnlock || ""}`
+      );
+
+      titleClickCount = 0;
     }
 
-    createCards();
+    setTimeout(() => {
+      titleClickCount = 0;
+    }, 3000);
+  });
 });
 
-// FUNGSI UNTUK MENANGKAP DAN MEMUNCULKAN FOTO SECARA DINAMIS DI SLOT UPLOAD
-function handleImage(input, imgId, slotId) {
-    const file = input.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const previewImg = document.getElementById(imgId);
-            const placeholderSlot = document.getElementById(slotId);
-            
-            previewImg.src = e.target.result;
-            previewImg.style.display = "block";
-            placeholderSlot.style.display = "none";
-        }
-        reader.readAsDataURL(file);
+// ================================
+// MEMORY IMAGE RENDER
+// ================================
+
+function renderMemoryImages() {
+  const grid = document.getElementById("memory-grid");
+  if (!grid) return;
+
+  const images = retroData.assets?.memoryImages || [];
+
+  grid.innerHTML = "";
+
+  for (let i = 0; i < 4; i++) {
+    const frame = document.createElement("div");
+    frame.className = "pixel-frame";
+    frame.onclick = () => triggerUpload(`up-p${i + 1}`);
+
+    const slot = document.createElement("div");
+    slot.className = "img-slot";
+
+    const img = document.createElement("img");
+    img.id = `prev-p${i + 1}`;
+
+    if (images[i]) {
+      img.src = images[i];
+      img.style.display = "block";
     }
+
+    img.onerror = () => {
+      img.style.display = "none";
+      placeholder.style.display = "block";
+    };
+
+    const placeholder = document.createElement("span");
+    placeholder.id = `slot-p${i + 1}`;
+    placeholder.textContent = "📁 LOAD_IMG";
+    placeholder.style.display = images[i] ? "none" : "block";
+
+    const input = document.createElement("input");
+    input.type = "file";
+    input.id = `up-p${i + 1}`;
+    input.accept = "image/*";
+    input.onchange = () => handleImage(input, img.id, placeholder.id);
+
+    slot.appendChild(img);
+    slot.appendChild(placeholder);
+
+    frame.appendChild(slot);
+    frame.appendChild(input);
+
+    grid.appendChild(frame);
+  }
 }
 
-// LOGIKA SURAT DARURAT (OPEN WHEN CHIPS)
-function openEmergencyLetter(type) {
-    let message = "";
-    if (type === 'kangen') {
-        message = "📂 MEMORY_FOUND: Kalo lagi kangen, langsung telfon aku ya! Jangan dipendem terus dipake ngambek. Aku selalu ada buat kamu. 🐻❤️";
-    } else if (type === 'marah') {
-        message = "⚠️ WARNING_SYSTEM: Yah, jangan ngambek lagi dong... Inget ga game memory beruang susah ini aja bisa kamu tamatin demi baikan? Maafin aku ya? 🥺🌹";
-    } else if (type === 'sedih') {
-        message = "🛡️ ANTIVIRUS_ACTIVE: Hey, jangan sedih. Apapun masalah hari ini yang bikin kamu bad mood, kita selesaiin bareng-bareng Player 2! 🍦✨";
-    }
-    
-    document.getElementById('modal-message').innerText = message;
-    document.getElementById('retro-modal').classList.remove('hidden');
+// ================================
+// HELPER UPLOAD
+// ================================
+
+function triggerUpload(id) {
+  if (!document.body.classList.contains("admin-mode")) return;
+
+  const input = document.getElementById(id);
+  if (input) input.click();
 }
-// --- FITUR PRESET: EFEK KLIK TOMBOL LOCK PEACE ---
-document.getElementById('btn-final-baikaan').addEventListener('click', function() {
-    // 1. Trigger efek getar transisi di layar monitor
-    const screen = document.querySelector('.arcade-screen');
-    screen.style.animation = 'screen-shake 0.3s ease-in-out';
-    setTimeout(() => screen.style.animation = '', 300);
 
-    // 2. Jika kamu memakai library canvas-confetti, ini akan meledakkan konfeti di layar.
-    // Jika tidak ada library, kita ganti dengan sistem pop-up pesan kelulusan perdamaian.
-    let targetMessage = "🏆 CO-OP MISSION ACCOMPLISHED!\n\n" + 
-                    "Sistem mendeteksi tingkat keharmonisan telah kembali ke 100%.\n" +
-                    "Status hubungan: Resmi Baikan! \n" +
-                    "Jangan ngambek-ngambek lagi ya Player 2, I Love You! 🐻❤️";
+function handleImage(input, prevId, slotId) {
+  if (!input.files || !input.files[0]) return;
 
-    // 3. Munculkan Alert Modal Retro dengan pesan spesial baikan
-    document.getElementById('modal-message').innerText = targetMessage;
-    document.getElementById('retro-modal').classList.remove('hidden');
-    
-    // 4. Ubah teks tombol secara permanen sebagai tanda sukses terkunci
-    this.innerText = "🔒 PEACE LOCKED & SECURED!";
-    this.style.background = "#00ffff"; // Berubah warna jadi biru muda neon
-    this.style.color = "#000";
-    this.disabled = true; // Tombol mati tidak bisa diklik ulang karena sudah damai
-});
+  const reader = new FileReader();
+
+  reader.onload = (event) => {
+    const img = document.getElementById(prevId);
+    const slot = document.getElementById(slotId);
+
+    img.src = event.target.result;
+    img.style.display = "block";
+
+    if (slot) slot.style.display = "none";
+  };
+
+  reader.readAsDataURL(input.files[0]);
+}
+
+function handleMusic(input) {
+  if (!input.files || !input.files[0]) return;
+
+  const audio = document.getElementById("main-audio");
+  const trackTitle = document.getElementById("track-title");
+
+  if (!audio) return;
+
+  audio.src = URL.createObjectURL(input.files[0]);
+
+  if (trackTitle) {
+    trackTitle.innerText = "🎵 " + input.files[0].name.toUpperCase();
+  }
+
+  audio.play();
+}

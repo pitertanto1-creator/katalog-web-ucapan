@@ -1,309 +1,701 @@
-/* ==================== CORE RETRO DESIGN TEMPLATE ==================== */
+/* style.css */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
 body {
-    background-color: #1a1a1a;
+    background-color: #111;
+    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 0, 0.06));
+    background-size: 100% 4px, 6px 100%;
+    font-family: 'Press Start 2P', cursive;
+    color: #00ff66;
+    padding: 30px 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: 'Courier New', Courier, monospace;
 }
 
-/* BOX UTAMA KABINET DINGDONG */
 .arcade-cabinet {
-    background: #2b2b2b;
-    border: 4px solid #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.8), inset 0 0 10px #000;
-    width: 340px;
-    box-sizing: border-box;
+    max-width: 600px;
+    width: 100%;
+    background: #222;
+    border: 6px double #00ff66;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
 }
 
-/* BINGKAI MONITOR JALUR HITAM (Kunci agar Teks Tidak Luber Keluar) */
+.arcade-header {
+    text-align: center;
+    border-bottom: 4px dashed #00ff66;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+#arcade-title {
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+.score-board {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #ff0055;
+}
+
 .arcade-screen {
-    background-color: #050505;
-    border: 3px solid #00ff66; /* Bingkai Hijau Neon */
-    border-radius: 4px;
-    padding: 10px;
-    height: 380px;
+    background: #050505;
+    border: 4px solid #333;
+    border-radius: 8px;
+    padding: 20px 15px;
+    min-height: 430px;
     position: relative;
     overflow: hidden;
-    color: #fff;
-    box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.2);
 }
 
-/* UTILITAS UNTUK MENYEMBUNYIKAN LAYER STAGE */
-.hidden {
-    display: none !important;
+.hidden { display: none !important; }
+
+/* AREA KANVAS GAME PERMAINAN */
+.game-play-area {
+    width: 100%;
+    height: 230px;
+    background: #000;
+    border: 3px solid #00ff66;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.2);
 }
 
-/* ==================== STAGE 1: DESAIN GAME MEMORY CARD ==================== */
-.game-container {
+.catcher-char {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    font-size: 32px;
+    transform: translateX(-50%);
+    transition: left 0.1s linear; /* Smooth movement */
+}
+
+/* style.css */
+
+/* --- PERBAIKAN: SESUAIKAN GAYA UNTUK GAMBAR WAJAH NADYA --- */
+.falling-item {
+    position: absolute;
+    /* font-size: 22px; <-- HAPUS INI */
+    top: -35px;
+    z-index: 5;
+    
+    /* BARU: Tentukan ukuran kotak untuk gambar wajah */
+    width: 35px;  /* Sesuaikan lebar wajah di layar game */
+    height: 35px; /* Sesuaikan tinggi wajah */
     display: flex;
-    flex-direction: column;
-    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
-/* HP Progress Bar */
-.hp-bar-container {
+/* Gaya khusus untuk elemen <img> di dalam kotak falling-item */
+.falling-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Pastikan gambar Nadya tidak gepeng */
+    /* Opsional: Tambahkan sedikit bayangan pixel */
+    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5));
+}
+
+/* HP / HEART BAR */
+.hp-bar-container { margin: 20px 0 10px 0; }
+.hp-label { font-size: 9px; display: block; margin-bottom: 5px; text-align: left;}
+.hp-border { width: 100%; height: 24px; border: 3px solid #00ff66; background: #000; padding: 2px; }
+.hp-fill { height: 100%; background: #ff0055; width: 20%; transition: width 0.2s ease; }
+.hp-percent { font-size: 10px; display: block; margin-top: 5px; text-align: right; }
+.game-hint { font-size: 8px; color: #888; text-align: center; line-height: 1.6; margin-bottom: 15px; }
+
+/* KONTROL BOX GAME */
+.arcade-buttons-game { display: flex; gap: 15px; }
+.arcade-buttons-game .pixel-btn { flex: 1; }
+
+.pixel-btn {
+    font-family: 'Press Start 2P', cursive;
+    padding: 14px; font-size: 11px; border: none; cursor: pointer;
+    box-shadow: 0 4px 0 #000; transition: all 0.1s; color: #fff;
+}
+.pixel-btn:active { transform: translateY(4px); box-shadow: 0 0px 0 #000; }
+.btn-green { background: #00aa55; border-bottom: 4px solid #006633; }
+.btn-yellow { background: #cc9900; border-bottom: 4px solid #886600; }
+
+/* REWARD SECTION */
+.stage-clear-banner {
+    font-size: 18px; color: #ffcc00; text-align: center; margin-bottom: 20px;
+    animation: flash 0.8s infinite alternate;
+}
+.retro-gallery h3, .retro-letter h3 { font-size: 10px; margin-bottom: 10px; color: #ff0055; text-align: left;}
+.pixel-grid { display: flex; gap: 15px; margin-bottom: 20px; }
+.pixel-frame { flex: 1; background: #222; border: 3px dashed #00ff66; padding: 8px; cursor: pointer; }
+.img-slot { width: 100%; height: 120px; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.img-slot img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.img-slot span { font-size: 8px; color: #666; }
+.pixel-frame input, .retro-player input { display: none; }
+
+/* KOTAK TERMINAL SURAT */
+.terminal-box {
+    background: #000; border: 2px solid #00ff66; padding: 15px;
+    font-family: 'VT323', monospace; font-size: 20px; line-height: 1.5;
+    text-align: left; min-height: 120px; outline: none; margin-bottom: 20px; white-space: pre-line;
+}
+
+/* MUSIC PLAYER */
+.retro-player { background: #111; border: 2px solid #333; padding: 10px; font-size: 9px; text-align: left; }
+.player-actions { display: flex; justify-content: space-between; margin-top: 8px; align-items: center;}
+.pixel-btn-sm { font-family: 'Press Start 2P', cursive; padding: 6px 10px; font-size: 8px; background: #333; color: #fff; border: 1px solid #666; cursor: pointer; }
+
+/* SECURITY SYSTEM JUALAN */
+.pixel-frame span, .upload-music-lbl { display: none !important; }
+.pixel-frame { pointer-events: none; }
+body.admin-mode .pixel-frame span, body.admin-mode .upload-music-lbl { display: inline-block !important; }
+body.admin-mode .pixel-frame { pointer-events: auto; }
+.admin-indicator { position: fixed; bottom: 10px; left: 10px; background: red; color: white; font-family: monospace; font-size: 10px; padding: 4px; display: none; z-index: 999; }
+body.admin-mode .admin-indicator { display: block; }
+
+/* MODAL SYSTEM */
+.retro-modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:9999; }
+.retro-modal-card { background:#000; border:4px solid #ff0055; padding:25px; max-width:380px; width:100%; text-align:center; }
+.retro-modal-card p { font-size: 11px; margin: 20px 0; line-height: 1.6; color: #fff; }
+.blink-text { color: #ff0055; animation: flash 0.4s infinite alternate; font-size: 12px; }
+
+/* ANIMATIONS */
+@keyframes flash { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+/* --- BARU: DESIGN RETRO GACHA & INVENTORY SYSTEM --- */
+.retro-gacha-section {
+    margin-top: 25px;
+    border-top: 4px dashed #333;
+    padding-top: 20px;
+}
+.gacha-status {
+    font-size: 11px;
+    color: #ffcc00;
+    text-align: right;
     margin-bottom: 10px;
 }
-.hp-label {
-    font-size: 10px;
-    color: #00ff66;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 2px;
-}
-.hp-border {
-    border: 2px solid #fff;
-    background: #000;
-    height: 12px;
-    padding: 1px;
-}
-.hp-fill {
-    background: #00ff66;
-    height: 100%;
-    transition: width 0.3s ease;
-}
-.hp-percent {
-    font-size: 9px;
-    float: right;
-    margin-top: 2px;
-}
-
-/* Grid Kartu */
-.memory-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    margin: 5px auto;
-    width: 100%;
-    max-width: 280px;
-    perspective: 1000px;
-}
-.memory-card {
-    aspect-ratio: 3 / 4;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.4s ease;
-    cursor: pointer;
-}
-.memory-card.flipped {
-    transform: rotateY(180deg);
-}
-.card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 3px;
-}
-.card-back {
-    background: #ff0055;
-    border: 2px solid #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    color: #fff;
-}
-.card-front {
+.gacha-machine {
     background: #111;
-    border: 2px solid #00ff66;
-    transform: rotateY(180deg);
-}
-.card-front img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.game-hint {
-    font-size: 9px;
-    color: #888;
-    text-align: center;
-    margin: auto 0 0 0;
-    line-height: 1.2;
-}
-
-/* ==================== STAGE 2: DESAIN MONITOR REWARD (KAPSUL WAKTU) ==================== */
-.reward-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-}
-.stage-clear-banner {
-    background: #ff0055;
-    color: #fff;
-    text-align: center;
-    padding: 5px;
-    font-weight: bold;
-    font-size: 12px;
-    border: 2px solid #fff;
-    margin-bottom: 8px;
-    box-shadow: 2px 2px 0px #000;
-}
-
-/* Sistem Scroll di dalam Monitor */
-.arcade-scroll-content {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: 275px;
-}
-.section-title {
-    font-size: 10px;
-    margin: 0 0 5px 0;
-    font-weight: bold;
-}
-
-/* Box Surat Perjanjian */
-.retro-letter-box {
-    background: #000;
-    border: 2px solid #00ff66;
-    padding: 8px;
-}
-.pixel-text-flow {
-    font-size: 10px;
-    margin: 0;
-    line-height: 1.3;
-}
-
-/* Linimasa Hubungan */
-.retro-timeline-section {
-    background: #000;
-    border: 2px solid #ffcc00;
-    padding: 8px;
-}
-.timeline-container {
-    border-left: 2px dashed #ffcc00;
-    padding-left: 8px;
-    margin-left: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-.timeline-date {
-    font-size: 10px;
-    color: #00ff66;
-    font-weight: bold;
-}
-.timeline-desc {
-    font-size: 9px;
-    color: #fff;
-    margin: 1px 0 0 0;
-}
-
-/* Galeri Unggah Foto */
-.retro-gallery-section {
-    background: #000;
-    border: 2px solid #00ffff;
-    padding: 8px;
-}
-.pixel-grid-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-}
-.pixel-frame {
-    background: #111;
-    border: 2px dashed #ff0055;
-    aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    overflow: hidden;
-}
-.upload-placeholder {
-    text-align: center;
-}
-.plus-icon {
-    color: #ff0055;
-    font-size: 16px;
-    font-weight: bold;
-}
-.slot-text {
-    color: #666;
-    font-size: 8px;
-    margin: 0;
-}
-
-/* Tombol Menu Surat Darurat */
-.open-when-section {
-    background: #000;
-    border: 2px solid #ff0055;
-    padding: 8px;
-}
-.open-when-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-}
-
-/* ATURAN UMUM TOMBOL PIXEL ARCADE */
-.pixel-btn {
-    border: 2px solid #fff;
-    color: #000;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 2px 2px 0px #000;
-}
-.pixel-btn:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px #000;
-}
-.btn-yellow { background: #ffcc00; font-size: 8px; padding: 4px 0; }
-.btn-green { background: #00ff66; font-size: 11px; padding: 6px 0; width: 100%; margin-top: 4px;}
-
-/* MODAL INTERAKTIF */
-.retro-modal {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center; align-items: center;
-    z-index: 100;
-}
-.modal-content {
-    background: #000;
     border: 3px solid #ff0055;
     padding: 15px;
-    width: 260px;
+    border-radius: 4px;
     text-align: center;
+    margin-bottom: 20px;
+}
+.gacha-display {
+    background: #000;
+    border: 2px inset #333;
+    padding: 15px 10px;
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: #ffcc00;
+    min-height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.retro-inventory {
+    background: #000;
+    border: 2px solid #00ff66;
+    padding: 10px;
+}
+.inventory-title {
+    font-size: 9px;
+    color: #00ff66;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.inventory-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.inv-slot {
+    background: #111;
+    border: 1px dashed #00ff66;
+    padding: 10px;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
     color: #fff;
-    font-size: 10px;
+    text-align: left;
+}
+.inv-slot.claimed {
+    border: 1px solid #ff0055;
+    color: #ffcc00;
+    animation: flash 0.5s 1;
+}
+/* style.css */
+
+/* --- PERBAIKAN UKURAN: MEMPERBESAR GAMBAR WAJAH NADYA --- */
+.falling-item {
+    position: absolute;
+    top: -50px; /* Diturunkan sedikit batas atasnya karena gambar membesar */
+    z-index: 5;
+    
+    /* Ubah ukuran kotak di sini (Kemarin 35px, sekarang kita naikkan jadi 55px) */
+    width: 70px;  
+    height: 70px; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Custom Scrollbar Monitor Dingdong */
-.arcade-scroll-content::-webkit-scrollbar { width: 4px; }
-.arcade-scroll-content::-webkit-scrollbar-track { background: #000; }
-.arcade-scroll-content::-webkit-scrollbar-thumb { background: #00ff66; }
-/* --- ANIMASI RETRO SCREEN SHAKE KETIKA LOCK PEACE --- */
-@keyframes screen-shake {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    20% { transform: translate(-2px, 2px) rotate(-0.5deg); }
-    40% { transform: translate(2px, -1px) rotate(0.5deg); }
-    60% { transform: translate(-1px, -1px) rotate(0deg); }
-    80% { transform: translate(2px, 2px) rotate(0.5deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+/* Memastikan gambar Nadya memanfaatkan 100% ruang kotak baru yang besar */
+.falling-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.6)); /* Bayangan retro dipertebal */
 }
 
-/* Animasi kilatan lampu saat tombol perdamaian sukses ditekan */
-#btn-final-baikaan:disabled {
-    cursor: not-allowed;
-    border: 2px solid #00ffff;
-    box-shadow: 0px 0px 10px #00ffff;
-    animation: neon-pulse 1.5s infinite alternate;
+/* --- PENYESUAIAN: KOTAK BERUANG PENANGKAP --- */
+/* Kita sesuaikan sedikit agar area tabrakan (hitbox) tetap akurat dengan wajah yang membesar */
+.catcher-char {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    font-size: 38px; /* Ukuran beruang dinaikkan dikit agar seimbang */
+    transform: translateX(-50%);
+    transition: left 0.1s linear;
+}
+/* =====================================================
+   FINAL RESPONSIVE FIX - RETRO ARCADE
+===================================================== */
+
+body {
+    min-height: 100vh;
+    padding: 20px 10px;
+    overflow-x: hidden;
 }
 
-@keyframes neon-pulse {
-    from { opacity: 0.8; }
-    to { opacity: 1; box-shadow: 0px 0px 15px #00ffff; }
+.arcade-cabinet {
+    max-width: 620px;
+    width: 100%;
+}
+
+.arcade-screen {
+    min-height: 430px;
+    max-height: 76vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+}
+
+.arcade-screen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.arcade-screen::-webkit-scrollbar-thumb {
+    background: #00ff66;
+}
+
+.game-play-area {
+    height: 240px;
+}
+
+.falling-item {
+    position: absolute;
+    top: -54px;
+    z-index: 5;
+    width: clamp(46px, 11vw, 66px);
+    height: clamp(46px, 11vw, 66px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.falling-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.65));
+}
+
+.catcher-char {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    font-size: clamp(32px, 9vw, 42px);
+    transform: translateX(-50%);
+    transition: left 0.1s linear;
+}
+
+.pixel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.img-slot {
+    height: 120px;
+}
+
+.player-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#btn-spin-gacha {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.retro-gacha-section {
+    margin-top: 22px;
+    border-top: 4px dashed #333;
+    padding-top: 18px;
+}
+
+@media (max-width: 520px) {
+    body {
+        padding: 10px 6px;
+    }
+
+    .arcade-cabinet {
+        padding: 12px;
+        border-width: 4px;
+    }
+
+    #arcade-title {
+        font-size: 10px;
+    }
+
+    .score-board {
+        font-size: 9px;
+    }
+
+    .arcade-screen {
+        padding: 14px 10px;
+        max-height: 80vh;
+    }
+
+    .game-play-area {
+        height: 220px;
+    }
+
+    .game-hint {
+        font-size: 7px;
+        line-height: 1.7;
+    }
+
+    .arcade-buttons-game {
+        gap: 10px;
+    }
+
+    .pixel-btn {
+        padding: 12px 8px;
+        font-size: 8px;
+    }
+
+    .stage-clear-banner {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .terminal-box {
+        font-size: 18px;
+        line-height: 1.45;
+        min-height: 140px;
+    }
+
+    .gacha-display {
+        font-size: 18px;
+        min-height: 70px;
+    }
+
+    .inv-slot {
+        font-size: 16px;
+    }
+}
+/* =====================================================
+   FINAL PATCH - RETRO ARCADE APOLOGY
+   Tempel di paling bawah style.css
+===================================================== */
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 18px 10px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 0, 85, 0.12), transparent 35%),
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 102, 0.04), rgba(0, 0, 0, 0.08)),
+    #080808;
+  background-size: auto, 100% 4px, 6px 100%, auto;
+}
+
+.arcade-cabinet {
+  width: min(100%, 640px);
+  max-width: 640px;
+  background:
+    linear-gradient(145deg, #2a2a2a, #151515);
+  border: 6px double #00ff66;
+  border-radius: 16px;
+  box-shadow:
+    0 0 24px rgba(0, 255, 102, 0.32),
+    0 0 80px rgba(255, 0, 85, 0.10);
+}
+
+.arcade-header {
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+#arcade-title {
+  color: #00ff66;
+  text-shadow:
+    0 0 8px rgba(0, 255, 102, 0.55),
+    2px 2px #000;
+}
+
+.arcade-subtitle {
+  margin-top: 8px;
+  color: #ffcc00;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.arcade-screen {
+  min-height: 430px;
+  max-height: 78vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.arcade-screen::-webkit-scrollbar {
+  width: 7px;
+}
+
+.arcade-screen::-webkit-scrollbar-thumb {
+  background: #00ff66;
+}
+
+.game-play-area {
+  height: 245px;
+}
+
+.falling-item {
+  position: absolute;
+  top: -70px;
+  z-index: 5;
+  width: clamp(48px, 11vw, 68px);
+  height: clamp(48px, 11vw, 68px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.falling-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.65));
+}
+
+.catcher-char {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  font-size: clamp(34px, 9vw, 44px);
+  transform: translateX(-50%);
+  transition: left 0.08s linear;
+}
+
+.hp-fill {
+  width: 0%;
+  background:
+    linear-gradient(90deg, #ff0055, #ffcc00);
+}
+
+.game-hint {
+  color: #bfbfbf;
+  font-size: 8px;
+  line-height: 1.7;
+}
+
+.pixel-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.pixel-frame {
+  min-width: 0;
+  pointer-events: none;
+}
+
+body.admin-mode .pixel-frame {
+  pointer-events: auto;
+}
+
+.img-slot {
+  height: 130px;
+}
+
+.terminal-box {
+  max-height: 260px;
+  overflow-y: auto;
+  color: #ffffff;
+}
+
+.retro-player {
+  margin-top: 18px;
+}
+
+.player-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.upload-music-lbl {
+  padding: 7px 10px;
+  border: 1px solid #666;
+  background: #222;
+  color: #fff;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.pixel-frame span,
+.upload-music-lbl {
+  display: none !important;
+}
+
+body.admin-mode .pixel-frame span,
+body.admin-mode .upload-music-lbl {
+  display: inline-block !important;
+}
+
+.retro-gacha-section {
+  margin-top: 22px;
+  border-top: 4px dashed #333;
+  padding-top: 18px;
+}
+
+.retro-gacha-section h3 {
+  font-size: 10px;
+  color: #ff0055;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.gacha-machine {
+  margin-top: 10px;
+}
+
+.gacha-display {
+  min-height: 72px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+#btn-spin-gacha {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.final-btn {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.retro-modal-card {
+  margin: 0 14px;
+}
+
+.shake .arcade-screen {
+  animation: screenShake 0.22s linear;
+}
+
+@keyframes screenShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+
+@media (max-width: 520px) {
+  body {
+    padding: 8px 5px;
+  }
+
+  .arcade-cabinet {
+    padding: 12px;
+    border-width: 4px;
+    border-radius: 12px;
+  }
+
+  .arcade-screen {
+    padding: 14px 10px;
+    min-height: 420px;
+    max-height: 82vh;
+  }
+
+  #arcade-title {
+    font-size: 9px;
+  }
+
+  .arcade-subtitle,
+  .score-board {
+    font-size: 8px;
+  }
+
+  .game-play-area {
+    height: 220px;
+  }
+
+  .game-hint {
+    font-size: 7px;
+  }
+
+  .arcade-buttons-game {
+    gap: 10px;
+  }
+
+  .pixel-btn {
+    padding: 12px 8px;
+    font-size: 7px;
+    line-height: 1.5;
+  }
+
+  .stage-clear-banner {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .retro-gallery h3,
+  .retro-letter h3,
+  .retro-gacha-section h3 {
+    font-size: 8px;
+  }
+
+  .img-slot {
+    height: 110px;
+  }
+
+  .terminal-box {
+    font-size: 18px;
+    min-height: 160px;
+    max-height: 260px;
+  }
+
+  .gacha-display {
+    font-size: 18px;
+  }
+
+  .inv-slot {
+    font-size: 16px;
+  }
 }

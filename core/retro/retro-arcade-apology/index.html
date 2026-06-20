@@ -1,102 +1,151 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro Arcade Apology</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Retro Arcade Apology</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
+
 <body>
+  <main class="arcade-cabinet">
+    <header class="arcade-header">
+      <h1 id="arcade-title">RETRO ARCADE APOLOGY</h1>
+      <p class="arcade-subtitle">LOVE HP QUEST</p>
+      <div class="score-board">
+        SCORE: <span id="score-val">0000</span>
+      </div>
+    </header>
 
-    <div class="arcade-cabinet">
-        <div class="arcade-screen">
-            
-            <div id="stage-game" class="game-container">
-                <div class="hp-bar-container">
-                    <span class="hp-label">MATCH PROGRESS</span>
-                    <div class="hp-border">
-                        <div class="hp-fill" id="hp-progress" style="width: 0%;"></div>
-                    </div>
-                    <span class="hp-percent" id="hp-text">0/6 Pairs</span>
-                </div>
+    <section class="arcade-screen">
+      <!-- STAGE GAME -->
+      <div id="stage-game" class="game-container">
+        <div class="game-play-area" id="game-area">
+          <div id="pixel-player" class="catcher-char">🐻</div>
+        </div>
 
-                <div class="memory-grid" id="memory-grid"></div>
+        <div class="hp-bar-container">
+          <span class="hp-label">LOVE HP LEVEL</span>
 
-                <p class="game-hint">MISI: Cocokkan semua kartu wajah ber-topi beruang untuk unlock Master Chip Kenangan!</p>
+          <div class="hp-border">
+            <div class="hp-fill" id="hp-progress" style="width: 0%;"></div>
+          </div>
+
+          <span class="hp-percent" id="hp-text">0%</span>
+        </div>
+
+        <p class="game-hint">
+          TANGKAP: Senyum Manis 😊 (+5% HP)<br />
+          HINDARI: Mood Buruk 😡 (-5% HP)<br />
+          Kumpulkan LOVE HP sampai 100% untuk membuka hadiah!
+        </p>
+
+        <div class="arcade-buttons-game">
+          <button class="pixel-btn btn-yellow" id="btn-move-left">
+            ◀ KIRI
+          </button>
+
+          <button class="pixel-btn btn-green" id="btn-move-right">
+            KANAN ▶
+          </button>
+        </div>
+      </div>
+
+      <!-- STAGE REWARD -->
+      <div id="stage-reward" class="reward-container hidden">
+        <div class="stage-clear-banner">
+          👑 STAGE CLEAR 👑
+        </div>
+
+        <div class="retro-gallery">
+          <h3>💾 MEMORY SNAPSHOTS</h3>
+          <div class="pixel-grid" id="memory-grid"></div>
+        </div>
+
+        <div class="retro-letter">
+          <h3>📝 SYSTEM_LOG.TXT</h3>
+          <div class="terminal-box" id="retro-text-letter"></div>
+        </div>
+
+        <div class="retro-player">
+          <p id="track-title">🎵 CHIPTUNE_THEME.MP3</p>
+
+          <div class="player-actions">
+            <button class="pixel-btn-sm" id="play-btn">
+              PLAY/PAUSE
+            </button>
+
+            <label for="music-file" class="upload-music-lbl">
+              📁 LOAD_AUDIO
+            </label>
+
+            <input
+              type="file"
+              id="music-file"
+              accept="audio/*"
+              onchange="handleMusic(this)"
+            />
+          </div>
+
+          <audio id="main-audio" preload="auto" loop></audio>
+        </div>
+
+        <div class="retro-gacha-section">
+          <h3>🎰 ARCADE GACHA STATION</h3>
+
+          <div class="gacha-status">
+            COINS: <span id="coin-count">3</span> 🪙
+          </div>
+
+          <div class="gacha-machine">
+            <div class="gacha-display" id="gacha-screen">
+              🎰 INSERT COIN TO SPIN 🎰
             </div>
 
-            <div id="stage-reward" class="reward-container hidden">
-                <div class="stage-clear-banner">👑 ACCESS GRANTED 👑</div>
-                
-                <div class="arcade-scroll-content">
-                    
-                    <div class="retro-letter-box">
-                        <h3 class="section-title" style="color: #00ff66;">📋 SYSTEM_LOG: RECONCILIATION.TXT</h3>
-                        <p id="retro-text-letter" class="pixel-text-flow">
-                            Hai sayang, maaf ya udah bikin sistemnya glitch kemarin... Aku sayang banget sama kamu! ❤️
-                        </p>
-                    </div>
+            <button class="pixel-btn btn-yellow" id="btn-spin-gacha">
+              INSERT COIN & SPIN 🪙
+            </button>
+          </div>
 
-                    <div class="retro-timeline-section">
-                        <h3 class="section-title" style="color: #ffcc00;">📅 OUR VALUABLE TIMELINE</h3>
-                        <div class="timeline-container">
-                            <div class="timeline-item">
-                                <span class="timeline-date">12 Nov 2024</span>
-                                <p class="timeline-desc">👾 First Met (Hari pertama kenal, kamu jaim bgt!)</p>
-                            </div>
-                            <div class="timeline-item">
-                                <span class="timeline-date">25 Jan 2025</span>
-                                <p class="timeline-desc">🌹 Co-Op Player (Hari kita resmi bareng-bareng).</p>
-                            </div>
-                        </div>
-                    </div>
+          <div class="retro-inventory">
+            <p class="inventory-title">🎒 MY ROMANTIC INVENTORY</p>
 
-                    <div class="retro-gallery-section">
-                        <h3 class="section-title" style="color: #00ffff;">📸 SNAPSHOT MEMORY CAPSULE</h3>
-                        <div class="pixel-grid-gallery">
-                            
-                            <div class="pixel-frame" onclick="document.getElementById('up-n1').click()">
-                                <img id="prev-n1" style="display:none; width:100%; height:100%; object-fit:cover;">
-                                <div id="slot-n1" class="upload-placeholder">
-                                    <span class="plus-icon">+</span>
-                                    <p class="slot-text">DATE PHOTO</p>
-                                </div>
-                                <input type="file" id="up-n1" accept="image/*" style="display: none;" onchange="handleImage(this, 'prev-n1', 'slot-n1')">
-                            </div>
-
-                            <div class="pixel-frame" onclick="document.getElementById('up-n2').click()">
-                                <img id="prev-n2" style="display:none; width:100%; height:100%; object-fit:cover;">
-                                <div id="slot-n2" class="upload-placeholder">
-                                    <span class="plus-icon">+</span>
-                                    <p class="slot-text">FUNNY MOMENT</p>
-                                </div>
-                                <input type="file" id="up-n2" accept="image/*" style="display: none;" onchange="handleImage(this, 'prev-n2', 'slot-n2')">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="open-when-section">
-                        <h3 class="section-title" style="color: #ff0055;">✉️ "OPEN WHEN..." EMERGENCY CHIPS</h3>
-                        <div class="open-when-grid">
-                            <button class="pixel-btn btn-yellow" onclick="openEmergencyLetter('kangen')">❤️ Kangen</button>
-                            <button class="pixel-btn btn-yellow" onclick="openEmergencyLetter('marah')">💢 Kesel</button>
-                            <button class="pixel-btn btn-yellow" onclick="openEmergencyLetter('sedih')">😢 BadMood</button>
-                        </div>
-                    </div>
-
-                </div> <button class="pixel-btn btn-green" id="btn-final-baikaan">
-                    🤝 PRESS TO LOCK PEACE (BAIKAN)
-                </button>
-                
-            </div> </div> </div> <div id="retro-modal" class="retro-modal hidden">
-        <div class="modal-content">
-            <p id="modal-message">Sinyal Pesan Rahasia Terbuka!</p>
-            <button class="pixel-btn btn-green" onclick="document.getElementById('retro-modal').classList.add('hidden')">OK</button>
+            <div class="inventory-grid">
+              <div class="inv-slot" id="inv-1">[ EMPTY ]</div>
+              <div class="inv-slot" id="inv-2">[ EMPTY ]</div>
+              <div class="inv-slot" id="inv-3">[ EMPTY ]</div>
+            </div>
+          </div>
         </div>
-    </div>
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+        <button class="pixel-btn btn-green final-btn" id="btn-final-baikaan">
+          CO-OP PLAY / BAIKAN 🤝
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div id="retro-modal" class="retro-modal-overlay hidden">
+    <div class="retro-modal-card">
+      <div class="blink-text">[ NOTIFICATION ]</div>
+      <p id="modal-message">MESSAGE HERE</p>
+      <button id="modal-close-btn" class="pixel-btn btn-green">OK</button>
+    </div>
+  </div>
+
+  <div class="admin-indicator">
+    ⚙️ ADMIN MODE: UPLOAD ACTIVE
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
