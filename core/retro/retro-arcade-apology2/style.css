@@ -17,10 +17,8 @@ body {
   color: #fff7fb;
   font-family: "Nunito", sans-serif;
   background:
-    radial-gradient(circle at 12% 20%, rgba(255, 91, 158, 0.22), transparent 28%),
-    radial-gradient(circle at 88% 22%, rgba(255, 214, 143, 0.18), transparent 26%),
-    radial-gradient(circle at 50% 90%, rgba(135, 54, 105, 0.35), transparent 40%),
-    linear-gradient(145deg, #120014 0%, #25051d 42%, #05010a 100%);
+    radial-gradient(circle at top, rgba(255, 183, 213, 0.08), transparent 34%),
+    linear-gradient(145deg, #110716 0%, #1b0d1f 48%, #08050d 100%);
 }
 
 .hidden {
@@ -28,10 +26,7 @@ body {
 }
 
 .background-decor {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
+  display: none;
 }
 
 .heart {
@@ -66,26 +61,26 @@ body {
 
 .game-panel {
   padding: 18px;
-  border: 1px solid rgba(255, 214, 143, 0.75);
-  border-radius: 34px;
+  border: 1px solid rgba(255, 214, 143, 0.38);
+  border-radius: 30px;
   background:
-    linear-gradient(145deg, rgba(64, 8, 45, 0.9), rgba(20, 1, 22, 0.96)),
+    linear-gradient(145deg, rgba(44, 20, 50, 0.88), rgba(12, 7, 17, 0.96)),
     rgba(0, 0, 0, 0.5);
   box-shadow:
-    0 0 40px rgba(255, 91, 158, 0.25),
-    0 0 90px rgba(255, 214, 143, 0.12),
-    inset 0 0 28px rgba(255, 255, 255, 0.05);
+    0 20px 70px rgba(0, 0, 0, 0.38),
+    0 0 28px rgba(255, 91, 158, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 
 .hero-header {
   text-align: center;
   padding: 18px 18px 20px;
   margin-bottom: 16px;
-  border: 1px solid rgba(255, 214, 143, 0.55);
-  border-radius: 26px;
+  border: 1px solid rgba(255, 214, 143, 0.3);
+  border-radius: 24px;
   background:
-    radial-gradient(circle at top, rgba(255, 91, 158, 0.18), transparent 60%),
-    rgba(0, 0, 0, 0.24);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+    rgba(0, 0, 0, 0.18);
 }
 
 .small-chip {
@@ -143,13 +138,11 @@ body {
   max-height: 76vh;
   overflow-y: auto;
   padding: 18px;
-  border: 1px solid rgba(255, 183, 213, 0.55);
-  border-radius: 28px;
+  border: 1px solid rgba(255, 183, 213, 0.32);
+  border-radius: 26px;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.025) 50%, rgba(0, 0, 0, 0.1) 50%),
-    linear-gradient(160deg, rgba(255, 91, 158, 0.08), rgba(255, 214, 143, 0.05)),
-    rgba(0, 0, 0, 0.35);
-  background-size: 100% 4px, auto, auto;
+    linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+    rgba(0, 0, 0, 0.28);
 }
 
 .screen-card::-webkit-scrollbar,
@@ -269,13 +262,12 @@ body {
 }
 
 .card-back {
-  border: 1px solid rgba(255, 214, 143, 0.7);
+  border: 1px solid rgba(255, 214, 143, 0.48);
   background:
-    radial-gradient(circle at center, rgba(255, 91, 158, 0.22), transparent 58%),
-    linear-gradient(145deg, #4b1238, #170316);
+    linear-gradient(145deg, #35102c, #150615);
   box-shadow:
-    inset 0 0 20px rgba(255, 183, 213, 0.12),
-    0 0 16px rgba(255, 91, 158, 0.18);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 22px rgba(0, 0, 0, 0.22);
 }
 
 .card-back-content {
@@ -299,10 +291,10 @@ body {
 .card-front {
   transform: rotateY(180deg);
   padding: 12px;
-  border: 1px solid rgba(255, 214, 143, 0.95);
+  border: 1px solid rgba(255, 214, 143, 0.62);
   background:
-    radial-gradient(circle at top, rgba(255, 214, 143, 0.18), transparent 58%),
-    linear-gradient(145deg, rgba(255, 91, 158, 0.18), rgba(0, 0, 0, 0.28));
+    linear-gradient(145deg, rgba(255, 214, 143, 0.12), rgba(255, 91, 158, 0.08)),
+    rgba(0, 0, 0, 0.24);
 }
 
 .card-symbol {
@@ -615,10 +607,10 @@ body {
 .side-card,
 .feature-list {
   padding: 18px;
-  border: 1px solid rgba(255, 214, 143, 0.35);
-  border-radius: 28px;
-  background: rgba(0, 0, 0, 0.22);
-  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 214, 143, 0.22);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(10px);
 }
 
 .side-icon {
@@ -854,4 +846,21 @@ body.admin-mode .admin-badge {
   .reward-card h2 {
     font-size: 18px;
   }
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.6) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.anniversary-shell {
+  position: relative;
+  z-index: 2;
 }
