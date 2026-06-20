@@ -147,37 +147,42 @@ document.addEventListener("DOMContentLoaded", () => {
   // FALLING ITEM
   // ================================
 
-  function createFallingItem() {
-    if (!isGameRunning || !gameArea) return;
+function createFallingItem() {
+  if (!isGameRunning || !gameArea) return;
 
-    const item = document.createElement("div");
-    item.className = "falling-item";
+  const item = document.createElement("div");
+  item.className = "falling-item";
 
-    const img = document.createElement("img");
-    const isGood = Math.random() > 0.35;
+  const isGood = Math.random() > 0.35;
 
-    img.src = isGood
-      ? DATA.assets?.happyFace || "assets/nadya-happy.png"
-      : DATA.assets?.sadFace || "assets/nadya-sad.png";
+  const img = document.createElement("img");
+  img.src = isGood
+    ? DATA.assets?.happyFace || "assets/nadya-happy.png"
+    : DATA.assets?.sadFace || "assets/nadya-sad.png";
 
-    img.alt = isGood ? "Senyum" : "Mood Buruk";
+  img.alt = isGood ? "Senyum" : "Mood Buruk";
 
-    item.appendChild(img);
+  img.onerror = () => {
+    item.innerHTML = isGood ? "😊" : "😡";
+    item.classList.add("emoji-fallback");
+  };
 
-    const randomLeft = Math.floor(Math.random() * 82) + 7;
+  item.appendChild(img);
 
-    item.style.left = `${randomLeft}%`;
-    item.style.top = "-70px";
+  const randomLeft = Math.floor(Math.random() * 82) + 7;
 
-    gameArea.appendChild(item);
+  item.style.left = `${randomLeft}%`;
+  item.style.top = "-70px";
 
-    activeItems.push({
-      element: item,
-      leftPercent: randomLeft,
-      topPx: -70,
-      type: isGood ? "good" : "bad"
-    });
-  }
+  gameArea.appendChild(item);
+
+  activeItems.push({
+    element: item,
+    leftPercent: randomLeft,
+    topPx: -70,
+    type: isGood ? "good" : "bad"
+  });
+}
 
   function updateGameEngine() {
     if (!isGameRunning || !gameArea || !playerBear) return;
@@ -406,7 +411,7 @@ function renderMemoryImages() {
   const grid = document.getElementById("memory-grid");
   if (!grid) return;
 
-  const images = retroData.assets?.memoryImages || [];
+  const images = window.retroData?.assets?.memoryImages || DATA?.assets?.memoryImages || [];
 
   grid.innerHTML = "";
 

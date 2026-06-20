@@ -699,3 +699,11 @@ body.admin-mode .upload-music-lbl {
     font-size: 16px;
   }
 }
+.emoji-fallback {
+  font-size: 42px !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.65));
+}
