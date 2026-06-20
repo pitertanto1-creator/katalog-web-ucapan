@@ -407,11 +407,11 @@ function createFallingItem() {
 // MEMORY IMAGE RENDER
 // ================================
 
-function renderMemoryImages() {
+function renderMemoryImages(DATA) {
   const grid = document.getElementById("memory-grid");
   if (!grid) return;
 
-  const images = window.retroData?.assets?.memoryImages || DATA?.assets?.memoryImages || [];
+  const images = DATA?.assets?.memoryImages || [];
 
   grid.innerHTML = "";
 
@@ -426,20 +426,26 @@ function renderMemoryImages() {
     const img = document.createElement("img");
     img.id = `prev-p${i + 1}`;
 
+    const placeholder = document.createElement("span");
+    placeholder.id = `slot-p${i + 1}`;
+    placeholder.textContent = "📁 LOAD_IMG";
+
     if (images[i]) {
       img.src = images[i];
       img.style.display = "block";
+      slot.classList.add("has-image");
+      placeholder.style.display = "none";
+    } else {
+      img.style.display = "none";
+      slot.classList.remove("has-image");
+      placeholder.style.display = "grid";
     }
 
     img.onerror = () => {
       img.style.display = "none";
-      placeholder.style.display = "block";
+      slot.classList.remove("has-image");
+      placeholder.style.display = "grid";
     };
-
-    const placeholder = document.createElement("span");
-    placeholder.id = `slot-p${i + 1}`;
-    placeholder.textContent = "📁 LOAD_IMG";
-    placeholder.style.display = images[i] ? "none" : "block";
 
     const input = document.createElement("input");
     input.type = "file";
