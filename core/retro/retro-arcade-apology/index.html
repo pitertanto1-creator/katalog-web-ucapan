@@ -1,11 +1,14 @@
 <!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <base href="/core/retro/retro-arcade-apology/" />
+
   <title>Retro Arcade Apology</title>
 
-  <link rel="stylesheet" href="/core/retro/retro-arcade-apology/style.css" />
+  <link rel="stylesheet" href="style.css" />
 
   <link
     href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
@@ -19,27 +22,24 @@
   <main class="arcade-cabinet">
     <header class="arcade-header">
       <h1 id="arcade-title">RETRO ARCADE APOLOGY</h1>
-      <p class="arcade-subtitle">LOVE HP QUEST</p>
-      <div class="score-board">
-        SCORE: <span id="score-val">0000</span>
-      </div>
+      <p id="arcade-subtitle">LOVE HP QUEST</p>
+      <p class="score-board">SCORE: <span id="score-val">0000</span></p>
     </header>
 
     <section class="arcade-screen">
-      <!-- STAGE GAME -->
-      <div id="stage-game" class="game-container">
+      <section id="stage-game" class="game-container">
         <div class="game-play-area" id="game-area">
           <div id="pixel-player" class="catcher-char">🐻</div>
         </div>
 
-        <div class="hp-bar-container">
-          <span class="hp-label">LOVE HP LEVEL</span>
+        <div class="hp-area">
+          <p class="hp-label">LOVE HP LEVEL</p>
 
           <div class="hp-border">
-            <div class="hp-fill" id="hp-progress" style="width: 0%;"></div>
+            <div id="hp-progress" class="hp-fill"></div>
           </div>
 
-          <span class="hp-percent" id="hp-text">0%</span>
+          <p id="hp-text" class="hp-percent">0%</p>
         </div>
 
         <p class="game-hint">
@@ -48,96 +48,75 @@
           Kumpulkan LOVE HP sampai 100% untuk membuka hadiah!
         </p>
 
-        <div class="arcade-buttons-game">
-          <button class="pixel-btn btn-yellow" id="btn-move-left">
-            ◀ KIRI
-          </button>
-
-          <button class="pixel-btn btn-green" id="btn-move-right">
-            KANAN ▶
-          </button>
+        <div class="game-controls">
+          <button id="btn-left" class="pixel-btn btn-yellow">◀ KIRI</button>
+          <button id="btn-right" class="pixel-btn btn-green">KANAN ▶</button>
         </div>
-      </div>
+      </section>
 
-      <!-- STAGE REWARD -->
-      <div id="stage-reward" class="reward-container hidden">
-        <div class="stage-clear-banner">
-          👑 STAGE CLEAR 👑
-        </div>
+      <section id="stage-reward" class="reward-container hidden">
+        <div class="stage-clear-banner">👑 STAGE CLEAR 👑</div>
 
-        <div class="retro-gallery">
-          <h3>💾 MEMORY SNAPSHOTS</h3>
-          <div class="pixel-grid" id="memory-grid"></div>
-        </div>
+        <section class="reward-block">
+          <h2>💾 MEMORY SNAPSHOTS</h2>
+          <div id="memory-grid" class="pixel-grid"></div>
+        </section>
 
-        <div class="retro-letter">
-          <h3>📝 SYSTEM_LOG.TXT</h3>
-          <div class="terminal-box" id="retro-text-letter"></div>
-        </div>
+        <section class="reward-block">
+          <h2>📝 SYSTEM_LOG.TXT</h2>
+          <div id="letter-box" class="terminal-box"></div>
+        </section>
 
-        <div class="retro-player">
-          <p id="track-title">🎵 CHIPTUNE_THEME.MP3</p>
+        <section class="reward-block music-block">
+          <h2>🎵 CHIPTUNE_THEME.MP3</h2>
 
-          <div class="player-actions">
-            <button class="pixel-btn-sm" id="play-btn">
-              PLAY/PAUSE
-            </button>
+          <div class="music-actions">
+            <button id="play-btn" class="pixel-btn-sm">PLAY / PAUSE</button>
 
             <label for="music-file" class="upload-music-lbl">
               📁 LOAD_AUDIO
             </label>
 
-            <input
-              type="file"
-              id="music-file"
-              accept="audio/*"
-              onchange="handleMusic(this)"
-            />
+            <input id="music-file" type="file" accept="audio/*" />
           </div>
 
           <audio id="main-audio" preload="auto" loop></audio>
-        </div>
+        </section>
 
-        <div class="retro-gacha-section">
-          <h3>🎰 ARCADE GACHA STATION</h3>
+        <section class="reward-block">
+          <h2>🎰 ARCADE GACHA STATION</h2>
 
-          <div class="gacha-status">
+          <p class="coin-text">
             COINS: <span id="coin-count">3</span> 🪙
+          </p>
+
+          <div id="gacha-screen" class="gacha-display">
+            🎰 INSERT COIN TO SPIN 🎰
           </div>
 
-          <div class="gacha-machine">
-            <div class="gacha-display" id="gacha-screen">
-              🎰 INSERT COIN TO SPIN 🎰
-            </div>
+          <button id="btn-spin-gacha" class="pixel-btn btn-yellow gacha-btn">
+            INSERT COIN & SPIN
+          </button>
 
-            <button class="pixel-btn btn-yellow" id="btn-spin-gacha">
-              INSERT COIN & SPIN 🪙
-            </button>
+          <div class="inventory-grid">
+            <div id="inv-1" class="inv-slot">[ EMPTY ]</div>
+            <div id="inv-2" class="inv-slot">[ EMPTY ]</div>
+            <div id="inv-3" class="inv-slot">[ EMPTY ]</div>
           </div>
+        </section>
 
-          <div class="retro-inventory">
-            <p class="inventory-title">🎒 MY ROMANTIC INVENTORY</p>
-
-            <div class="inventory-grid">
-              <div class="inv-slot" id="inv-1">[ EMPTY ]</div>
-              <div class="inv-slot" id="inv-2">[ EMPTY ]</div>
-              <div class="inv-slot" id="inv-3">[ EMPTY ]</div>
-            </div>
-          </div>
-        </div>
-
-        <button class="pixel-btn btn-green final-btn" id="btn-final-baikaan">
+        <button id="btn-final" class="pixel-btn btn-green final-btn">
           CO-OP PLAY / BAIKAN 🤝
         </button>
-      </div>
+      </section>
     </section>
   </main>
 
-  <div id="retro-modal" class="retro-modal-overlay hidden">
+  <div id="retro-modal" class="retro-modal hidden">
     <div class="retro-modal-card">
-      <div class="blink-text">[ NOTIFICATION ]</div>
-      <p id="modal-message">MESSAGE HERE</p>
-      <button id="modal-close-btn" class="pixel-btn btn-green">OK</button>
+      <p class="modal-title">[ NOTIFICATION ]</p>
+      <p id="modal-message">Message</p>
+      <button id="modal-close" class="pixel-btn btn-green">OK</button>
     </div>
   </div>
 
@@ -145,7 +124,7 @@
     ⚙️ ADMIN MODE: UPLOAD ACTIVE
   </div>
 
-  <script src="/core/retro/retro-arcade-apology/data.js"></script>
-  <script src="/core/retro/retro-arcade-apology/script.js"></script>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

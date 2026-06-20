@@ -1,14 +1,14 @@
-// PERBAIKAN: Diubah menjadi jalur relatif "./" agar otomatis mendeteksi folder di hosting Anda tanpa peduli letak subfolder
-const PRODUCT_BASE = "./"; 
+const PRODUCT_BASE = "/core/retro/retro-arcade-apology/";
+
 const retroData = {
   title: "RETRO ARCADE APOLOGY",
   subtitle: "LOVE HP QUEST",
 
-  targetName: "Someone Special",
   playerEmoji: "🐻",
 
   assets: {
     bgMusic: PRODUCT_BASE + "assets/retro-theme.mp3",
+
     happyFace: PRODUCT_BASE + "assets/nadya-happy.png",
     sadFace: PRODUCT_BASE + "assets/nadya-sad.png",
 
@@ -18,15 +18,6 @@ const retroData = {
       PRODUCT_BASE + "assets/photo-3.jpg",
       PRODUCT_BASE + "assets/photo-4.jpg"
     ]
-  },
-
-  messages: {
-    gameWin: "💥 ACCESS GRANTED! LOVE HP 100%!",
-    outOfCoins: "🪙 ERROR: OUT OF COINS!<br>Semua koin arcade sudah dipakai.",
-    finalBaikan:
-      "🎮 PLAYER 1 & PLAYER 2 CO-OP CONNECTED!<br>Sistem error berhasil diperbaiki.<br>Kita baikan ya? 🥺💖",
-    adminUnlock:
-      "⚙️ MASTER CHIP ACTIVE!<br>Mode edit foto dan musik sekarang terbuka."
   },
 
   letterText: `SYSTEM_LOG [SUCCESS]
@@ -53,12 +44,26 @@ I miss you.
 I choose you.
 Let's play again. 🎮💖`,
 
+  messages: {
+    gameWin:
+      "💥 ACCESS GRANTED!<br>LOVE HP sudah 100%.<br>Hadiah kamu berhasil kebuka!",
+
+    outOfCoins:
+      "🪙 COINS HABIS!<br>Semua koin gacha sudah dipakai.",
+
+    finalBaikan:
+      "🎮 PLAYER 1 & PLAYER 2 CONNECTED!<br>Sistem error berhasil diperbaiki.<br>Kita baikan ya? 🥺💖",
+
+    adminUnlock:
+      "⚙️ ADMIN MODE AKTIF!<br>Kamu bisa klik foto untuk upload sementara."
+  },
+
   vouchers: [
-    "🎟️ VOUCHER: DITRAKTIR JAJAN FAVORIT",
-    "🎟️ VOUCHER: PELUK ERAT 1 MENIT",
-    "🎟️ VOUCHER: DITEMENIN SAMPAI MOOD BALIK",
-    "🎟️ VOUCHER: BOLEH PILIH TEMPAT JALAN",
-    "🎟️ VOUCHER: SATU PERMINTAAN MANIS",
-    "🎟️ VOUCHER: MAAF TANPA DRAMA"
+    "🎟️ Voucher traktir jajanan favorit",
+    "🎟️ Voucher ditemenin sampai mood balik",
+    "🎟️ Voucher peluk virtual 1 menit",
+    "🎟️ Voucher pilih tempat jalan",
+    "🎟️ Voucher satu permintaan manis",
+    "🎟️ Voucher maaf tanpa drama"
   ]
 };

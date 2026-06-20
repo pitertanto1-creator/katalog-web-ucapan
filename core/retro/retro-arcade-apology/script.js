@@ -1,137 +1,105 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const DATA = typeof retroData !== "undefined" ? retroData : {};
+  const DATA = window.retroData || retroData;
 
   let hpValue = 0;
   let score = 0;
-  let arcadeCoins = 3;
-  let claimedCount = 0;
-  let playerLeftPercent = 50;
+  let playerLeft = 50;
   let isGameRunning = true;
   let activeItems = [];
 
-  const hpFill = document.getElementById("hp-progress");
-  const hpText = document.getElementById("hp-text");
-  const scoreVal = document.getElementById("score-val");
+  let coins = 3;
+  let claimedVoucher = 0;
+
+  const titleEl = document.getElementById("arcade-title");
+  const subtitleEl = document.getElementById("arcade-subtitle");
+  const scoreEl = document.getElementById("score-val");
+
   const gameArea = document.getElementById("game-area");
-  const playerBear = document.getElementById("pixel-player");
+  const player = document.getElementById("pixel-player");
+
+  const hpProgress = document.getElementById("hp-progress");
+  const hpText = document.getElementById("hp-text");
 
   const stageGame = document.getElementById("stage-game");
   const stageReward = document.getElementById("stage-reward");
 
   const audio = document.getElementById("main-audio");
   const playBtn = document.getElementById("play-btn");
-  const trackTitle = document.getElementById("track-title");
+  const musicFile = document.getElementById("music-file");
 
-  const retroModal = document.getElementById("retro-modal");
+  const modal = document.getElementById("retro-modal");
   const modalMessage = document.getElementById("modal-message");
-  const modalCloseBtn = document.getElementById("modal-close-btn");
+  const modalClose = document.getElementById("modal-close");
 
-  const btnSpin = document.getElementById("btn-spin-gacha");
+  const spinBtn = document.getElementById("btn-spin-gacha");
   const gachaScreen = document.getElementById("gacha-screen");
-  const coinCountDisplay = document.getElementById("coin-count");
+  const coinCount = document.getElementById("coin-count");
 
-  const titleTrigger = document.getElementById("arcade-title");
+  titleEl.textContent = DATA.title || "RETRO ARCADE APOLOGY";
+  subtitleEl.textContent = DATA.subtitle || "LOVE HP QUEST";
+  player.textContent = DATA.playerEmoji || "🐻";
 
-  let gameLoopInterval = null;
-  let spawnInterval = null;
+  document.getElementById("letter-box").innerText = DATA.letterText || "";
 
-  // ================================
-  // APPLY DATA
-  // ================================
-
-  document.title = DATA.title || "Retro Arcade Apology";
-
-  if (titleTrigger) {
-    titleTrigger.textContent = DATA.title || "RETRO ARCADE APOLOGY";
-  }
-
-  const subtitle = document.querySelector(".arcade-subtitle");
-  if (subtitle) {
-    subtitle.textContent = DATA.subtitle || "LOVE HP QUEST";
-  }
-
-  if (playerBear) {
-    playerBear.textContent = DATA.playerEmoji || "🐻";
-  }
-
-  const letterBox = document.getElementById("retro-text-letter");
-  if (letterBox) {
-    letterBox.innerText = DATA.letterText || "";
-  }
-
-  if (audio && DATA.assets?.bgMusic) {
+  if (audio && DATA.assets && DATA.assets.bgMusic) {
     audio.src = DATA.assets.bgMusic;
   }
 
-  renderMemoryImages();
+  renderMemoryImages(DATA);
 
-  // ================================
-  // MODAL
-  // ================================
-
-  function showRetroAlert(message) {
-    if (!retroModal || !modalMessage) return;
+  function showModal(message) {
     modalMessage.innerHTML = message;
-    retroModal.classList.remove("hidden");
+    modal.classList.remove("hidden");
   }
 
-  function closeRetroAlert() {
-    if (!retroModal) return;
-    retroModal.classList.add("hidden");
+  function closeModal() {
+    modal.classList.add("hidden");
   }
 
-  modalCloseBtn?.addEventListener("click", closeRetroAlert);
+  modalClose.addEventListener("click", closeModal);
 
-  retroModal?.addEventListener("click", (event) => {
-    if (event.target === retroModal) closeRetroAlert();
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
   });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeRetroAlert();
-  });
-
-  // ================================
-  // GAME CONTROL
-  // ================================
 
   function movePlayer(direction) {
     if (!isGameRunning) return;
 
-    const playerSpeed = 8;
-
     if (direction === "left") {
-      playerLeftPercent -= playerSpeed;
+      playerLeft -= 8;
     }
 
     if (direction === "right") {
-      playerLeftPercent += playerSpeed;
+      playerLeft += 8;
     }
 
-    playerLeftPercent = Math.max(6, Math.min(94, playerLeftPercent));
-    playerBear.style.left = `${playerLeftPercent}%`;
+    playerLeft = Math.max(7, Math.min(93, playerLeft));
+    player.style.left = `${playerLeft}%`;
   }
 
-  document.getElementById("btn-move-left")?.addEventListener("click", () => {
+  document.getElementById("btn-left").addEventListener("click", () => {
     movePlayer("left");
   });
 
-  document.getElementById("btn-move-right")?.addEventListener("click", () => {
+  document.getElementById("btn-right").addEventListener("click", () => {
     movePlayer("right");
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") movePlayer("left");
     if (event.key === "ArrowRight") movePlayer("right");
+    if (event.key === "Escape") closeModal();
   });
 
-  // Touch swipe control for HP
   let touchStartX = null;
 
-  gameArea?.addEventListener("touchstart", (event) => {
+  gameArea.addEventListener("touchstart", (event) => {
     touchStartX = event.touches[0].clientX;
   });
 
-  gameArea?.addEventListener("touchmove", (event) => {
+  gameArea.addEventListener("touchmove", (event) => {
     if (touchStartX === null) return;
 
     const touchX = event.touches[0].clientX;
@@ -143,85 +111,80 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ================================
-  // FALLING ITEM
-  // ================================
+  function createFallingItem() {
+    if (!isGameRunning) return;
 
-function createFallingItem() {
-  if (!isGameRunning || !gameArea) return;
+    const item = document.createElement("div");
+    item.className = "falling-item";
 
-  const item = document.createElement("div");
-  item.className = "falling-item";
+    const isGood = Math.random() > 0.35;
 
-  const isGood = Math.random() > 0.35;
+    const img = document.createElement("img");
+    img.src = isGood
+      ? DATA.assets.happyFace
+      : DATA.assets.sadFace;
 
-  const img = document.createElement("img");
-  img.src = isGood
-    ? DATA.assets?.happyFace || "assets/nadya-happy.png"
-    : DATA.assets?.sadFace || "assets/nadya-sad.png";
+    img.alt = isGood ? "Senyum Manis" : "Mood Buruk";
 
-  img.alt = isGood ? "Senyum" : "Mood Buruk";
+    img.onerror = () => {
+      item.innerHTML = isGood ? "😊" : "😡";
+      item.classList.add("emoji-fallback");
+    };
 
-  img.onerror = () => {
-    item.innerHTML = isGood ? "😊" : "😡";
-    item.classList.add("emoji-fallback");
-  };
+    item.appendChild(img);
 
-  item.appendChild(img);
+    const left = Math.floor(Math.random() * 82) + 8;
 
-  const randomLeft = Math.floor(Math.random() * 82) + 7;
+    item.style.left = `${left}%`;
+    item.style.top = "-70px";
 
-  item.style.left = `${randomLeft}%`;
-  item.style.top = "-70px";
+    gameArea.appendChild(item);
 
-  gameArea.appendChild(item);
+    activeItems.push({
+      element: item,
+      top: -70,
+      type: isGood ? "good" : "bad"
+    });
+  }
 
-  activeItems.push({
-    element: item,
-    leftPercent: randomLeft,
-    topPx: -70,
-    type: isGood ? "good" : "bad"
-  });
-}
-
-  function updateGameEngine() {
-    if (!isGameRunning || !gameArea || !playerBear) return;
+  function updateGame() {
+    if (!isGameRunning) return;
 
     const gameRect = gameArea.getBoundingClientRect();
-    const playerRect = playerBear.getBoundingClientRect();
+    const playerRect = player.getBoundingClientRect();
 
     for (let i = activeItems.length - 1; i >= 0; i--) {
       const item = activeItems[i];
 
-      item.topPx += 4.8;
-      item.element.style.top = `${item.topPx}px`;
+      item.top += 4.8;
+      item.element.style.top = `${item.top}px`;
 
       const itemRect = item.element.getBoundingClientRect();
 
-      const isColliding =
+      const hit =
         itemRect.left < playerRect.right &&
         itemRect.right > playerRect.left &&
         itemRect.top < playerRect.bottom &&
         itemRect.bottom > playerRect.top;
 
-      if (isColliding) {
+      if (hit) {
         if (item.type === "good") {
           updateHP(5);
           score += 100;
         } else {
           updateHP(-5);
           score = Math.max(0, score - 50);
-          showScreenShake();
+          shakeScreen();
         }
 
-        scoreVal.textContent = String(score).padStart(4, "0");
+        scoreEl.textContent = String(score).padStart(4, "0");
 
         item.element.remove();
         activeItems.splice(i, 1);
         continue;
       }
 
-      if (itemRect.top > gameRect.bottom + 20) {
+      if (itemRect.top > gameRect.bottom + 30) {
         item.element.remove();
         activeItems.splice(i, 1);
       }
@@ -232,21 +195,19 @@ function createFallingItem() {
     hpValue += amount;
     hpValue = Math.max(0, Math.min(100, hpValue));
 
-    hpFill.style.width = `${hpValue}%`;
+    hpProgress.style.width = `${hpValue}%`;
     hpText.textContent = `${hpValue}%`;
 
     if (hpValue >= 100) {
-      winGame();
+      finishGame();
     }
   }
 
-  function winGame() {
-    if (!isGameRunning) return;
-
+  function finishGame() {
     isGameRunning = false;
 
-    clearInterval(gameLoopInterval);
-    clearInterval(spawnInterval);
+    clearInterval(spawnTimer);
+    clearInterval(gameTimer);
 
     activeItems.forEach((item) => item.element.remove());
     activeItems = [];
@@ -259,30 +220,31 @@ function createFallingItem() {
       });
     }
 
-    showRetroAlert(DATA.messages?.gameWin || "💥 ACCESS GRANTED!");
+    showModal(DATA.messages.gameWin);
 
     setTimeout(() => {
+      closeModal();
       stageGame.classList.add("hidden");
       stageReward.classList.remove("hidden");
-      closeRetroAlert();
-    }, 1400);
+
+      if (audio && audio.src) {
+        audio.play().catch(() => {});
+      }
+    }, 1500);
   }
 
-  function showScreenShake() {
+  function shakeScreen() {
     document.body.classList.add("shake");
+
     setTimeout(() => {
       document.body.classList.remove("shake");
     }, 240);
   }
 
-  gameLoopInterval = setInterval(updateGameEngine, 30);
-  spawnInterval = setInterval(createFallingItem, 850);
+  const spawnTimer = setInterval(createFallingItem, 850);
+  const gameTimer = setInterval(updateGame, 30);
 
-  // ================================
-  // MUSIC
-  // ================================
-
-  playBtn?.addEventListener("click", () => {
+  playBtn.addEventListener("click", () => {
     if (!audio || !audio.src) return;
 
     if (audio.paused) {
@@ -294,131 +256,102 @@ function createFallingItem() {
     }
   });
 
-  // ================================
-  // GACHA
-  // ================================
+  musicFile.addEventListener("change", () => {
+    if (!musicFile.files || !musicFile.files[0]) return;
 
-  btnSpin?.addEventListener("click", () => {
-    if (arcadeCoins <= 0) {
-      showRetroAlert(DATA.messages?.outOfCoins || "OUT OF COINS!");
+    audio.src = URL.createObjectURL(musicFile.files[0]);
+    audio.play().catch(() => {});
+  });
+
+  spinBtn.addEventListener("click", () => {
+    if (coins <= 0) {
+      showModal(DATA.messages.outOfCoins);
       return;
     }
 
-    arcadeCoins--;
-    coinCountDisplay.textContent = arcadeCoins;
-    btnSpin.disabled = true;
-    gachaScreen.textContent = "⚡ SPINNING... ⚡";
+    coins--;
+    coinCount.textContent = coins;
+    spinBtn.disabled = true;
 
     let spinCount = 0;
 
-    const shuffleInterval = setInterval(() => {
-      const vouchers = DATA.vouchers || [];
-      const tempIndex = Math.floor(Math.random() * vouchers.length);
+    const spinInterval = setInterval(() => {
+      const randomVoucher =
+        DATA.vouchers[Math.floor(Math.random() * DATA.vouchers.length)];
 
-      gachaScreen.textContent = vouchers[tempIndex] || "🎟️ ROMANTIC VOUCHER";
+      gachaScreen.innerHTML = randomVoucher;
 
       spinCount++;
 
-      if (spinCount > 10) {
-        clearInterval(shuffleInterval);
+      if (spinCount >= 10) {
+        clearInterval(spinInterval);
 
         const finalVoucher =
-          vouchers[Math.floor(Math.random() * vouchers.length)] ||
-          "🎟️ VOUCHER MANIS";
+          DATA.vouchers[Math.floor(Math.random() * DATA.vouchers.length)];
 
         gachaScreen.innerHTML = `🎉 GOT:<br>${finalVoucher}`;
 
-        claimedCount++;
+        claimedVoucher++;
 
-        const activeSlot = document.getElementById(`inv-${claimedCount}`);
-        if (activeSlot) {
-          activeSlot.innerText = finalVoucher;
-          activeSlot.classList.add("claimed");
+        const slot = document.getElementById(`inv-${claimedVoucher}`);
+        if (slot) {
+          slot.textContent = finalVoucher;
+          slot.classList.add("claimed");
         }
 
         if (typeof confetti === "function") {
           confetti({
-            particleCount: 50,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0 }
-          });
-
-          confetti({
-            particleCount: 50,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1 }
+            particleCount: 80,
+            spread: 70,
+            origin: { y: 0.7 }
           });
         }
 
-        btnSpin.disabled = false;
+        spinBtn.disabled = false;
       }
-    }, 140);
+    }, 120);
   });
 
-  // ================================
-  // FINAL BUTTON
-  // ================================
-
-  document.getElementById("btn-final-baikaan")?.addEventListener("click", () => {
-    showRetroAlert(DATA.messages?.finalBaikan || "CO-OP CONNECTED!");
+  document.getElementById("btn-final").addEventListener("click", () => {
+    showModal(DATA.messages.finalBaikan);
 
     if (typeof confetti === "function") {
       confetti({
-        particleCount: 120,
+        particleCount: 130,
         spread: 90,
         origin: { y: 0.65 }
       });
     }
   });
 
-  // ================================
-  // ADMIN MODE
-  // klik judul 5 kali
-  // ================================
+  let titleClick = 0;
 
-  let titleClickCount = 0;
+  titleEl.addEventListener("click", () => {
+    titleClick++;
 
-  titleTrigger?.addEventListener("click", () => {
-    titleClickCount++;
-
-    if (titleClickCount === 5) {
+    if (titleClick >= 5) {
       document.body.classList.toggle("admin-mode");
-
-      const status = document.body.classList.contains("admin-mode")
-        ? "UNLOCKED"
-        : "LOCKED";
-
-      showRetroAlert(
-        `⚙️ SECURITY MASTER CHIP: ${status}<br>${DATA.messages?.adminUnlock || ""}`
-      );
-
-      titleClickCount = 0;
+      showModal(DATA.messages.adminUnlock);
+      titleClick = 0;
     }
 
     setTimeout(() => {
-      titleClickCount = 0;
+      titleClick = 0;
     }, 3000);
   });
 });
-
-// ================================
-// MEMORY IMAGE RENDER
-// ================================
 
 function renderMemoryImages(DATA) {
   const grid = document.getElementById("memory-grid");
   if (!grid) return;
 
-  const images = DATA?.assets?.memoryImages || [];
+  const images = DATA.assets.memoryImages || [];
 
   grid.innerHTML = "";
 
   for (let i = 0; i < 4; i++) {
     const frame = document.createElement("div");
     frame.className = "pixel-frame";
-    frame.onclick = () => triggerUpload(`up-p${i + 1}`);
 
     const slot = document.createElement("div");
     slot.className = "img-slot";
@@ -427,17 +360,17 @@ function renderMemoryImages(DATA) {
     img.id = `prev-p${i + 1}`;
 
     const placeholder = document.createElement("span");
-    placeholder.id = `slot-p${i + 1}`;
     placeholder.textContent = "📁 LOAD_IMG";
 
-    if (images[i]) {
-      img.src = images[i];
+    const imageSource = images[i];
+
+    if (imageSource) {
+      img.src = imageSource;
       img.style.display = "block";
       slot.classList.add("has-image");
       placeholder.style.display = "none";
     } else {
       img.style.display = "none";
-      slot.classList.remove("has-image");
       placeholder.style.display = "grid";
     }
 
@@ -449,9 +382,16 @@ function renderMemoryImages(DATA) {
 
     const input = document.createElement("input");
     input.type = "file";
-    input.id = `up-p${i + 1}`;
     input.accept = "image/*";
-    input.onchange = () => handleImage(input, img.id, placeholder.id);
+
+    input.addEventListener("change", () => {
+      handleImageUpload(input, img, placeholder, slot);
+    });
+
+    frame.addEventListener("click", () => {
+      if (!document.body.classList.contains("admin-mode")) return;
+      input.click();
+    });
 
     slot.appendChild(img);
     slot.appendChild(placeholder);
@@ -463,48 +403,18 @@ function renderMemoryImages(DATA) {
   }
 }
 
-// ================================
-// HELPER UPLOAD
-// ================================
-
-function triggerUpload(id) {
-  if (!document.body.classList.contains("admin-mode")) return;
-
-  const input = document.getElementById(id);
-  if (input) input.click();
-}
-
-function handleImage(input, prevId, slotId) {
+function handleImageUpload(input, img, placeholder, slot) {
   if (!input.files || !input.files[0]) return;
 
   const reader = new FileReader();
 
   reader.onload = (event) => {
-    const img = document.getElementById(prevId);
-    const slot = document.getElementById(slotId);
-
     img.src = event.target.result;
     img.style.display = "block";
 
-    if (slot) slot.style.display = "none";
+    slot.classList.add("has-image");
+    placeholder.style.display = "none";
   };
 
   reader.readAsDataURL(input.files[0]);
-}
-
-function handleMusic(input) {
-  if (!input.files || !input.files[0]) return;
-
-  const audio = document.getElementById("main-audio");
-  const trackTitle = document.getElementById("track-title");
-
-  if (!audio) return;
-
-  audio.src = URL.createObjectURL(input.files[0]);
-
-  if (trackTitle) {
-    trackTitle.innerText = "🎵 " + input.files[0].name.toUpperCase();
-  }
-
-  audio.play();
 }
