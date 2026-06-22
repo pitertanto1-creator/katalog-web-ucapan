@@ -1,57 +1,54 @@
 // script.js
-// =========================================================
-// Versi final tanpa mode admin.
-// Foto, GIF, teks, dan lagu diatur manual dari data.js.
-// =========================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-    const byId = (id) => document.getElementById(id);
+    const $ = (id) => document.getElementById(id);
 
-    const setText = (id, value = "") => {
-        const el = byId(id);
-        if (el) el.innerText = value;
-    };
+    function setText(id, value) {
+        const el = $(id);
+        if (el) el.innerText = value || "";
+    }
 
-    const setHTML = (id, value = "") => {
-        const el = byId(id);
-        if (el) el.innerHTML = value;
-    };
+    function setHTML(id, value) {
+        const el = $(id);
+        if (el) el.innerHTML = value || "";
+    }
 
-    const setImage = (id, src, fallback = "assets/placeholder-photo.svg") => {
-        const img = byId(id);
-        if (!img) return;
+    function setImage(id, src) {
+        const img = $(id);
 
-        img.src = src || fallback;
-        img.onerror = () => {
-            img.onerror = null;
-            img.src = fallback;
-        };
-    };
+        if (img && src) {
+            img.src = src;
+            img.style.display = "block";
+        }
+    }
 
-    // Render teks utama dari data.js
+    // Render data utama
     setText("hero-title", apologyData.hero.title);
     setHTML("hero-subtitle", apologyData.hero.subtitle);
+
     setText("intro-title", apologyData.intro.title);
     setText("intro-subtitle", apologyData.intro.subtitle);
-    setText("gallery-heading", apologyData.gallery.heading);
+
+    setText("gallery-heading", apologyData.gallery.title);
     setText("gallery-subtitle", apologyData.gallery.subtitle);
+
     setText("notes-main-title", apologyData.notesTitle);
     setText("editable-letter", apologyData.letterDefault);
+
     setText("closing-title", apologyData.closing.title);
-    setText("btn-baikan", apologyData.closing.yesButton);
-    setText("btn-butuh-waktu", apologyData.closing.waitButton);
+    setText("btn-baikan", apologyData.closing.buttonText);
 
-    // Render ilustrasi beruang
-    setImage("img-bear-hero", apologyData.images.heroBear, "assets/bear-hero.svg");
-    setImage("img-bear-intro", apologyData.images.introBear, "assets/bear-intro.svg");
-    setImage("img-bear-closing", apologyData.images.closingBear, "assets/bear-closing.svg");
+    // Render gambar beruang
+    setImage("img-bear-hero", apologyData.images.heroBear);
+    setImage("img-bear-intro", apologyData.images.introBear);
+    setImage("img-bear-closing", apologyData.images.closingBear);
 
-    // Render caption polaroid
+    // Render caption galeri
     apologyData.galleryCaptions.forEach((caption, index) => {
         setText(`cap-${index}`, caption);
     });
 
-    // Render foto galeri manual dari data.js
+    // Render foto JPG galeri
     const galleryMap = {
         p1: "prev-p1",
         p2: "prev-p2",
@@ -63,13 +60,16 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     Object.keys(galleryMap).forEach((key) => {
-        setImage(galleryMap[key], apologyData.galleryImages[key], "assets/placeholder-photo.svg");
+        const imagePath = apologyData.galleryImages[key];
+        setImage(galleryMap[key], imagePath);
     });
 
-    // Render notes/janji
-    const notesContainer = byId("notes-container");
+    // Render notes
+    const notesContainer = $("notes-container");
+
     if (notesContainer) {
         notesContainer.innerHTML = "";
+
         apologyData.notes.forEach((noteText) => {
             const noteDiv = document.createElement("div");
             noteDiv.className = "note-item";
@@ -78,23 +78,25 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Modal custom
-    const cuteModal = byId("cute-modal");
-    const modalMessage = byId("modal-message");
-    const modalCloseBtn = byId("modal-close-btn");
+    // Modal
+    const cuteModal = $("cute-modal");
+    const modalMessage = $("modal-message");
+    const modalCloseBtn = $("modal-close-btn");
     let activeCallback = null;
 
-    function showCuteAlert(message, callback = null) {
+    function showCuteAlert(message, callback) {
         if (!cuteModal || !modalMessage) return;
+
         modalMessage.innerHTML = message;
         cuteModal.classList.remove("hidden");
-        activeCallback = callback;
+        activeCallback = callback || null;
     }
 
     if (modalCloseBtn) {
         modalCloseBtn.addEventListener("click", () => {
-            cuteModal.classList.add("hidden");
-            if (typeof activeCallback === "function") {
+            if (cuteModal) cuteModal.classList.add("hidden");
+
+            if (activeCallback) {
                 activeCallback();
                 activeCallback = null;
             }
@@ -105,133 +107,154 @@ document.addEventListener("DOMContentLoaded", () => {
         cuteModal.addEventListener("click", (event) => {
             if (event.target === cuteModal) {
                 cuteModal.classList.add("hidden");
-                activeCallback = null;
+
+                if (activeCallback) {
+                    activeCallback();
+                    activeCallback = null;
+                }
             }
         });
     }
 
-    // Helper untuk membuka step berikutnya
+    // Buka step selanjutnya
     function revealAndScroll(nextWrapperId) {
-        const nextTarget = byId(nextWrapperId);
-        if (!nextTarget) return;
+        const nextTarget = $(nextWrapperId);
 
-        nextTarget.classList.remove("hidden");
-        setTimeout(() => {
-            nextTarget.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 120);
+        if (nextTarget) {
+            nextTarget.classList.remove("hidden");
+
+            setTimeout(() => {
+                nextTarget.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }, 150);
+        }
     }
 
-    // Navigasi step
-    const btnMaaf = byId("btn-maaf");
-    const btnKesempatan = byId("btn-kesempatan");
-    const btnStep3 = byId("btn-to-step3");
-    const btnStep4 = byId("btn-to-step4");
-    const btnStep5 = byId("btn-to-step5");
-    const btnStep6 = byId("btn-to-step6");
+    // Tombol utama
+    const btnMaaf = $("btn-maaf");
 
     if (btnMaaf) {
         btnMaaf.addEventListener("click", () => {
-            showCuteAlert(apologyData.messages.maaf, () => revealAndScroll("wrapper-step2"));
+            showCuteAlert(
+                apologyData.modalMessages.forgive,
+                () => revealAndScroll("wrapper-step2")
+            );
         });
     }
 
-    if (btnKesempatan) {
-        btnKesempatan.addEventListener("click", () => {
-            showCuteAlert(apologyData.messages.kesempatan, () => revealAndScroll("wrapper-step2"));
+    // Tombol lanjut
+    const btnToStep3 = $("btn-to-step3");
+    const btnToStep4 = $("btn-to-step4");
+    const btnToStep5 = $("btn-to-step5");
+    const btnToStep6 = $("btn-to-step6");
+
+    if (btnToStep3) {
+        btnToStep3.addEventListener("click", () => {
+            revealAndScroll("wrapper-step3");
         });
     }
 
-    if (btnStep3) btnStep3.addEventListener("click", () => revealAndScroll("wrapper-step3"));
-    if (btnStep4) btnStep4.addEventListener("click", () => revealAndScroll("wrapper-step4"));
-    if (btnStep5) btnStep5.addEventListener("click", () => revealAndScroll("wrapper-step5"));
-    if (btnStep6) btnStep6.addEventListener("click", () => revealAndScroll("wrapper-step6"));
+    if (btnToStep4) {
+        btnToStep4.addEventListener("click", () => {
+            revealAndScroll("wrapper-step4");
+        });
+    }
 
-    // Tombol “gamau dulu” dibuat menghindar, support laptop dan HP
-    const btnGamau = byId("btn-gamau");
+    if (btnToStep5) {
+        btnToStep5.addEventListener("click", () => {
+            revealAndScroll("wrapper-step5");
+        });
+    }
+
+    if (btnToStep6) {
+        btnToStep6.addEventListener("click", () => {
+            revealAndScroll("wrapper-step6");
+        });
+    }
+
+    // Tombol "gamau dulu" menghindar
+    const btnGamau = $("btn-gamau");
+
+    function moveNoButton() {
+        if (!btnGamau) return;
+
+        const randomX = Math.floor(Math.random() * 180) - 90;
+        const randomY = Math.floor(Math.random() * 90) - 45;
+
+        btnGamau.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
     if (btnGamau) {
-        const moveNoButton = () => {
-            btnGamau.style.position = "absolute";
-            const randomX = Math.floor(Math.random() * 220) - 110;
-            const randomY = Math.floor(Math.random() * 100) - 50;
-            btnGamau.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        };
-
         btnGamau.addEventListener("mouseover", moveNoButton);
-        btnGamau.addEventListener("touchstart", (event) => {
-            event.preventDefault();
-            moveNoButton();
-        }, { passive: false });
+        btnGamau.addEventListener("touchstart", moveNoButton);
+        btnGamau.addEventListener("click", moveNoButton);
     }
 
-    // Musik manual dari data.js
-    const audio = byId("main-audio");
-    const playBtn = byId("play-btn");
-    const progressBar = byId("music-progress");
-    const timeCurrent = byId("time-current");
-    const timeTotal = byId("time-total");
-    const playerBadge = byId("player-badge");
+    // Musik
+    const audio = $("main-audio");
+    const playBtn = $("play-btn");
+    const progressBar = $("music-progress");
+    const timeCurrent = $("time-current");
+    const timeTotal = $("time-total");
 
-    setText("track-title", apologyData.music.defaultTitle);
-    setText("track-artist", apologyData.music.defaultArtist);
-
-    if (audio && apologyData.music.src) {
+    if (audio) {
         audio.src = apologyData.music.src;
-    } else if (playBtn) {
-        playBtn.disabled = true;
-        playBtn.innerText = "▶";
-        if (playerBadge) playerBadge.innerText = "file lagu belum dipasang di data.js";
+        setText("track-title", apologyData.music.defaultTitle);
+        setText("track-artist", apologyData.music.defaultArtist);
     }
 
-    if (playBtn && audio) {
-        playBtn.addEventListener("click", async () => {
-            if (!audio.src) {
-                showCuteAlert("File lagu belum dipasang.<br>Isi bagian music.src di data.js ya 🎵");
-                return;
-            }
-
-            try {
-                if (audio.paused) {
-                    await audio.play();
-                    playBtn.innerText = "⏸";
-                } else {
-                    audio.pause();
-                    playBtn.innerText = "▶";
-                }
-            } catch (error) {
-                showCuteAlert("Lagu belum bisa diputar.<br>Pastikan file lagu ada di folder assets dan path di data.js sudah benar 🎵");
+    if (audio && playBtn) {
+        playBtn.addEventListener("click", () => {
+            if (audio.paused) {
+                audio.play()
+                    .then(() => {
+                        playBtn.innerText = "⏸";
+                    })
+                    .catch(() => {
+                        showCuteAlert("Klik sekali lagi yaa, browser kadang menahan musik otomatis 🥺", null);
+                    });
+            } else {
+                audio.pause();
+                playBtn.innerText = "▶";
             }
         });
 
         audio.addEventListener("loadedmetadata", () => {
-            if (audio.duration && !Number.isNaN(audio.duration)) {
+            if (timeTotal && audio.duration && !isNaN(audio.duration)) {
                 timeTotal.innerText = formatTime(audio.duration);
             }
         });
 
         audio.addEventListener("timeupdate", () => {
-            const current = audio.currentTime || 0;
-            const duration = audio.duration || 0;
+            const current = audio.currentTime;
+            const duration = audio.duration;
 
-            timeCurrent.innerText = formatTime(current);
+            if (timeCurrent) {
+                timeCurrent.innerText = formatTime(current);
+            }
 
-            if (duration && !Number.isNaN(duration)) {
-                const pct = Math.min((current / duration) * 100, 100);
+            if (progressBar && duration && !isNaN(duration)) {
+                const pct = (current / duration) * 100;
                 progressBar.style.width = `${pct}%`;
-                timeTotal.innerText = formatTime(duration);
             }
         });
 
         audio.addEventListener("ended", () => {
             playBtn.innerText = "▶";
-            progressBar.style.width = "0%";
-            timeCurrent.innerText = "0:00";
+
+            if (progressBar) {
+                progressBar.style.width = "0%";
+            }
         });
     }
 
-    // Closing confetti
-    const btnBaikan = byId("btn-baikan");
+    // Tombol closing
+    const btnBaikan = $("btn-baikan");
+
     if (btnBaikan) {
-        btnBaikan.addEventListener("click", function() {
+        btnBaikan.addEventListener("click", function () {
             if (typeof confetti === "function") {
                 confetti({
                     particleCount: 180,
@@ -241,25 +264,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            showCuteAlert(apologyData.messages.baikan);
+            showCuteAlert(apologyData.modalMessages.final, null);
+
             this.innerText = "Yayy! Kita baikan 🥰❤️";
             this.style.background = "#ffccd5";
             this.style.color = "#7f5539";
         });
     }
-
-    const btnButuhWaktu = byId("btn-butuh-waktu");
-    if (btnButuhWaktu) {
-        btnButuhWaktu.addEventListener("click", () => {
-            showCuteAlert(apologyData.messages.butuhWaktu);
-        });
-    }
 });
 
 function formatTime(secs) {
-    const safeSecs = Number.isFinite(secs) ? secs : 0;
-    const m = Math.floor(safeSecs / 60);
-    let s = Math.floor(safeSecs % 60);
-    if (s < 10) s = `0${s}`;
+    if (!secs || isNaN(secs)) return "0:00";
+
+    const m = Math.floor(secs / 60);
+    let s = Math.floor(secs % 60);
+
+    if (s < 10) s = "0" + s;
+
     return `${m}:${s}`;
 }

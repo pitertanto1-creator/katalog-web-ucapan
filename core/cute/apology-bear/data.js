@@ -1,29 +1,22 @@
 // data.js
-// =========================================================
-// TEMPAT EDIT UTAMA
-// Kamu cukup ubah teks, foto, GIF, dan lagu dari file ini.
-// Tidak ada mode admin dan tidak ada upload dari website.
-// =========================================================
 
 const apologyData = {
     images: {
-        // Ganti file ini dengan GIF/ilustrasi milik kamu di folder assets.
-        heroBear: "assets/bear-hero.gif",
-        introBear: "assets/bear-intro.gif",
-        closingBear: "assets/bear-closing.gif"
+        heroBear: "/core/cute/apology-bear/assets/bear-hero.gif",
+        introBear: "/core/cute/apology-bear/assets/bear-intro.gif",
+        closingBear: "/core/cute/apology-bear/assets/bear-closing.gif"
     },
 
     galleryImages: {
-        // Ganti path ini dengan foto klien, contoh: "assets/foto-1.jpg"
-        p1: "assets/photo-1.jpg",
-        p2: "assets/photo-2.jpg",
-        p3: "assets/photo-3.jpg",
-        p4: "assets/photo-4.jpg",
-        f1: "assets/photo-5.jpg",
-        f2: "assets/photo-6.jpg",
-        f3: "assets/photo-7.jpg",
+        p1: "/core/cute/apology-bear/assets/photo-1.jpg",
+        p2: "/core/cute/apology-bear/assets/photo-2.jpg",
+        p3: "/core/cute/apology-bear/assets/photo-3.jpg",
+        p4: "/core/cute/apology-bear/assets/photo-4.jpg",
+        f1: "/core/cute/apology-bear/assets/photo-5.jpg",
+        f2: "/core/cute/apology-bear/assets/photo-6.jpg",
+        f3: "/core/cute/apology-bear/assets/photo-7.jpg"
     },
-    
+
     hero: {
         title: "sayang, maafin aku yaa :(",
         subtitle: "aku bikin ini khusus buat kamu, jangan ngambek lama-lama ya 💖"
@@ -35,56 +28,55 @@ const apologyData = {
     },
 
     gallery: {
-        heading: "momen-momen favorit kita 📸",
-        subtitle: "beberapa kenangan kecil yang selalu bikin aku senyum lagi"
+        title: "momen-momen favorit kita 📸",
+        subtitle: "beberapa kenangan kecil yang selalu bikin aku senyum kalau inget kamu."
     },
 
     galleryCaptions: [
         "momen favorit aku ♡",
         "kamu lucu banget di sini!",
         "ketawa bareng itu healing banget 💖",
-        "hari yang bikin aku senyum terus 💖"
+        "ini hari yang bikin aku senyum terus 💖"
     ],
 
-    notesTitle: "hal yang harusnya aku lakuin lebih baik",
+    notesTitle: "hal yang akan aku perbaiki",
 
     notes: [
-        "harusnya aku lebih dengerin kamu",
-        "harusnya aku ga asal ngomong",
-        "harusnya aku minta maaf lebih cepat",
-        "harusnya aku lebih ngerti perasaan kamu",
-        "harusnya aku ga bikin kamu kepikiran",
-        "harusnya aku lebih peka"
+        "aku bakal lebih dengerin kamu",
+        "aku bakal lebih hati-hati saat ngomong",
+        "aku bakal minta maaf lebih cepat",
+        "aku bakal lebih ngertiin perasaan kamu",
+        "aku nggak mau bikin kamu kepikiran lagi",
+        "aku bakal lebih peka sama kamu"
     ],
 
-    letterDefault: `aku tahu aku bikin kamu kesel.
+    letterDefault: `aku tau aku bikin kamu kesel.
 tapi jujur, aku sayang banget
 sama kamu dan aku pengen
 benerin semuanya pelan-pelan.
 
-maaf ya kalau aku belum sempurna.
-aku bakal belajar lebih baik lagi.
+maaf ya kalau aku belum selalu jadi
+orang yang paling ngerti kamu.
+
+tapi aku mau belajar,
+aku mau lebih baik,
+dan aku mau tetap sama kamu.
 
 love u ♡`,
 
     music: {
-        // Isi src kalau sudah punya lagu, contoh: "assets/lagu-kita.mp3"
-        // Kalau masih kosong, tombol play otomatis nonaktif.
-        src: "",
-        defaultTitle: "judul lagu favorit",
-        defaultArtist: "penyanyi favorit"
+        src: "/core/cute/apology-bear/assets/lagu-kita.mp3",
+        defaultTitle: "Judul Lagu Kamu",
+        defaultArtist: "Nama Penyanyi"
     },
 
     closing: {
         title: "jadi... kita baikan ya?",
-        yesButton: "yuk, kita baikan ❤",
-        waitButton: "aku butuh waktu"
+        buttonText: "yuk, kita baikan ❤"
     },
 
-    messages: {
-        maaf: "Makasih banyak udah dimaafin! 🥺❤️<br>Sekarang yuk intip kejutan di bawah..",
-        kesempatan: "Makasih banyakk kesempatannya!<br>Janji aku bakal belajar lebih baik ya sayang 🌹",
-        baikan: "Yeeey kita baikan! 🥰❤️<br>Mulai sekarang aku bakal lebih jaga hati kamu.",
-        butuhWaktu: "Boleh kok, ambil waktu sebanyak yang kamu butuh yaa.. Aku bakal tunggu dengan sabar 🥺"
+    modalMessages: {
+        forgive: "Makasih banyak udah dimaafin! 🥺❤️<br>Sekarang yuk intip kejutan di bawah..",
+        final: "Yeeey kita baikan! 🥰❤️<br>Mulai sekarang ga boleh ngambek lama-lama lagi yaa!"
     }
 };

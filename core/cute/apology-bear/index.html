@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,20 @@
 
     <link rel="stylesheet" href="/core/cute/apology-bear/style.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
+
 <body>
     <main class="wireframe-container">
+
         <div class="section-wrapper" id="wrapper-step1">
             <section id="hero" class="card-section">
                 <p class="eyebrow">for someone special</p>
                 <h1 id="hero-title"></h1>
                 <p class="subtitle" id="hero-subtitle"></p>
-                
+
                 <div class="bear-illustration-box">
                     <img id="img-bear-hero" src="" alt="Ilustrasi beruang lucu">
                 </div>
@@ -36,7 +39,7 @@
                 <p class="eyebrow">thank you</p>
                 <h2 id="intro-title"></h2>
                 <p class="subtitle" id="intro-subtitle"></p>
-                
+
                 <div class="bear-illustration-box">
                     <img id="img-bear-intro" src="" alt="Ilustrasi beruang peluk">
                 </div>
@@ -50,7 +53,7 @@
                 <p class="eyebrow">our memories</p>
                 <h2 id="gallery-heading"></h2>
                 <p class="subtitle" id="gallery-subtitle"></p>
-                
+
                 <div class="gallery-layout">
                     <div class="side-polaroids">
                         <article class="polaroid">
@@ -104,9 +107,11 @@
         <div class="section-wrapper hidden" id="wrapper-step4">
             <section id="notes" class="card-section">
                 <p class="eyebrow">my promise</p>
+
                 <div class="cloud-title-container">
                     <div class="cloud-title" id="notes-main-title"></div>
                 </div>
+
                 <div class="notes-grid" id="notes-container"></div>
 
                 <button class="btn solid-brown long-btn" id="btn-to-step5" type="button">buka surat buat kamu &gt;</button>
@@ -116,6 +121,7 @@
         <div class="section-wrapper hidden" id="wrapper-step5">
             <section id="letter-music" class="card-section">
                 <p class="eyebrow">a little letter</p>
+
                 <div class="split-layout">
                     <article class="notepad">
                         <div class="notepad-tape"></div>
@@ -125,13 +131,16 @@
 
                     <article class="player-card">
                         <h3>lagu buat kamu ♡</h3>
+
                         <div class="player-disk">🎵</div>
+
                         <h4 id="track-title"></h4>
                         <p id="track-artist"></p>
-                        
+
                         <div class="progress-bar" aria-label="Progress lagu">
                             <div class="progress" id="music-progress"></div>
                         </div>
+
                         <div class="time-stamp">
                             <span id="time-current">0:00</span>
                             <span id="time-total">0:00</span>
@@ -144,7 +153,10 @@
                         </div>
 
                         <audio id="main-audio" preload="metadata"></audio>
-                        <div class="player-badge" id="player-badge">lagu ini vibes-nya kamu banget 💖</div>
+
+                        <div class="player-badge" id="player-badge">
+                            lagu ini vibes-nya kamu banget 💖
+                        </div>
                     </article>
                 </div>
 
@@ -156,7 +168,7 @@
             <section id="closing" class="card-section">
                 <p class="eyebrow">one last thing</p>
                 <h2 id="closing-title"></h2>
-                
+
                 <div class="bear-illustration-box">
                     <img id="img-bear-closing" src="" alt="Ilustrasi beruang cinta">
                 </div>
@@ -176,7 +188,7 @@
         </div>
     </div>
 
-<script src="/core/cute/apology-bear/data.js"></script>
-<script src="/core/cute/apology-bear/script.js"></script>
+    <script src="/core/cute/apology-bear/data.js"></script>
+    <script src="/core/cute/apology-bear/script.js"></script>
 </body>
 </html>
