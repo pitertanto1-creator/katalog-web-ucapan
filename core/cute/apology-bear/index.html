@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apology Cute Bear</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
+</head>
+<body>
+    <main class="wireframe-container">
+        <div class="section-wrapper" id="wrapper-step1">
+            <section id="hero" class="card-section">
+                <p class="eyebrow">for someone special</p>
+                <h1 id="hero-title"></h1>
+                <p class="subtitle" id="hero-subtitle"></p>
+                
+                <div class="bear-illustration-box">
+                    <img id="img-bear-hero" src="" alt="Ilustrasi beruang lucu">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn solid-brown" id="btn-maaf" type="button">iya, aku maafin</button>
+                    <button class="btn outline-brown no-btn" id="btn-gamau" type="button">gamau dulu</button>
+                </div>
+            </section>
+        </div>
+
+        <div class="section-wrapper hidden" id="wrapper-step2">
+            <section id="intro" class="card-section">
+                <p class="eyebrow">thank you</p>
+                <h2 id="intro-title"></h2>
+                <p class="subtitle" id="intro-subtitle"></p>
+                
+                <div class="bear-illustration-box">
+                    <img id="img-bear-intro" src="" alt="Ilustrasi beruang peluk">
+                </div>
+
+                <button class="btn solid-brown long-btn" id="btn-to-step3" type="button">lanjut lihat surprise &gt;</button>
+            </section>
+        </div>
+
+        <div class="section-wrapper hidden" id="wrapper-step3">
+            <section id="gallery" class="card-section">
+                <p class="eyebrow">our memories</p>
+                <h2 id="gallery-heading"></h2>
+                <p class="subtitle" id="gallery-subtitle"></p>
+                
+                <div class="gallery-layout">
+                    <div class="side-polaroids">
+                        <article class="polaroid">
+                            <div class="photo-frame">
+                                <img id="prev-p1" src="" alt="Momen favorit pertama">
+                            </div>
+                            <p class="caption" id="cap-0"></p>
+                        </article>
+
+                        <article class="polaroid rotate-right">
+                            <div class="photo-frame">
+                                <img id="prev-p2" src="" alt="Momen favorit kedua">
+                            </div>
+                            <p class="caption" id="cap-1"></p>
+                        </article>
+                    </div>
+
+                    <div class="filmstrip" aria-label="Galeri foto filmstrip">
+                        <div class="strip-item">
+                            <img id="prev-f1" src="" alt="Foto kenangan film pertama">
+                        </div>
+                        <div class="strip-item">
+                            <img id="prev-f2" src="" alt="Foto kenangan film kedua">
+                        </div>
+                        <div class="strip-item">
+                            <img id="prev-f3" src="" alt="Foto kenangan film ketiga">
+                        </div>
+                    </div>
+
+                    <div class="side-polaroids">
+                        <article class="polaroid rotate-right">
+                            <div class="photo-frame">
+                                <img id="prev-p3" src="" alt="Momen favorit ketiga">
+                            </div>
+                            <p class="caption" id="cap-2"></p>
+                        </article>
+
+                        <article class="polaroid">
+                            <div class="photo-frame">
+                                <img id="prev-p4" src="" alt="Momen favorit keempat">
+                            </div>
+                            <p class="caption" id="cap-3"></p>
+                        </article>
+                    </div>
+                </div>
+
+                <button class="btn solid-brown long-btn" id="btn-to-step4" type="button">next yaa &gt;</button>
+            </section>
+        </div>
+
+        <div class="section-wrapper hidden" id="wrapper-step4">
+            <section id="notes" class="card-section">
+                <p class="eyebrow">my promise</p>
+                <div class="cloud-title-container">
+                    <div class="cloud-title" id="notes-main-title"></div>
+                </div>
+                <div class="notes-grid" id="notes-container"></div>
+
+                <button class="btn solid-brown long-btn" id="btn-to-step5" type="button">buka surat buat kamu &gt;</button>
+            </section>
+        </div>
+
+        <div class="section-wrapper hidden" id="wrapper-step5">
+            <section id="letter-music" class="card-section">
+                <p class="eyebrow">a little letter</p>
+                <div class="split-layout">
+                    <article class="notepad">
+                        <div class="notepad-tape"></div>
+                        <div class="notepad-content" id="editable-letter"></div>
+                        <div class="notepad-footer">love u ♡</div>
+                    </article>
+
+                    <article class="player-card">
+                        <h3>lagu buat kamu ♡</h3>
+                        <div class="player-disk">🎵</div>
+                        <h4 id="track-title"></h4>
+                        <p id="track-artist"></p>
+                        
+                        <div class="progress-bar" aria-label="Progress lagu">
+                            <div class="progress" id="music-progress"></div>
+                        </div>
+                        <div class="time-stamp">
+                            <span id="time-current">0:00</span>
+                            <span id="time-total">0:00</span>
+                        </div>
+
+                        <div class="player-controls">
+                            <button class="control-btn" type="button" aria-label="Sebelumnya">⏮</button>
+                            <button class="control-btn play-trigger" id="play-btn" type="button" aria-label="Putar lagu">▶</button>
+                            <button class="control-btn" type="button" aria-label="Berikutnya">⏭</button>
+                        </div>
+
+                        <audio id="main-audio" preload="metadata"></audio>
+                        <div class="player-badge" id="player-badge">lagu ini vibes-nya kamu banget 💖</div>
+                    </article>
+                </div>
+
+                <button class="btn solid-brown long-btn" id="btn-to-step6" type="button">klik yang terakhir... &gt;</button>
+            </section>
+        </div>
+
+        <div class="section-wrapper hidden" id="wrapper-step6">
+            <section id="closing" class="card-section">
+                <p class="eyebrow">one last thing</p>
+                <h2 id="closing-title"></h2>
+                
+                <div class="bear-illustration-box">
+                    <img id="img-bear-closing" src="" alt="Ilustrasi beruang cinta">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn solid-brown" id="btn-baikan" type="button"></button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="cute-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-message">
+        <div class="modal-card">
+            <div class="modal-heart">💖</div>
+            <p id="modal-message"></p>
+            <button id="modal-close-btn" class="btn solid-brown" type="button">Okey, Lanjut! ✨</button>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

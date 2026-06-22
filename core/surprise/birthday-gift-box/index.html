@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Birthday Box</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Video Background -->
+  <video autoplay loop muted playsinline id="bg-video">
+  <source src="assets/video-background.mp4" type="video/mp4">
+</video>
+
+  <main class="app-shell">
+    <!-- FASE 1: OPENING STAGE -->
+    <section id="openingStage" class="stage stage-card is-active" aria-label="Halaman buka kado">
+      <div class="opening-content">
+        <p class="eyebrow"></p>
+        <h1 class="opening-title">Ada Kado Rahasia Buat Kamu 🎂</h1>
+        <p id="openingSubtitle" class="opening-subtitle"></p>
+
+        <button id="giftButton" class="gift-button" type="button" aria-label="Tap kado untuk membuka hadiah">
+          <img
+            id="giftImage"
+            class="gift-image"
+            src="assets/gift.png"
+            alt="Ikon kado ulang tahun"
+          />
+          <span class="gift-fallback" aria-hidden="true">🎁</span>
+        </button>
+
+        <div class="progress-wrap" aria-label="Progress buka kado">
+          <div class="progress-top">
+            <span>Progress buka kado</span>
+            <strong id="tapCounter">0/10</strong>
+          </div>
+          <div class="progress-track">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <p id="tapLine" class="tap-line">Tap kadonya dulu ya...</p>
+      </div>
+    </section>
+
+    <!-- FASE 2: REVEAL STAGE -->
+    <section id="revealStage" class="stage stage-card reveal-stage" aria-label="Halaman utama hadiah ulang tahun">
+      <div class="reveal-header">
+        <p class="eyebrow">Surprise Unlocked</p>
+        <h2 id="revealTitle" class="reveal-title"></h2>
+        <p id="revealSubtitle" class="reveal-subtitle"></p>
+      </div>
+
+      <!-- Surat -->
+      <section class="section-block">
+        <div class="section-heading">
+          <span class="section-icon">💌</span>
+          <h3>Surat Kecil Buat Kamu</h3>
+        </div>
+        <div id="letterContent" class="letter-content"></div>
+      </section>
+
+      <!-- Galeri Foto -->
+      <section class="section-block">
+        <div class="section-heading">
+          <span class="section-icon">📸</span>
+          <h3>Galeri Kenangan</h3>
+        </div>
+
+        <div class="slider" aria-label="Galeri foto">
+          <div class="slider-frame">
+            <img id="galleryImage" class="gallery-image" src="" alt="Foto galeri" />
+          </div>
+
+          <p id="galleryCaption" class="gallery-caption"></p>
+
+          <div class="slider-controls">
+            <button id="prevSlide" class="slider-btn" type="button" aria-label="Foto sebelumnya">‹</button>
+            <div id="galleryDots" class="gallery-dots" aria-label="Indikator foto"></div>
+            <button id="nextSlide" class="slider-btn" type="button" aria-label="Foto berikutnya">›</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Musik -->
+      <section class="section-block">
+        <div class="section-heading">
+          <span class="section-icon">🎵</span>
+          <h3>Lagu Hari Ini</h3>
+        </div>
+
+        <div class="music-player">
+          <img id="musicCover" class="music-cover" src="" alt="Cover lagu" />
+
+          <div class="music-info">
+            <strong id="musicTitle" class="music-title"></strong>
+            <span id="musicArtist" class="music-artist"></span>
+
+            <div class="music-actions">
+              <button id="playPauseBtn" class="play-btn" type="button" aria-label="Putar atau jeda musik">
+                ▶
+              </button>
+
+              <div class="music-progress-wrap">
+                <div class="music-time">
+                  <span id="currentTime">0:00</span>
+                  <span id="durationTime">0:00</span>
+                </div>
+                <input
+                  id="musicProgress"
+                  class="music-progress"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="0"
+                  aria-label="Progress lagu"
+                />
+              </div>
+            </div>
+          </div>
+
+          <audio id="birthdayAudio" preload="metadata"></audio>
+        </div>
+      </section>
+
+      <!-- Voucher -->
+      <section class="section-block voucher-section">
+        <button id="openVoucherBtn" class="voucher-banner" type="button">
+          <span class="voucher-small">Voucher Spesial</span>
+          <strong id="voucherBannerTitle">Buka Hadiah Rahasia</strong>
+          <span>Klik untuk lihat tiket hadiahnya ✨</span>
+        </button>
+      </section>
+    </section>
+  </main>
+
+  <!-- Modal Voucher -->
+  <div id="voucherModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="voucherTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Tutup modal">×</button>
+
+      <div class="ticket">
+        <div class="ticket-top">
+          <span class="ticket-label">Birthday Voucher</span>
+          <h3 id="voucherTitle"></h3>
+          <p id="voucherDescription"></p>
+        </div>
+
+        <div class="ticket-divider">
+          <span></span>
+          <i></i>
+          <span></span>
+        </div>
+
+        <div class="ticket-bottom">
+          <div class="ticket-detail">
+            <span>Berlaku untuk</span>
+            <strong id="voucherFor"></strong>
+          </div>
+
+          <div class="ticket-detail">
+            <span>Kode</span>
+            <strong id="voucherCode"></strong>
+          </div>
+
+          <button id="claimVoucherBtn" class="claim-btn" type="button">Claim Voucher</button>
+          <p id="claimMessage" class="claim-message"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Library Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

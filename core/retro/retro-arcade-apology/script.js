@@ -79,13 +79,29 @@ document.addEventListener("DOMContentLoaded", () => {
     player.style.left = `${playerLeft}%`;
   }
 
-  document.getElementById("btn-left").addEventListener("click", () => {
-    movePlayer("left");
+  const btnLeft = document.getElementById("btn-left");
+const btnRight = document.getElementById("btn-right");
+
+function bindMoveButton(button, direction) {
+  if (!button) return;
+
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    movePlayer(direction);
   });
 
-  document.getElementById("btn-right").addEventListener("click", () => {
-    movePlayer("right");
-  });
+  button.addEventListener(
+    "touchstart",
+    (event) => {
+      event.preventDefault();
+      movePlayer(direction);
+    },
+    { passive: false }
+  );
+}
+
+bindMoveButton(btnLeft, "left");
+bindMoveButton(btnRight, "right");
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") movePlayer("left");
