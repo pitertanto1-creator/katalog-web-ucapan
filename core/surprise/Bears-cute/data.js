@@ -63,7 +63,7 @@ dan lebih banyak sayang. 🐻💕`,
 
     polaroids: [
         {
-            imageSrc: "./assets/foto-1.jpg",
+            imageSrc: "/core/surprise/Bears-cute/assets/foto-1.jpg",
             alt: "Foto kenangan pertama",
             label: "OUR PHOTO",
             emoji: "🥰",
@@ -71,7 +71,7 @@ dan lebih banyak sayang. 🐻💕`,
             caption: "Ini salah satu foto favorit aku. Kamu manis banget di sini, bikin aku senyum sendiri 💖"
         },
         {
-            imageSrc: "./assets/foto-2.jpg",
+            imageSrc: "/core/surprise/Bears-cute/assets/foto-2.jpg",
             alt: "Foto kenangan kedua",
             label: "SWEET MEMORY",
             emoji: "🐻",
