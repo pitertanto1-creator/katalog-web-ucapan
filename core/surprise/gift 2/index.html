@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KadoLink • 3D Virtual Unboxing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Background subtle particles -->
+        <div class="bg-particles" id="bg-particles"></div>
+
+        <div class="unboxing-container">
+            
+            <!-- Music Toggle Button -->
+            <button id="music-btn" class="music-btn" aria-label="Toggle music">
+                <span class="music-icon">♫</span>
+            </button>
+
+            <!-- Main Stage -->
+            <div class="stage">
+                
+                <!-- Instruction Text -->
+                <div class="instruction" id="instruction">
+                    Ada kado misteri buat kamu!<br>
+                    Ketuk kotaknya <span id="tap-count">5</span> kali untuk membukanya...
+                </div>
+
+                <!-- 3D Gift Box -->
+                <div class="gift-wrapper" id="gift-wrapper">
+                    <div class="gift-box" id="gift-box">
+                        <div class="box-3d" id="box-3d">
+                            
+                            <!-- LID (will fly away) -->
+                            <div class="lid" id="lid">
+                                <div class="lid-top"></div>
+                                <div class="lid-front"></div>
+                                <div class="lid-ribbon"></div>
+                            </div>
+
+                            <!-- BOX BODY -->
+                            <div class="box-body">
+                                <!-- Front Face -->
+                                <div class="face front"></div>
+                                <!-- Back Face -->
+                                <div class="face back"></div>
+                                <!-- Left Face -->
+                                <div class="face left"></div>
+                                <!-- Right Face -->
+                                <div class="face right"></div>
+                                <!-- Bottom Face -->
+                                <div class="face bottom"></div>
+                                
+                                <!-- Decorative Ribbons -->
+                                <div class="ribbon vertical"></div>
+                                <div class="ribbon horizontal"></div>
+                                <div class="bow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- REVEAL SECTION (Hidden initially) -->
+            <div id="reveal-section" class="reveal-section">
+                <div class="gift-card">
+                    
+                    <!-- Gift Photo -->
+                    <div class="photo-frame">
+                        <img src="https://picsum.photos/id/1011/600/420" 
+                             alt="Kenangan Kita Berdua" 
+                             class="gift-photo">
+                    </div>
+
+                    <!-- Title -->
+                    <h1 class="gift-title">Selamat Ulang Tahun Sayangku! 🎂💖</h1>
+
+                    <!-- Scrollable Message -->
+                    <div class="message-scroll">
+                        <div class="message-content">
+                            <p>Hai sayangku,</p>
+                            
+                            <p>Selamat ulang tahun yang ke-27! 🎉</p>
+                            
+                            <p>Meskipun kamu selalu berhasil membuatku ketawa ngakak dengan lelucon-leluconmu yang absurd (ingat waktu kamu nyoba masak pasta tapi malah jadi “seni abstrak” di dapur? 😂), aku tetap merasa paling beruntung punya kamu di hidupku.</p>
+                            
+                            <p>Kamu adalah orang yang bisa bikin aku marah dalam 3 detik, tapi juga bisa bikin aku meleleh dalam 2 detik berikutnya. Kamu spesial banget.</p>
+                            
+                            <p>Terima kasih sudah selalu ada, mendengarkan curhatanku yang panjang lebar, dan tetap memilih aku setiap hari meskipun aku kadang cerewet.</p>
+                            
+                            <p>Ini kado kecil dari hatiku... semoga bisa bikin kamu senyum lebar hari ini dan mengingatkan betapa besar cinta aku padamu.</p>
+                            
+                            <p class="closing">Aku sayang kamu lebih dari kata-kata bisa ungkapkan.<br>
+                            Selamanya,<br>
+                            <strong>Israel</strong> ❤️</p>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="replyToGift()">
+                            Balas dengan Cinta ❤️
+                        </button>
+                        <button class="btn btn-secondary" onclick="restartUnboxing()">
+                            Buka Lagi
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

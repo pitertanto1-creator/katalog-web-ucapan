@@ -1,0 +1,135 @@
+/* Reset Dasar */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: radial-gradient(circle at center, #1e1e38 0%, #0f0f19 100%);
+    color: #ffffff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Layar Loading */
+#loading {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #0f0f19;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    width: 50px; height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-top: 5px solid #ffd43b;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 
+    100% { transform: rotate(360deg); } 
+}
+
+/* Kontainer Utama */
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+#instruction-text {
+    font-size: 1.4rem;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+/* Area Kado */
+.gift-container {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gift-box {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+}
+
+.gift-box:active {
+    transform: scale(0.8) !important;
+}
+
+/* Kartu Popup Glassmorphism */
+.glass-card {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(20, 20, 35, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px 25px;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.glass-card.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popup-title {
+    color: #ffd43b;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+#popup-message {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+#popup-message img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 14px;
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.action-btn:hover {
+    background: #ffd43b;
+}

@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Birthday Dream Diary 1080x1920</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Caveat:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --design-w: 1080;
+      --design-h: 1920;
+
+      --pink: #ff8fb8;
+      --pink-soft: #ffd7e7;
+      --pink-pale: #fff1f6;
+      --rose: #d94f7e;
+      --rose-dark: #b63c69;
+      --cream: #fffdf8;
+      --paper: #fffaf4;
+      --sage: #8f9a7e;
+      --sage-dark: #65735a;
+      --brown: #583f35;
+      --muted: #96756a;
+      --gold: #d7ac5a;
+      --white: #ffffff;
+
+      --font-display: "Playfair Display", serif;
+      --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+      --font-hand: "Caveat", cursive;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100dvh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      font-family: var(--font-body);
+      color: var(--brown);
+      background:
+        radial-gradient(circle at 18% 16%, rgba(255, 143, 184, 0.18), transparent 28%),
+        radial-gradient(circle at 82% 82%, rgba(215, 172, 90, 0.16), transparent 30%),
+        linear-gradient(135deg, #fff7fb 0%, #f6ebdf 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(217, 79, 126, 0.12) 1.2px, transparent 1.2px);
+      background-size: 28px 28px;
+      opacity: 0.5;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .phone-frame {
+      width: min(100vw - 24px, calc((100dvh - 24px) * 9 / 16), 520px);
+      aspect-ratio: 9 / 16;
+      position: relative;
+      overflow: hidden;
+      border-radius: 42px;
+      background: rgba(255, 255, 255, 0.62);
+      box-shadow:
+        0 0 0 7px rgba(255, 215, 231, 0.95),
+        0 0 0 12px rgba(255, 143, 184, 0.30),
+        0 24px 70px rgba(88, 63, 53, 0.18);
+      isolation: isolate;
+    }
+
+    .phone-frame::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 86px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(217, 79, 126, 0.24);
+      z-index: 10;
+    }
+
+    .float-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floaty {
+      position: absolute;
+      left: var(--x);
+      bottom: -36px;
+      font-size: clamp(13px, 4vw, 22px);
+      opacity: 0.54;
+      animation: floatUp var(--dur) linear infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      13% { opacity: 0.62; }
+      100% { transform: translateY(-920px) rotate(28deg); opacity: 0; }
+    }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      padding: 40px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 143, 184, 0.16), transparent 42%),
+        linear-gradient(180deg, rgba(255, 245, 249, 0.92), rgba(255, 253, 248, 0.92));
+    }
+
+    .topbar {
+      flex-shrink: 0;
+      height: 48px;
+      margin-bottom: 14px;
+      padding: 0 2px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--rose);
+      font-size: clamp(10px, 2.8vw, 13px);
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .music-btn {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--white), rgba(255, 248, 252, 0.9));
+      color: var(--rose);
+      box-shadow: 
+        0 10px 20px rgba(217, 79, 126, 0.15),
+        0 0 0 1px rgba(217, 79, 126, 0.1);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .music-btn:hover {
+      transform: translateY(-3px) scale(1.08);
+      box-shadow: 
+        0 14px 28px rgba(217, 79, 126, 0.2),
+        0 0 0 2px rgba(217, 79, 126, 0.15);
+    }
+
+    /* ============================================================
+       DECORATIVE ELEMENTS - SPARKLE & ELEGANT FRAMES
+       ============================================================ */
+    
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border: 1px dashed rgba(217, 79, 126, 0.18);
+      border-radius: 28px;
+      pointer-events: none;
+    }
+    
+    .timeline-text h3 {
+      background: linear-gradient(135deg, var(--brown), var(--rose));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    
+    .kicker::before {
+      content: "✨";
+      margin-right: 6px;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+    
+    .wish-icon {
+      flex-shrink: 0;
+      color: var(--rose);
+      animation: sparkle 2.5s ease-in-out infinite;
+    }
+
+    .book-stage {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      padding: 18px 16px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 92% 10%, rgba(255, 143, 184, 0.14), transparent 32%),
+        linear-gradient(135deg, rgba(255, 253, 248, 0.98), rgba(255, 244, 248, 0.96));
+      border: 1px solid rgba(255, 215, 231, 0.92);
+      box-shadow: 0 14px 36px rgba(88, 63, 53, 0.14);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(45px) scale(0.985);
+      transition:
+        opacity 0.32s ease,
+        transform 0.48s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border: 1px dashed rgba(217, 79, 126, 0.18);
+      border-radius: 28px;
+      pointer-events: none;
+    }
+
+    .kicker {
+      position: relative;
+      z-index: 1;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 215, 231, 0.85), rgba(255, 143, 184, 0.3));
+      color: var(--rose);
+      font-size: clamp(9px, 2.6vw, 11px);
+      font-weight: 900;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 1px solid rgba(255, 215, 231, 0.5);
+      box-shadow: 0 4px 12px rgba(217, 79, 126, 0.12);
+    }
+
+    .title {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      color: var(--brown);
+      text-align: center;
+      font-size: clamp(29px, 8vw, 39px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      margin-bottom: 9px;
+      background: linear-gradient(135deg, var(--brown), var(--rose));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+    }
+
+    .script {
+      display: block;
+      color: var(--rose);
+      font-family: var(--font-hand);
+      font-size: clamp(42px, 12vw, 58px);
+      line-height: 0.82;
+      letter-spacing: 0;
+      font-weight: 700;
+      text-shadow: 0 4px 12px rgba(217, 79, 126, 0.15);
+    }
+
+    .subtitle {
+      position: relative;
+      z-index: 1;
+      max-width: 330px;
+      margin: 0 auto 14px;
+      color: var(--sage-dark);
+      font-size: clamp(11px, 3.2vw, 13px);
+      line-height: 1.65;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    .cover-photo {
+      position: relative;
+      z-index: 1;
+      width: min(58vw, 205px);
+      height: min(58vw, 205px);
+      max-width: 205px;
+      max-height: 205px;
+      margin: 8px auto 14px;
+      border-radius: 50%;
+      border: 8px solid var(--white);
+      overflow: hidden;
+      background: var(--pink-soft);
+      box-shadow: 
+        0 18px 36px rgba(217, 79, 126, 0.23),
+        inset -2px -2px 8px rgba(217, 79, 126, 0.15);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    
+    .cover-photo:hover {
+      transform: scale(1.02) rotate(-1deg);
+    }
+
+    .cover-photo img,
+    .timeline-photo img,
+    .gallery-tile img,
+    .booth-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .placeholder {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      color: rgba(217, 79, 126, 0.56);
+      background: linear-gradient(135deg, rgba(255, 215, 231, 0.88), rgba(255, 255, 255, 0.72));
+      font-size: 36px;
+    }
+
+    .age-badge {
+      position: relative;
+      z-index: 1;
+      width: min(24vw, 92px);
+      height: min(24vw, 92px);
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(255, 215, 231, 0.5), rgba(255, 143, 184, 0.15));
+      border: 2px solid rgba(217, 79, 126, 0.3);
+      color: var(--rose);
+      font-family: var(--font-display);
+      font-size: clamp(38px, 12vw, 50px);
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 
+        0 12px 24px rgba(217, 79, 126, 0.12),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4);
+    }
+
+    .date-pill {
+      position: relative;
+      z-index: 1;
+      width: fit-content;
+      margin: 0 auto;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--white), rgba(255, 248, 252, 0.9));
+      color: var(--rose);
+      font-size: clamp(10px, 3vw, 12px);
+      font-weight: 900;
+      border: 1.5px solid rgba(217, 79, 126, 0.2);
+      box-shadow: 
+        0 9px 19px rgba(217, 79, 126, 0.12),
+        0 0 0 1px rgba(217, 79, 126, 0.05);
+      letter-spacing: 0.3px;
+    }
+
+    .calendar-box,
+    .letter-box,
+    .final-box {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, var(--white), rgba(255, 248, 252, 0.8));
+      border-radius: 24px;
+      padding: 16px;
+      border: 1.5px solid rgba(255, 215, 231, 0.4);
+      box-shadow: 
+        0 12px 24px rgba(88, 63, 53, 0.08),
+        0 0 0 1px rgba(217, 79, 126, 0.05);
+    }
+
+    .calendar-head {
+      display: flex;
+      justify-content: space-between;
+      color: var(--sage-dark);
+      font-weight: 900;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .cal-name {
+      font-size: 9px;
+      color: var(--muted);
+      text-align: center;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(255, 251, 253, 0.95), rgba(255, 247, 248, 0.8));
+      border: 1px solid rgba(255, 215, 231, 0.3);
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--sage-dark);
+      transition: all 0.3s ease;
+    }
+    
+    .cal-day:not(.empty):hover {
+      transform: scale(1.08);
+      border-color: rgba(217, 79, 126, 0.4);
+    }
+
+    .cal-day.empty {
+      opacity: 0;
+    }
+
+    .cal-day.birthday {
+      position: relative;
+      background: var(--pink);
+      color: var(--white);
+      box-shadow: 0 8px 16px rgba(217, 79, 126, 0.24);
+    }
+
+    .cal-day.birthday::after {
+      content: "♡";
+      position: absolute;
+      top: -12px;
+      color: var(--rose);
+      font-size: 15px;
+    }
+
+    .quote-card {
+      position: relative;
+      z-index: 1;
+      margin-top: 14px;
+      padding: 18px 16px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255, 215, 231, 0.8), rgba(255, 143, 184, 0.15));
+      border: 1.5px solid rgba(255, 215, 231, 0.6);
+      color: var(--brown);
+      text-align: center;
+      font-family: var(--font-hand);
+      font-size: clamp(22px, 6.5vw, 28px);
+      line-height: 1.12;
+      box-shadow: 
+        0 8px 20px rgba(217, 79, 126, 0.12),
+        inset 0 1px 3px rgba(255, 255, 255, 0.5);
+    }
+
+    .timeline-list {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 13px;
+      align-items: center;
+    }
+
+    .timeline-photo {
+      width: 84px;
+      height: 104px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--pink-soft), var(--white));
+      border: 8px solid var(--white);
+      border-bottom-width: 20px;
+      box-shadow: 
+        0 8px 20px rgba(88, 63, 53, 0.13),
+        -2px 2px 8px rgba(217, 79, 126, 0.2);
+      transform: rotate(-2deg);
+      position: relative;
+    }
+    
+    .timeline-photo::after {
+      content: "";
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(217, 79, 126, 0.3), transparent);
+    }
+
+    .timeline-item:nth-child(even) .timeline-photo {
+      transform: rotate(2deg);
+    }
+
+    .timeline-text h3 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .timeline-text p {
+      color: var(--muted);
+      font-size: 11.4px;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .gallery-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .gallery-tile {
+      aspect-ratio: 1;
+      border-radius: 16px;
+      border: 5px solid var(--white);
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--pink-soft), rgba(255, 215, 231, 0.5));
+      box-shadow: 
+        0 8px 15px rgba(88, 63, 53, 0.10),
+        0 0 0 1px rgba(217, 79, 126, 0.2);
+      animation: pop 0.45s ease both;
+      animation-delay: calc(var(--i) * 0.04s);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-tile:hover {
+      transform: translateY(-4px) scale(1.02);
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.86); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .reasons-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+
+    .reason-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 215, 231, 0.85), rgba(255, 143, 184, 0.4));
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--brown);
+      box-shadow: 
+        0 8px 14px rgba(217, 79, 126, 0.15),
+        inset 0 1px 3px rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+    
+    .reason-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 12px 20px rgba(217, 79, 126, 0.2),
+        inset 0 1px 3px rgba(255, 255, 255, 0.6);
+    }
+
+    .letter-box {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.67;
+      font-weight: 700;
+      white-space: pre-line;
+      overflow-y: auto;
+      min-height: 220px;
+    }
+
+    .wish-list {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .wish-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 13px 14px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--white), rgba(255, 245, 249, 0.8));
+      border: 1.5px solid rgba(255, 215, 231, 0.6);
+      box-shadow: 
+        0 10px 20px rgba(88, 63, 53, 0.08),
+        0 0 0 1px rgba(217, 79, 126, 0.1);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 800;
+      transition: all 0.3s ease;
+    }
+    
+    .wish-item:hover {
+      transform: translateX(4px);
+      border-color: rgba(255, 215, 231, 0.9);
+      box-shadow: 
+        0 12px 25px rgba(88, 63, 53, 0.12),
+        0 0 0 2px rgba(217, 79, 126, 0.15);
+    }
+
+    .wish-icon {
+      flex-shrink: 0;
+      color: var(--rose);
+    }
+
+    .booth-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .booth-strip {
+      width: 92px;
+      padding: 8px;
+      border-radius: 14px;
+      background: #2a211d;
+      display: grid;
+      gap: 7px;
+      box-shadow: 0 14px 24px rgba(88, 63, 53, 0.18);
+    }
+
+    .booth-frame {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 7px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--pink-soft), rgba(255, 215, 231, 0.6));
+      border: 6px solid var(--white);
+      border-bottom-width: 14px;
+      box-shadow: 
+        0 6px 12px rgba(88, 63, 53, 0.12),
+        -1px 1px 4px rgba(217, 79, 126, 0.15);
+      position: relative;
+    }
+    
+    .booth-frame::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(217, 79, 126, 0.2), transparent);
+    }
+
+    .final-box {
+      margin-top: auto;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 800;
+      white-space: pre-line;
+    }
+
+    .primary-btn {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      min-height: 48px;
+      margin-top: 14px;
+      border: 0;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--pink), var(--rose));
+      color: var(--white);
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 
+        0 12px 24px rgba(217, 79, 126, 0.25),
+        0 0 0 1px rgba(217, 79, 126, 0.1);
+      overflow: hidden;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+    
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 16px 32px rgba(217, 79, 126, 0.3),
+        0 0 0 2px rgba(217, 79, 126, 0.15);
+    }
+    
+    .primary-btn:active {
+      transform: translateY(0);
+    }
+
+    .primary-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -130%;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      animation: shimmer 2.4s infinite;
+    }
+
+    @keyframes shimmer {
+      to { left: 160%; }
+    }
+
+    .nav {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 13px;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--white), rgba(255, 248, 252, 0.9));
+      color: var(--rose);
+      font-size: 20px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 
+        0 8px 18px rgba(88, 63, 53, 0.12),
+        0 0 0 1px rgba(217, 79, 126, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-btn:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 
+        0 12px 24px rgba(88, 63, 53, 0.15),
+        0 0 0 2px rgba(217, 79, 126, 0.15);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .count {
+      flex: 1;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      color: var(--sage-dark);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(88, 63, 53, 0.42);
+      backdrop-filter: blur(6px);
+    }
+
+    .modal.hidden {
+      display: none;
+    }
+
+    .modal-card {
+      width: min(350px, 100%);
+      padding: 28px 22px;
+      border-radius: 28px;
+      background: var(--cream);
+      text-align: center;
+      box-shadow: 0 25px 70px rgba(88, 63, 53, 0.25);
+      animation: modalIn .34s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(.8) translateY(18px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-icon {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      color: var(--rose);
+      font-family: var(--font-display);
+      font-size: 23px;
+      margin-bottom: 10px;
+    }
+
+    .modal-body {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.7;
+      white-space: pre-line;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 430px) {
+      body {
+        padding: 0;
+      }
+
+      .phone-frame {
+        width: 100vw;
+        height: 100dvh;
+        aspect-ratio: auto;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .screen {
+        padding: 46px 14px 14px;
+      }
+
+      .page {
+        padding: 20px 18px;
+      }
+
+      .cover-photo {
+        width: 168px;
+        height: 168px;
+      }
+
+      .age-badge {
+        width: 76px;
+        height: 76px;
+      }
+
+      .title {
+        font-size: 29px;
+      }
+
+      .script {
+        font-size: 42px;
+      }
+    }
+  
+    /* ============================================================
+       FINAL PAGE V2 FIX
+       - Frame tulisan dibuat lebih tinggi dan lebar
+       - Teks final tidak mudah kepotong
+       - Navigasi bawah dikecilkan agar tidak makan tempat
+       ============================================================ */
+
+    .final-page {
+      padding: 20px 18px 16px;
+    }
+
+    .final-page .kicker {
+      margin-bottom: 7px;
+      padding: 6px 12px;
+      font-size: clamp(8px, 2.35vw, 10px);
+    }
+
+    .final-page .title {
+      margin-bottom: 6px;
+      font-size: clamp(28px, 7.5vw, 36px);
+      line-height: 0.95;
+    }
+
+    .final-page .script {
+      font-size: clamp(42px, 11vw, 54px);
+      line-height: 0.82;
+    }
+
+    .final-page .subtitle {
+      margin-bottom: 10px;
+      font-size: clamp(11px, 3vw, 12.5px);
+      line-height: 1.55;
+    }
+
+    .final-page .final-box {
+      width: 100%;
+      flex: 1;
+      min-height: 0;
+      margin-top: 0;
+      padding: 20px 18px;
+      border-radius: 28px;
+      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: clamp(12px, 3.15vw, 14px);
+      line-height: 1.72;
+      box-shadow: 0 12px 28px rgba(88, 63, 53, 0.11);
+    }
+
+    .final-page .primary-btn {
+      flex-shrink: 0;
+      min-height: 44px;
+      margin-top: 10px;
+      border-radius: 16px;
+      font-size: 12px;
+    }
+
+    .nav {
+      gap: 9px;
+      padding-top: 8px;
+    }
+
+    .nav-btn {
+      width: 36px;
+      height: 36px;
+      font-size: 17px;
+    }
+
+    .count {
+      height: 36px;
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    @media (max-width: 430px) {
+      .nav {
+        padding-top: 7px;
+      }
+
+      .nav-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+      }
+
+      .count {
+        height: 34px;
+        font-size: 10.5px;
+      }
+
+      .final-page {
+        padding: 18px 16px 14px;
+      }
+
+      .final-page .final-box {
+        padding: 18px 16px;
+        font-size: 12px;
+        line-height: 1.68;
+      }
+
+      .final-page .primary-btn {
+        min-height: 42px;
+        margin-top: 8px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="float-layer" id="floatLayer"></div>
+
+    <main class="screen">
+      <div class="topbar">
+        <div class="brand" id="brandText">✦ Birthday Dream Diary ✦</div>
+        <button class="music-btn" id="musicBtn" type="button" aria-label="Putar musik">♪</button>
+      </div>
+
+      <section class="book-stage">
+        <article class="page active">
+          <div class="kicker" id="coverKicker"></div>
+          <div class="cover-photo" id="coverPhoto"></div>
+          <h1 class="title">
+            <span id="titleTop"></span>
+            <span class="script" id="titleScript"></span>
+          </h1>
+          <p class="subtitle" id="coverSubtitle"></p>
+          <div class="age-badge" id="ageBadge"></div>
+          <div class="date-pill" id="datePill"></div>
+        </article>
+
+        <article class="page">
+          <div class="kicker">Birthday Date</div>
+          <h2 class="title">The Special <span class="script">Calendar</span></h2>
+          <p class="subtitle" id="calendarSubtitle"></p>
+          <div class="calendar-box">
+            <div class="calendar-head">
+              <span id="calendarMonth"></span>
+              <span id="calendarYear"></span>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+          </div>
+          <div class="quote-card" id="quoteText"></div>
+        </article>
+
+        <article class="page">
+          <div class="kicker">Little Timeline</div>
+          <h2 class="title">Sweet <span class="script">Moments</span></h2>
+          <p class="subtitle" id="timelineSubtitle"></p>
+          <div class="timeline-list" id="timelineList"></div>
+        </article>
+
+        <article class="page">
+          <div class="kicker">Memory Gallery</div>
+          <h2 class="title">Pieces of <span class="script">Happiness</span></h2>
+          <p class="subtitle" id="gallerySubtitle"></p>
+          <div class="gallery-grid" id="galleryGrid"></div>
+        </article>
+
+        <article class="page">
+          <div class="kicker">Reasons</div>
+          <h2 class="title">Why You Are <span class="script">Special</span></h2>
+          <p class="subtitle" id="reasonsSubtitle"></p>
+          <div class="reasons-wrap" id="reasonsWrap"></div>
+          <div class="letter-box" id="letterBox"></div>
+        </article>
+
+        <article class="page">
+          <div class="kicker">Birthday Wishes</div>
+          <h2 class="title">Pocket Full of <span class="script">Wishes</span></h2>
+          <p class="subtitle" id="wishesSubtitle"></p>
+          <div class="wish-list" id="wishList"></div>
+        </article>
+
+        <article class="page">
+          <div class="kicker">Photobooth</div>
+          <h2 class="title">Little <span class="script">Frames</span></h2>
+          <p class="subtitle" id="boothSubtitle"></p>
+          <div class="booth-wrap" id="boothWrap"></div>
+        </article>
+
+        <article class="page final-page">
+          <div class="kicker">Final Surprise</div>
+          <h2 class="title">One Last <span class="script">Wish</span></h2>
+          <p class="subtitle" id="finalSubtitle"></p>
+          <div class="final-box" id="finalMessage"></div>
+          <button class="primary-btn" id="finalBtn" type="button"></button>
+        </article>
+      </section>
+
+      <nav class="nav">
+        <button class="nav-btn" id="prevBtn" type="button" aria-label="Sebelumnya">‹</button>
+        <div class="count"><span id="pageNum">1</span> / <span id="totalPages">8</span></div>
+        <button class="nav-btn" id="nextBtn" type="button" aria-label="Selanjutnya">›</button>
+      </nav>
+    </main>
+  </div>
+
+  <div class="modal hidden" id="modal">
+    <div class="modal-card">
+      <div class="modal-icon" id="modalIcon">🎂</div>
+      <h3 class="modal-title" id="modalTitle">Happy Birthday!</h3>
+      <p class="modal-body" id="modalBody"></p>
+      <button class="primary-btn" id="modalClose" type="button">Tutup ✨</button>
+    </div>
+  </div>
+
+  <audio id="birthdayAudio" preload="metadata"></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="data.js"></script>
+
+  <script>
+    window.BIRTHDAY_DREAM_DATA = window.BIRTHDAY_DREAM_DATA || {
+      brandText: "✦ Birthday Dream Diary ✦",
+      receiverName: "Aisya",
+      age: "21",
+      birthdayDate: "2005-07-21",
+      birthdayDateLabel: "21 Juli 2026",
+      decorations: { floatingIcons: ["♡", "✦", "🎂", "✨", "🌸"] },
+      opening: {
+        smallText: "A little birthday gift for you",
+        titleTop: "Happy",
+        titleScript: "Birthday",
+        subtitle: "Hari ini khusus untuk kamu, seseorang yang pantas dirayakan dengan cara paling manis."
+      },
+      photos: { cover: "assets/cover.jpg" },
+      calendar: {
+        subtitle: "Tanggal kecil di kalender, tapi maknanya besar banget.",
+        quote: "Semoga hari ini jadi awal dari banyak hal baik."
+      },
+      timeline: {
+        subtitle: "Sedikit potongan cerita yang tumbuh indah.",
+        items: [
+          { title: "Little You", text: "Sisi manis yang selalu bikin orang mudah sayang.", photo: "assets/timeline-1.jpg" },
+          { title: "Growing Beautifully", text: "Tumbuh makin kuat, makin baik, dan makin bersinar.", photo: "assets/timeline-2.jpg" },
+          { title: "Today’s You", text: "Versi kamu hari ini pantas dapat banyak bahagia.", photo: "assets/timeline-3.jpg" }
+        ]
+      },
+      gallery: {
+        subtitle: "Foto kecil yang menyimpan banyak cerita.",
+        photos: ["assets/gallery-1.jpg","assets/gallery-2.jpg","assets/gallery-3.jpg","assets/gallery-4.jpg","assets/gallery-5.jpg","assets/gallery-6.jpg","assets/gallery-7.jpg","assets/gallery-8.jpg","assets/gallery-9.jpg"]
+      },
+      reasons: {
+        subtitle: "Beberapa alasan sederhana kenapa kamu spesial.",
+        items: ["your smile", "your laugh", "your kindness", "your heart", "your energy", "your soft side"]
+      },
+      letter: {
+        body: "Selamat ulang tahun ya.\n\nSemoga tahun ini membawa lebih banyak senyum, lebih banyak hal baik, dan lebih banyak alasan untuk kamu merasa dicintai.\n\nKamu berharga, kamu dicintai, dan kamu pantas bahagia."
+      },
+      wishes: {
+        subtitle: "Doa kecil yang aku titipkan untuk ulang tahunmu.",
+        items: ["Semoga sehat selalu.", "Semoga impianmu satu per satu tercapai.", "Semoga kamu makin bahagia.", "Semoga tahun ini lebih indah dari sebelumnya."]
+      },
+      photobooth: {
+        subtitle: "Frame kecil untuk kenangan yang lucu dan manis.",
+        photos: ["assets/booth-1.jpg","assets/booth-2.jpg","assets/booth-3.jpg","assets/booth-4.jpg","assets/booth-5.jpg","assets/booth-6.jpg"]
+      },
+      music: { src: "assets/birthday-song.mp3" },
+      final: {
+        subtitle: "Satu pesan terakhir sebelum diary ini ditutup.",
+        message: "Happy birthday.\n\nSemoga kamu selalu punya alasan untuk tersenyum.",
+        buttonText: "Open Birthday Surprise ✨",
+        modalIcon: "🎂",
+        modalTitle: "Happy Birthday!",
+        modalBody: "Selamat ulang tahun!\n\nSemoga semua doa baik memeluk kamu hari ini. 💗"
+      }
+    };
+
+    const DATA = window.BIRTHDAY_DREAM_DATA;
+    const $ = (id) => document.getElementById(id);
+    const pages = Array.from(document.querySelectorAll(".page"));
+    const months = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    let current = 0;
+
+    function img(src, alt, emoji = "📷") {
+      if (!src) return `<div class="placeholder">${emoji}</div>`;
+      return `<img src="${src}" alt="${alt || ""}" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'placeholder', textContent:'${emoji}'}))">`;
+    }
+
+    function formatDate(dateString) {
+      const d = new Date((dateString || "") + "T00:00:00");
+      if (Number.isNaN(d.getTime())) return DATA.birthdayDateLabel || "";
+      return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    }
+
+    function renderFloat() {
+      const layer = $("floatLayer");
+      const icons = DATA.decorations?.floatingIcons || ["♡", "✦", "🎂", "✨"];
+      layer.innerHTML = "";
+
+      for (let i = 0; i < 26; i++) {
+        const el = document.createElement("span");
+        el.className = "floaty";
+        el.textContent = icons[i % icons.length];
+        el.style.setProperty("--x", Math.random() * 100 + "%");
+        el.style.setProperty("--dur", 7 + Math.random() * 7 + "s");
+        el.style.setProperty("--delay", Math.random() * -10 + "s");
+        layer.appendChild(el);
+      }
+    }
+
+    function renderCover() {
+      $("brandText").textContent = DATA.brandText || "✦ Birthday Dream Diary ✦";
+      $("coverKicker").textContent = DATA.opening?.smallText || "";
+      $("coverPhoto").innerHTML = img(DATA.photos?.cover, DATA.receiverName, "🎂");
+      $("titleTop").textContent = DATA.opening?.titleTop || "Happy";
+      $("titleScript").textContent = DATA.opening?.titleScript || "Birthday";
+      $("coverSubtitle").textContent = DATA.opening?.subtitle || "";
+      $("ageBadge").textContent = DATA.age || "";
+      $("datePill").textContent = formatDate(DATA.birthdayDate);
+    }
+
+    function renderCalendar() {
+      $("calendarSubtitle").textContent = DATA.calendar?.subtitle || "";
+      $("quoteText").textContent = DATA.calendar?.quote || "";
+
+      const d = new Date((DATA.birthdayDate || "") + "T00:00:00");
+      const date = Number.isNaN(d.getTime()) ? new Date() : d;
+      const y = date.getFullYear();
+      const m = date.getMonth();
+      const birthdayDay = date.getDate();
+
+      $("calendarMonth").textContent = months[m];
+      $("calendarYear").textContent = y;
+
+      const grid = $("calendarGrid");
+      grid.innerHTML = "";
+
+      ["Min","Sen","Sel","Rab","Kam","Jum","Sab"].forEach(day => {
+        const el = document.createElement("div");
+        el.className = "cal-name";
+        el.textContent = day;
+        grid.appendChild(el);
+      });
+
+      const first = new Date(y, m, 1).getDay();
+      const total = new Date(y, m + 1, 0).getDate();
+
+      for (let i = 0; i < first; i++) {
+        const e = document.createElement("div");
+        e.className = "cal-day empty";
+        grid.appendChild(e);
+      }
+
+      for (let day = 1; day <= total; day++) {
+        const el = document.createElement("div");
+        el.className = "cal-day" + (day === birthdayDay ? " birthday" : "");
+        el.textContent = day;
+        grid.appendChild(el);
+      }
+    }
+
+    function renderTimeline() {
+      $("timelineSubtitle").textContent = DATA.timeline?.subtitle || "";
+      const list = $("timelineList");
+      list.innerHTML = "";
+
+      (DATA.timeline?.items || []).forEach((item) => {
+        const row = document.createElement("div");
+        row.className = "timeline-item";
+        row.innerHTML = `
+          <div class="timeline-photo">${img(item.photo, item.title, "📷")}</div>
+          <div class="timeline-text">
+            <h3>${item.title || ""}</h3>
+            <p>${item.text || ""}</p>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    function renderGallery() {
+      $("gallerySubtitle").textContent = DATA.gallery?.subtitle || "";
+      const grid = $("galleryGrid");
+      grid.innerHTML = "";
+
+      (DATA.gallery?.photos || []).forEach((src, i) => {
+        const tile = document.createElement("div");
+        tile.className = "gallery-tile";
+        tile.style.setProperty("--i", i);
+        tile.innerHTML = img(src, `Gallery ${i+1}`, "♡");
+        grid.appendChild(tile);
+      });
+    }
+
+    function renderReasons() {
+      $("reasonsSubtitle").textContent = DATA.reasons?.subtitle || "";
+      const wrap = $("reasonsWrap");
+      wrap.innerHTML = "";
+
+      (DATA.reasons?.items || []).forEach((text) => {
+        const pill = document.createElement("span");
+        pill.className = "reason-pill";
+        pill.textContent = text;
+        wrap.appendChild(pill);
+      });
+
+      $("letterBox").textContent = DATA.letter?.body || "";
+    }
+
+    function renderWishes() {
+      $("wishesSubtitle").textContent = DATA.wishes?.subtitle || "";
+      const list = $("wishList");
+      list.innerHTML = "";
+
+      (DATA.wishes?.items || []).forEach((text) => {
+        const item = document.createElement("div");
+        item.className = "wish-item";
+        item.innerHTML = `<span class="wish-icon">✦</span><span>${text}</span>`;
+        list.appendChild(item);
+      });
+    }
+
+    function renderBooth() {
+      $("boothSubtitle").textContent = DATA.photobooth?.subtitle || "";
+      const wrap = $("boothWrap");
+      wrap.innerHTML = "";
+
+      const photos = DATA.photobooth?.photos || [];
+      [photos.slice(0,3), photos.slice(3,6)].forEach((col) => {
+        const strip = document.createElement("div");
+        strip.className = "booth-strip";
+
+        col.forEach((src, i) => {
+          const frame = document.createElement("div");
+          frame.className = "booth-frame";
+          frame.innerHTML = img(src, `Booth ${i+1}`, "📷");
+          strip.appendChild(frame);
+        });
+
+        wrap.appendChild(strip);
+      });
+    }
+
+    function renderFinal() {
+      $("finalSubtitle").textContent = DATA.final?.subtitle || "";
+      $("finalMessage").textContent = DATA.final?.message || "";
+      $("finalBtn").textContent = DATA.final?.buttonText || "Open Birthday Surprise ✨";
+    }
+
+    function showPage(index) {
+      current = Math.max(0, Math.min(index, pages.length - 1));
+      pages.forEach((page, i) => page.classList.toggle("active", i === current));
+      $("pageNum").textContent = current + 1;
+      $("totalPages").textContent = pages.length;
+      $("prevBtn").disabled = current === 0;
+      $("nextBtn").disabled = current === pages.length - 1;
+    }
+
+    function openModal(icon, title, body) {
+      $("modalIcon").textContent = icon || "🎂";
+      $("modalTitle").textContent = title || "Happy Birthday!";
+      $("modalBody").textContent = body || "";
+      $("modal").classList.remove("hidden");
+    }
+
+    function initMusic() {
+      const audio = $("birthdayAudio");
+      if (DATA.music?.src) audio.src = DATA.music.src;
+
+      $("musicBtn").addEventListener("click", () => {
+        if (!audio.src) {
+          openModal("🎵", "Musik belum dipasang", "Tambahkan file musik di data.js.");
+          return;
+        }
+
+        if (audio.paused) {
+          audio.play()
+            .then(() => $("musicBtn").textContent = "Ⅱ")
+            .catch(() => openModal("🎵", "Klik sekali lagi", "Browser kadang menahan musik otomatis."));
+        } else {
+          audio.pause();
+          $("musicBtn").textContent = "♪";
+        }
+      });
+
+      audio.addEventListener("ended", () => $("musicBtn").textContent = "♪");
+    }
+
+    function fireConfetti() {
+      if (typeof confetti === "function") {
+        confetti({
+          particleCount: 170,
+          spread: 90,
+          origin: { y: 0.58 },
+          colors: ["#ff8fb8", "#ffd7e7", "#8f9a7e", "#d7ac5a", "#ffffff"]
+        });
+
+        setTimeout(() => {
+          confetti({
+            particleCount: 80,
+            spread: 60,
+            origin: { x: 0.2, y: 0.7 },
+            colors: ["#ff8fb8", "#ffd7e7", "#ffffff"]
+          });
+        }, 260);
+      }
+    }
+
+    $("prevBtn").addEventListener("click", () => showPage(current - 1));
+    $("nextBtn").addEventListener("click", () => showPage(current + 1));
+
+    $("modalClose").addEventListener("click", () => $("modal").classList.add("hidden"));
+    $("modal").addEventListener("click", (event) => {
+      if (event.target === $("modal")) $("modal").classList.add("hidden");
+    });
+
+    $("finalBtn").addEventListener("click", () => {
+      fireConfetti();
+      openModal(
+        DATA.final?.modalIcon,
+        DATA.final?.modalTitle,
+        DATA.final?.modalBody
+      );
+    });
+
+    renderFloat();
+    renderCover();
+    renderCalendar();
+    renderTimeline();
+    renderGallery();
+    renderReasons();
+    renderWishes();
+    renderBooth();
+    renderFinal();
+    initMusic();
+    showPage(0);
+  </script>
+</body>
+</html>

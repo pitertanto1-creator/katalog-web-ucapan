@@ -1,0 +1,68 @@
+PANDUAN EDIT — BIRTHDAY RETRO WINDOWS
+
+Folder produk:
+core/retro/birthday-retro-windows/
+
+File utama:
+1. index.html
+2. style.css
+3. script.js
+4. data.js
+
+File yang paling sering diedit:
+data.js
+
+Yang diedit di data.js:
+- websiteTitle
+- name
+- welcomeTitle
+- welcomeText
+- songTitle
+- musicFile
+- coverImage
+- noteMessage
+- aboutMessage
+- photos
+- alertText
+- reminderText
+- finalBirthdayText
+- finalBirthdaySubtext
+
+Cara mengganti foto:
+1. Buka folder assets/images/
+2. Ganti foto customer menjadi:
+   - foto1.jpg
+   - foto2.jpg
+   - foto3.jpg
+   - foto4.jpg
+3. Pastikan nama file sama persis.
+4. Jangan pakai spasi pada nama file.
+
+Cara mengganti lagu:
+1. Buka folder assets/music/
+2. Ganti file lagu menjadi:
+   - birthday-song.mp3
+3. Pastikan format MP3.
+4. Pastikan nama file sama persis.
+
+Cara test:
+1. Buka index.html di browser.
+2. Pastikan Welcome muncul otomatis.
+3. Klik OK.
+4. Pastikan musik berjalan.
+5. Pastikan Our Photos muncul 2x2.
+6. Klik Message.
+7. Klik About You.
+8. Klik Surprise.
+9. Pastikan alert, reminder, surprise, dan confetti berjalan.
+
+Checklist sebelum dikirim ke customer:
+[ ] Nama penerima sudah benar
+[ ] Foto sudah diganti semua
+[ ] Lagu sudah diganti
+[ ] Message sudah sesuai
+[ ] About You sudah sesuai
+[ ] Surprise sudah sesuai
+[ ] Tampilan HP rapi
+[ ] Link sudah bisa dibuka
+[ ] QR Code sudah dibuat jika customer minta

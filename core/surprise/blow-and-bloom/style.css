@@ -1,0 +1,496 @@
+/* ==========================================================================
+   1. RESET & INITIAL OVERALL STYLES
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #0d0d0d; /* Warna cadangan jika video gagal termuat */
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ==========================================================================
+   2. VIDEO BACKGROUND STYLES
+   ========================================================================== */
+.video-bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.video-bg-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55); /* Menggelapkan sedikit video agar konten depan mudah dibaca */
+}
+
+/* ==========================================================================
+   3. TYPOGRAPHY & HEADER GLOW EFFECTS
+   ========================================================================== */
+.main-title-glow {
+  text-shadow: 0 0 15px rgba(244, 143, 177, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.badge-float {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(248, 187, 208, 0.3);
+  border-radius: 99px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFF;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #F48FB1;
+  font-size: 14px;
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(248, 187, 208, 0.4), transparent);
+}
+
+/* ==========================================================================
+   4. INTERACTIVE CANDLE & MAGIC RING ELEMENTS
+   ========================================================================== */
+/* Cincin kilauan gambar dari Untitled design (8).png */
+.magic-power-ring {
+  position: absolute;
+  width: 250px;
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+  transform: rotate(0deg);
+  transition: opacity 0.5s ease, transform 0.2s linear;
+}
+
+.candle-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.flame-glow {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, rgba(255,190,100,0.5) 0%, rgba(255,140,70,0.1) 70%, transparent 100%);
+  border-radius: 50%;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.flame {
+  width: 32px;
+  height: 50px;
+  background: linear-gradient(180deg, #FFD740 0%, #FF6D00 65%, #BF360C 100%);
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+  animation: sway 1.8s ease-in-out infinite;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 0 10px rgba(255,150,40,0.8));
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.wick {
+  width: 3px;
+  height: 12px;
+  background: #5D4037;
+  margin: 0 auto;
+}
+
+.candle-body {
+  width: 50px;
+  height: 115px;
+  background: linear-gradient(135deg, #FFF9E6 0%, #F8BBD0 50%, #F48FB1 100%);
+  border-radius: 6px;
+  position: relative;
+  box-shadow: inset -3px 0 6px rgba(0,0,0,0.06), 0 4px 12px rgba(244,143,177,0.3);
+}
+
+.wax-drip {
+  position: absolute;
+  width: 8px;
+  height: 15px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 0 0 4px 4px;
+}
+
+.candle-plate {
+  width: 70px;
+  height: 10px;
+  background: linear-gradient(180deg, #D4A574, #9E7D59);
+  border-radius: 50%;
+}
+
+/* Keadaan Lilin Mati */
+.flame.extinguished, .flame-glow.extinguished {
+  opacity: 0 !important;
+  transform: scale(0) !important;
+  animation: none !important;
+}
+
+/* Efek Asap Saat Lilin Mati */
+.smoke {
+  position: absolute;
+  width: 4px;
+  height: 25px;
+  background: rgba(240,240,240,0.3);
+  border-radius: 50%;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+}
+
+.smoke.active {
+  animation: smokeRise 1.2s ease-out forwards;
+}
+
+/* Progress Pengisian Melingkar (Hold Ring) */
+.hold-ring {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hold-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.hold-ring circle {
+  fill: none;
+  stroke: url(#ringGrad);
+  stroke-width: 3;
+  stroke-dasharray: 408;
+  stroke-dashoffset: 408;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* Hint Tangan Memantul */
+.tap-hint {
+  animation: tapBounce 1.2s ease-in-out infinite;
+  text-align: center;
+}
+
+/* ==========================================================================
+   5. PREMIUM MICROPHONE STYLES (Untitled design (6).png)
+   ========================================================================== */
+.mic-container {
+  position: relative;
+  width: 65px;
+  height: 65px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.mic-container:active {
+  transform: scale(0.92);
+}
+
+.mic-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Efek denyut cahaya luar ketika mikrofon aktif mendengarkan suara */
+.mic-container.active {
+  animation: pulseMic 1s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   6. PROGRESS BAR TRACK & FILL
+   ========================================================================== */
+.progress-bar-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+  overflow: hidden;
+  border: 1px solid rgba(244, 143, 177, 0.3);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #F8BBD0, #F48FB1, #E91E8C);
+  border-radius: 99px;
+  transition: width 0.2s ease;
+}
+
+/* ==========================================================================
+   7. GLASSMORPHISM CORE PANELS & INPUTS
+   ========================================================================== */
+.glass-panel {
+  background: rgba(18, 14, 16, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(248, 187, 208, 0.25);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Kotak Textarea Harapan */
+.wish-input {
+  width: 100%;
+  border: 1px solid rgba(248, 187, 208, 0.25);
+  border-radius: 18px;
+  padding: 12px 16px;
+  background: rgba(10, 8, 9, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 14px;
+  color: #FFF;
+  outline: none;
+  resize: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.wish-input:focus {
+  border-color: #F48FB1;
+  box-shadow: 0 0 12px rgba(244, 143, 177, 0.25);
+}
+
+/* Card Hasil Harapan yang Berhasil Ditambahkan */
+.wish-card {
+  background: rgba(22, 16, 18, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 12px 16px;
+  border: 1px solid rgba(244, 143, 177, 0.25);
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Lapisan Galeri Foto Kaca */
+.photo-card-premium {
+  aspect-ratio: 1;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   8. BUTTON SYSTEMS
+   ========================================================================== */
+.btn-primary {
+  background: linear-gradient(135deg, #F48FB1, #E91E8C);
+  color: white;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 4px 15px rgba(244, 143, 177, 0.4);
+  transition: transform 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:active {
+  transform: scale(0.96);
+}
+
+.btn-primary:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  border: 1px solid rgba(244, 143, 177, 0.4);
+  border-radius: 12px;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+  background: rgba(244, 143, 177, 0.1);
+}
+
+.btn-sage {
+  background: linear-gradient(135deg, #A5D6A7, #66BB6A);
+  color: white;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 800;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-sage:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================================
+   9. SYSTEM ANIMATIONS & PARTICLES (Petals, Toast, Reveal)
+   ========================================================================== */
+.petal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.petal {
+  position: absolute;
+  animation: petalFloat 2.3s ease-out forwards;
+}
+
+#confettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Efek Muncul Lembut Saat Scroll (Reveal On Scroll) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FFF;
+  color: #111;
+  padding: 10px 20px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* Dropdown Surat Kejutan Rahasia */
+#surpriseMsg {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+#surpriseMsg.open {
+  max-height: 300px;
+  transition: max-height 0.5s ease-in-out;
+}
+
+/* Scrollbar Kustom Untuk Sisi Dalam */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #F48FB1;
+  border-radius: 9px;
+}
+
+/* KEYFRAMES */
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes smokeRise {
+  0% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-40px) scale(2); }
+}
+
+@keyframes pulseMic {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(244,143,177,0.8)); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 18px rgba(244,143,177,1)); }
+}
+
+@keyframes tapBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes petalFloat {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-200px) rotate(360deg); opacity: 0; }
+}

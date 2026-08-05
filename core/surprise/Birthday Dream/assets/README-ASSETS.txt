@@ -1,0 +1,1 @@
+Masukkan foto dan lagu di folder ini sesuai nama file yang ada di data.js.

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Blow & Bloom 🌸 — KadoLink Premium Video</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:ital,wght=0,700;1,600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            petal:   '#F8BBD0',
+            rose:    '#F48FB1',
+            cream:   '#FFF8F0',
+            mocha:   '#FFF5F7',
+            warm:    '#E0F2F1',
+          }
+        }
+      }
+    };
+  </script>
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="font-nunito text-mocha">
+
+  <div class="video-bg-container">
+    <video autoplay loop muted playsinline id="bgVideo">
+      <source src="background.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <div class="petal-container" id="petalContainer"></div>
+  <canvas id="confettiCanvas"></canvas>
+  <div class="toast" id="toast"></div>
+
+  <section class="section pt-12 pb-6 text-center relative" id="heroSection">
+    <div class="flex justify-center mb-5">
+      <div class="badge-float">
+        ✨ <span>KadoLink · Blow &amp; Bloom Premium</span>
+      </div>
+    </div>
+
+    <p class="text-xs font-bold tracking-widest text-rose uppercase mb-2">
+      🌸 Untuk: <span id="recipientName">...</span> 🌸
+    </p>
+
+    <h1 class="font-playfair text-3xl leading-tight font-bold text-white mb-2 main-title-glow">
+      Tiup Lilin,<br />
+      <span class="italic text-rose">Buat Harapanmu</span><br />
+      Terwujud ✨
+    </h1>
+
+    <p class="text-warm/80 text-xs max-w-xs mx-auto mb-6">
+      Tahan lilin atau tiup lewat mic di bawah untuk menerbangkan harapanmu~
+    </p>
+
+    <div class="flex flex-col items-center justify-center relative my-10 select-none" id="candleWrap">
+      
+      <img src="Untitled design (8).png" alt="Magic Ring" class="magic-power-ring" id="magicRing" />
+
+      <div class="candle-wrap" id="candleInteract">
+        <svg width="0" height="0">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#F8BBD0"/>
+              <stop offset="100%" style="stop-color:#E91E8C"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="hold-ring" id="holdRing">
+          <svg viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="65" id="ringCircle" />
+          </svg>
+        </div>
+        
+        <div class="flame-glow" id="flameGlow"></div>
+        <div class="smoke" id="smoke"></div>
+        <div class="flame" id="flame"></div>
+        <div class="wick"></div>
+        
+        <div class="candle-body">
+          <div class="wax-drip" style="left: 10px; top: 6px;"></div>
+          <div class="wax-drip" style="right: 8px; top: 14px; width: 6px; height: 12px;"></div>
+        </div>
+        <div class="candle-plate"></div>
+      </div>
+    </div>
+
+    <div class="tap-hint mb-4" id="tapHint">
+      <p class="text-white text-sm font-semibold">👇 Tahan Lilin untuk Meniup!</p>
+    </div>
+
+    <div class="flex flex-col items-center justify-center gap-1 mb-8">
+      <div class="mic-container" id="micBtn">
+
+        <img src="Untitled design (6).png" alt="Microphone" class="mic-image" />
+      </div>
+      <span class="text-[11px] text-warm font-medium" id="micLabel">Ketuk untuk Tiup Pakai Mic</span>
+    </div>
+
+    <div class="flex flex-col items-center gap-1.5 max-w-xs mx-auto">
+      <div class="flex items-center justify-between w-full px-1">
+        <span class="text-[11px] font-bold text-warm/70 tracking-wider uppercase">💨 Wish Power</span>
+        <span class="text-xs font-bold text-rose" id="progressLabel">0%</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+      <p class="text-[11px] text-white font-medium min-h-[16px] mt-1" id="powerStatus"></p>
+    </div>
+  </section>
+
+  <div class="divider my-4 px-4"><span>🌸</span></div>
+
+  <section class="section py-4" id="wishSection">
+    <div class="text-center mb-5 reveal">
+      <h2 class="font-playfair text-xl font-bold text-white mb-1">📝 Daftar Harapanmu</h2>
+    </div>
+
+    <div class="max-w-xs mx-auto">
+      <div class="relative mb-3">
+        <textarea class="wish-input" id="wishInput" rows="2" placeholder="🌠 Tulis harapan indahmu di sini..." maxlength="120" disabled></textarea>
+        <span class="absolute bottom-3 right-4 text-[10px] text-rose/70 font-semibold" id="charCount">0/120</span>
+      </div>
+      <button class="btn-primary w-full" id="addWishBtn" disabled>🌸 Kirim Harapan</button>
+
+      <p class="text-center text-[11px] text-warm/60 mt-2" id="wishInputHint">⬆️ Tiup lilinnya dulu untuk membuka fitur ini!</p>
+    </div>
+
+    <div class="max-w-xs mx-auto mt-5 flex flex-col gap-3" id="wishesList"></div>
+  </section>
+
+  <section class="section py-6" id="unlockSection">
+    <div class="text-center py-6 px-4 glass-panel max-w-xs mx-auto" id="lockedPlaceholder">
+      <div class="text-4xl mb-3">🔒</div>
+      <h3 class="font-playfair text-base font-bold text-white mb-1">Konten Spesial Terkunci</h3>
+      <p class="text-warm/70 text-xs mb-3">Tiup lilin hingga 100% untuk membukanya!</p>
+      <div class="progress-bar-track mx-auto"><div class="progress-bar-fill" id="progressBar2"></div></div>
+    </div>
+
+    <div id="unlockedContent" class="hidden max-w-xs mx-auto">
+      <div class="text-center mb-6 reveal">
+        <div class="text-3xl mb-2">💌</div>
+        <h2 class="font-playfair text-xl font-bold italic text-white mb-3">Surat Cinta Untukmu</h2>
+        <div class="glass-panel p-5 text-left relative overflow-hidden">
+          <p class="text-cream text-sm leading-relaxed" id="personalMessage"></p>
+          <p class="text-right text-rose font-bold mt-3 text-xs" id="messageSender"></p>
+        </div>
+      </div>
+
+      <div class="mb-6 reveal">
+        <h3 class="text-center font-playfair text-lg font-bold text-white mb-3">Galeri Momen Indah 📷</h3>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="photo-card-premium">📸</div>
+          <div class="photo-card-premium">🌸</div>
+          <div class="photo-card-premium">✨</div>
+          <div class="photo-card-premium">💖</div>
+        </div>
+      </div>
+
+      <div class="mb-6 reveal">
+        <button class="btn-sage w-full" id="surpriseBtn">🎊 Buka Kejutan Rahasia!</button>
+
+        <div id="surpriseMsg">
+          <div class="glass-panel p-5 mt-3 text-center border border-rose/30 bg-rose/10">
+            <p class="text-xs leading-relaxed text-white font-medium" id="surpriseText"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section pt-4 pb-12 text-center bg-gradient-to-b from-transparent to-black/80">
+    <p class="font-playfair italic text-cream/70 text-sm mb-1">Dibuat penuh cinta untuk</p>
+    <p class="font-nunito font-black text-rose text-xl mb-5" id="footerName">...</p>
+    <div class="flex flex-col gap-2.5 items-center max-w-xs mx-auto">
+      <button class="btn-primary w-full" id="copyLinkBtn">🔗 Bagikan Momen Ini!</button>
+
+
+
+      <button class="btn-secondary w-full" id="createOwnBtn">🌸 Buat Kado Kamu Sendiri</button>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,1835 @@
+/* =====================================================
+   FINAL STYLE.CSS - Birthday Retro Template
+   Tema: Retro Windows 95 / 98 Pink
+   Aman untuk:
+   - Desktop
+   - Laptop
+   - Mobile / HP
+   - Photo Viewer
+   - Draggable Window
+   - Galeri Foto
+===================================================== */
+
+:root {
+  --pink-bg-1: #f8c7d8;
+  --pink-bg-2: #f4a7c1;
+  --pink-bg-3: #e78db0;
+  --pink-main: #ff4fa3;
+  --pink-dark: #c2185b;
+  --pink-deep: #ad1457;
+
+  --gray: #c0c0c0;
+  --gray-light: #e8e8e8;
+  --gray-dark: #808080;
+  --dark: #111111;
+  --white: #ffffff;
+  --blue: #000080;
+}
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Courier New", monospace;
+  background: var(--pink-bg-2);
+  color: #111;
+  image-rendering: pixelated;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.pink {
+  color: var(--pink-main);
+  font-weight: 700;
+}
+
+/* =====================================================
+   BOOT SCREEN
+===================================================== */
+
+#boot-screen {
+  position: fixed;
+  inset: 0;
+  background: #000080;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.boot-box {
+  width: min(520px, 88vw);
+  border: 3px solid #ffffff;
+  padding: 28px;
+  box-shadow: 8px 8px #000000;
+}
+
+.boot-box h1 {
+  font-size: 44px;
+  margin: 0 0 24px;
+  letter-spacing: 1px;
+}
+
+.boot-box p {
+  font-size: 18px;
+  margin: 14px 0;
+}
+
+.boot-progress {
+  height: 22px;
+  border: 2px solid #ffffff;
+  margin-top: 22px;
+  padding: 3px;
+}
+
+.boot-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #ffffff;
+  animation: load 2.7s forwards;
+}
+
+@keyframes load {
+  to {
+    width: 100%;
+  }
+}
+
+/* =====================================================
+   DESKTOP BACKGROUND PINK
+===================================================== */
+
+#desktop {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.22), transparent 18%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,.12), transparent 20%),
+    linear-gradient(135deg, var(--pink-bg-1) 0%, var(--pink-bg-2) 45%, var(--pink-bg-3) 100%);
+}
+
+#desktop::before {
+  content: "";
+  position: absolute;
+  inset: 20px 20px 58px 20px;
+  pointer-events: none;
+  border: 2px solid rgba(255,255,255,.45);
+  box-shadow:
+    inset 0 0 0 2px rgba(255,255,255,.25),
+    0 0 0 2px rgba(150,50,100,.15);
+  background:
+    linear-gradient(rgba(255,255,255,.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.10) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+#desktop::after {
+  content: "";
+  position: absolute;
+  inset: 28px 28px 66px 28px;
+  pointer-events: none;
+  border: 1px dotted rgba(255,255,255,.45);
+}
+
+/* =====================================================
+   DESKTOP ICONS
+===================================================== */
+
+.desktop-icons {
+  position: absolute;
+  left: 12px;
+  top: 18px;
+  bottom: 58px;
+  width: 112px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px 4px 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  z-index: 30;
+}
+
+.desktop-icons::-webkit-scrollbar {
+  display: none;
+}
+
+.desktop-icon {
+  width: 96px;
+  min-height: 104px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px 2px 8px;
+  border: 1px solid transparent;
+  background: rgba(255,255,255,.06);
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,.55);
+}
+
+.desktop-icon:hover,
+.desktop-icon.opened {
+  border: 1px dotted #ffffff;
+  background: rgba(255,255,255,.12);
+}
+
+.desktop-icon span:last-child {
+  display: block;
+  margin-top: 4px;
+  text-align: center;
+  line-height: 1.12;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.icon-art {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 6px;
+}
+
+.computer::before {
+  content: "🖥️";
+  font-size: 46px;
+  line-height: 1;
+}
+
+.folder::before {
+  content: "📁";
+  font-size: 48px;
+  line-height: 1;
+}
+
+.cd::before {
+  content: "💿";
+  font-size: 48px;
+  line-height: 1;
+}
+
+.envelope::before {
+  content: "✉️";
+  font-size: 48px;
+  line-height: 1;
+}
+
+.gift::before {
+  content: "🎁";
+  font-size: 46px;
+  line-height: 1;
+  display: block;
+}
+
+.note::before {
+  content: "📝";
+  font-size: 46px;
+  line-height: 1;
+}
+
+/* =====================================================
+   WINDOWS BASE
+===================================================== */
+
+.window {
+  position: absolute;
+  background: var(--gray);
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.35);
+  display: none;
+  z-index: 5;
+}
+
+.window.active {
+  display: block;
+}
+
+.window.dragging {
+  user-select: none;
+}
+
+.window.opening {
+  animation: popWin .22s ease-out;
+}
+
+@keyframes popWin {
+  from {
+    opacity: .65;
+    transform: scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.titlebar {
+  height: 28px;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, var(--pink-dark) 0%, #e91e63 55%, var(--pink-deep) 100%);
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: move;
+}
+
+.titlebar button {
+  width: 24px;
+  height: 22px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  background: var(--gray);
+  color: #000000;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+}
+
+.window-body {
+  background: var(--gray);
+  padding: 10px;
+}
+
+.menu-bar {
+  height: 24px;
+  padding: 4px 8px;
+  background: var(--gray);
+  border-bottom: 1px solid #888888;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.status-bar {
+  min-height: 25px;
+  padding: 4px 8px;
+  background: var(--gray);
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  font-family: "Courier New", monospace;
+  font-size: 15px;
+}
+
+.win-button {
+  min-width: 72px;
+  padding: 5px 16px;
+  margin-top: 8px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  background: var(--gray);
+  color: #000000;
+  font-weight: 700;
+}
+
+/* =====================================================
+   WELCOME WINDOW
+===================================================== */
+
+.welcome-body {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: #f4f4f4;
+  min-height: 190px;
+}
+
+.welcome-body h2 {
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  line-height: 1.05;
+  margin: 0 0 10px;
+}
+
+.welcome-body p {
+  font-size: 16px;
+  line-height: 1.35;
+  margin: 8px 0;
+}
+
+.cake {
+  font-size: 74px;
+  line-height: 1;
+}
+
+/* =====================================================
+   MUSIC WINDOW
+===================================================== */
+
+.music-body {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 0;
+  padding: 0;
+  background: #d0d0d0;
+}
+
+.player-panel,
+.text-panel {
+  background: #eeeeee;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  min-height: 390px;
+}
+
+.panel-title {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 10px 6px;
+  border-bottom: 1px solid #b0b0b0;
+}
+
+.cover-art {
+  position: relative;
+  width: 230px;
+  height: 170px;
+  margin: 24px auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(180deg, #3c2c7a, #793a90 48%, #fa6d82 49%, #1a1a1a 50%),
+    repeating-linear-gradient(90deg, #000 0 10px, #1f1f1f 10px 20px);
+  border: 4px solid #777777;
+  box-shadow:
+    inset 0 0 0 2px rgba(255,255,255,.5),
+    3px 3px 0 rgba(0,0,0,.18);
+  overflow: hidden;
+}
+
+.cover-text {
+  position: absolute;
+  color: #ffb0cc;
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  text-shadow: 1px 1px rgba(0,0,0,.4);
+}
+
+.song-title,
+#time-label {
+  text-align: center;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.progress-line {
+  width: 250px;
+  height: 14px;
+  margin: 14px auto;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  background: #dcdcdc;
+}
+
+.progress-line span {
+  display: block;
+  height: 100%;
+  width: 38%;
+  background: #000080;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.controls button {
+  min-width: 54px;
+  height: 40px;
+  font-size: 24px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  background: var(--gray);
+}
+
+.volume {
+  text-align: center;
+  margin: 12px 0 0;
+}
+
+.volume input {
+  width: 140px;
+}
+
+.text-panel {
+  overflow: hidden;
+}
+
+.scroll-content {
+  height: 340px;
+  overflow-y: auto;
+  padding: 20px 26px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.scroll-content p {
+  margin: 0 0 18px;
+}
+
+/* =====================================================
+   NOTEPAD / MESSAGE / ABOUT
+===================================================== */
+
+.notepad-body {
+  height: 300px;
+  overflow-y: auto;
+  background: #ffffff;
+  padding: 18px 20px;
+  font-size: 17px;
+  line-height: 1.55;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+.notepad-body p {
+  margin: 0 0 16px;
+}
+
+.small-note {
+  height: 210px;
+}
+
+/* =====================================================
+   PHOTOS WINDOW
+===================================================== */
+
+.photos-window {
+  min-width: 540px;
+}
+
+.photos-body {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 14px;
+  background: #dcdcdc;
+}
+
+.photo-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 118px;
+  border: 4px solid #ececec;
+  box-shadow:
+    inset 0 0 0 2px #7a7a7a,
+    inset 0 0 0 6px rgba(255,255,255,.42),
+    3px 3px 0 rgba(0,0,0,.18);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease;
+  appearance: none;
+  background-color: #c9c9c9;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.photo-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 2px #7a7a7a,
+    inset 0 0 0 6px rgba(255,255,255,.42),
+    5px 5px 0 rgba(0,0,0,.22);
+}
+
+.photo-card:focus {
+  outline: 2px dotted var(--blue);
+  outline-offset: 2px;
+}
+
+.photo-card.empty-photo {
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #d9d9d9, #c0c0c0) !important;
+  color: #666666;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+}
+
+.photo-card.empty-photo:hover {
+  transform: none;
+}
+
+.photo-zoom-label {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 4px 8px;
+  background: rgba(194,24,91,.88);
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,.65);
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+
+.photo-card:hover .photo-zoom-label,
+.photo-card:focus .photo-zoom-label {
+  opacity: 1;
+}
+
+/* =====================================================
+   PHOTO VIEWER
+===================================================== */
+
+.photo-viewer-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent !important;
+  display: none;
+  z-index: 55;
+}
+
+.photo-viewer-overlay.active {
+  display: block;
+}
+
+.photo-viewer-window {
+  display: none;
+  width: 560px !important;
+  max-width: 78vw !important;
+  left: 50% !important;
+  top: 47% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.photo-viewer-window.active {
+  display: block;
+}
+
+.photo-viewer-body {
+  padding: 12px !important;
+  background: #d8d8d8;
+}
+
+.photo-viewer-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px !important;
+  max-height: 58vh !important;
+  padding: 10px !important;
+  background: #ececec;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+#photo-viewer-image {
+  display: block;
+  width: auto;
+  max-width: 100% !important;
+  max-height: 52vh !important;
+  object-fit: contain !important;
+  filter: none !important;
+  opacity: 1 !important;
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px #666666;
+}
+
+#photo-viewer-caption {
+  font-family: Arial, sans-serif;
+  font-size: 13px !important;
+  padding: 6px 10px !important;
+}
+
+/* =====================================================
+   ALERT / REMINDER / SURPRISE
+===================================================== */
+
+.alert-body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #eeeeee;
+  min-height: 110px;
+  font-family: Arial, sans-serif;
+}
+
+.warning,
+.info {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.alert-body p {
+  flex: 1;
+  margin: 0;
+  font-size: 16px;
+}
+
+.surprise-body {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background: #ffffff;
+  min-height: 150px;
+  padding: 16px;
+}
+
+.heart {
+  font-size: 54px;
+}
+
+.surprise-body p {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+/* =====================================================
+   START MENU
+===================================================== */
+
+.start-menu {
+  position: absolute;
+  left: 4px;
+  bottom: 45px;
+  width: 210px;
+  background: var(--gray);
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.25);
+  padding: 6px;
+  display: none;
+  z-index: 80;
+}
+
+.start-menu.open {
+  display: block;
+}
+
+.start-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+}
+
+.start-menu button:hover {
+  background: var(--pink-dark);
+  color: #ffffff;
+}
+
+.start-menu hr {
+  border: 0;
+  border-top: 1px solid #888888;
+  border-bottom: 1px solid #ffffff;
+  margin: 6px 0;
+}
+
+/* =====================================================
+   TASKBAR
+===================================================== */
+
+.taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45px;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #d9d9d9;
+  border-top: 2px solid #ffffff;
+  z-index: 90;
+}
+
+.start-button {
+  height: 36px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  background: var(--gray);
+  font-family: Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.task {
+  height: 36px;
+  min-width: 150px;
+  padding: 0 12px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  background: var(--gray);
+  text-align: left;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.task.active {
+  background: #f3f3f3;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+.tray {
+  margin-left: auto;
+  min-width: 130px;
+  height: 36px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  background: #eeeeee;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+#confetti-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 16px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+/* =====================================================
+   DESKTOP HINT
+===================================================== */
+
+.desktop-hint {
+  position: absolute;
+  left: 120px;
+  top: 22px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.95);
+  color: #7a1b52;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #8b4b67;
+  border-bottom: 2px solid #8b4b67;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.25);
+  z-index: 25;
+}
+
+/* =====================================================
+   MOBILE / HANDPHONE FINAL VIEW
+===================================================== */
+
+@media (max-width: 768px) {
+
+  html,
+  body {
+    overflow: hidden;
+  }
+
+  #desktop {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #desktop::before {
+    inset: 10px 10px 56px 10px;
+    background-size: 22px 22px;
+  }
+
+  #desktop::after {
+    inset: 16px 16px 62px 16px;
+  }
+
+  .desktop-icons {
+    left: 8px !important;
+    top: 10px !important;
+    bottom: auto !important;
+    width: 108px !important;
+    max-height: calc(100vh - 80px);
+    gap: 8px !important;
+    padding: 4px !important;
+    overflow-y: auto !important;
+    z-index: 30;
+  }
+
+  .desktop-icon {
+    width: 94px !important;
+    min-height: 90px !important;
+    padding: 4px 2px 6px !important;
+  }
+
+  .icon-art {
+    width: 42px !important;
+    height: 42px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .computer::before,
+  .folder::before,
+  .cd::before,
+  .envelope::before,
+  .gift::before,
+  .note::before {
+    font-size: 38px !important;
+  }
+
+  .desktop-icon span:last-child {
+    font-size: 13px !important;
+  }
+
+  .window {
+    max-width: 92vw !important;
+  }
+
+  .welcome-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    right: auto !important;
+    top: 12vh !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .welcome-body {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .cake {
+    font-size: 58px;
+  }
+
+  .welcome-body h2 {
+    font-size: 24px;
+  }
+
+  .music-window {
+    width: 92vw !important;
+    left: 4vw !important;
+    top: 12vh !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .music-body {
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 74vh;
+    overflow-y: auto;
+  }
+
+  .player-panel,
+  .text-panel {
+    width: 100% !important;
+    min-height: auto;
+  }
+
+  .cover-art {
+    width: 100% !important;
+    max-width: 240px !important;
+    height: 150px !important;
+    margin-top: 16px;
+  }
+
+  .controls button {
+    min-width: 48px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .scroll-content {
+    height: 210px !important;
+    font-size: 14px !important;
+    padding: 14px 16px;
+  }
+
+  .notepad-body {
+    height: 240px !important;
+    font-size: 14px !important;
+    padding: 14px 16px;
+  }
+
+  .photos-window {
+    width: 92vw !important;
+    left: 4vw !important;
+    right: auto !important;
+    top: 14vh !important;
+    transform: none !important;
+    min-width: 0 !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    max-height: 56vh;
+    overflow-y: auto;
+  }
+
+  .photo-card {
+    height: 110px !important;
+  }
+
+  .photo-viewer-window {
+    width: 92vw !important;
+    max-width: 92vw !important;
+    left: 4vw !important;
+    top: 10vh !important;
+    transform: none !important;
+  }
+
+  .photo-viewer-frame {
+    min-height: 180px !important;
+    max-height: 52vh !important;
+  }
+
+  #photo-viewer-image {
+    max-height: 46vh !important;
+  }
+
+  .desktop-hint {
+    left: 8px !important;
+    right: 8px !important;
+    top: auto !important;
+    bottom: 64px !important;
+    font-size: 12px !important;
+    padding: 8px 10px !important;
+  }
+
+  .taskbar {
+    height: 44px !important;
+    gap: 3px !important;
+    padding: 2px !important;
+  }
+
+  .start-button {
+    height: 36px !important;
+    font-size: 18px !important;
+    padding: 0 10px !important;
+  }
+
+  .task {
+    display: none !important;
+  }
+
+  .tray {
+    min-width: 92px !important;
+    height: 36px !important;
+    font-size: 14px !important;
+  }
+
+  .start-menu {
+    width: 190px;
+    bottom: 44px;
+  }
+}
+
+/* =====================================================
+   VERY SMALL PHONE
+===================================================== */
+
+@media (max-width: 420px) {
+
+  .desktop-icons {
+    width: 98px !important;
+  }
+
+  .desktop-icon {
+    width: 86px !important;
+    min-height: 84px !important;
+  }
+
+  .desktop-icon span:last-child {
+    font-size: 12px !important;
+  }
+
+  .computer::before,
+  .folder::before,
+  .cd::before,
+  .envelope::before,
+  .gift::before,
+  .note::before {
+    font-size: 34px !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .photo-card {
+    height: 96px !important;
+  }
+
+  .titlebar {
+    font-size: 14px;
+  }
+
+  .panel-title {
+    font-size: 17px;
+  }
+}
+/* =====================================================
+   FINAL FIX - Birthday Retro Windows Product
+   Fokus: mobile friendly, 4 photo grid, cleaner flow
+===================================================== */
+
+.photos-window {
+  width: 430px !important;
+  min-width: 0 !important;
+}
+
+.photos-body {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 12px !important;
+}
+
+.photo-card {
+  height: 135px !important;
+}
+
+.welcome-window {
+  max-width: 92vw !important;
+}
+
+.welcome-body {
+  min-height: 210px;
+}
+
+.welcome-body h2 {
+  font-size: 30px;
+}
+
+.welcome-body p {
+  font-size: 17px;
+}
+
+@media (max-width: 768px) {
+  .welcome-window {
+    width: 86vw !important;
+    left: 7vw !important;
+    top: 16vh !important;
+  }
+
+  .welcome-body {
+    min-height: auto !important;
+    padding: 18px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 25px !important;
+    line-height: 1.05 !important;
+  }
+
+  .welcome-body p {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+
+  .cake {
+    font-size: 56px !important;
+  }
+
+  .photos-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    top: 13vh !important;
+    right: auto !important;
+    min-width: 0 !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    max-height: 58vh !important;
+    overflow-y: auto !important;
+  }
+
+  .photo-card {
+    height: 130px !important;
+  }
+
+  .message-window,
+  .about-window,
+  .surprise-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    right: auto !important;
+    top: 13vh !important;
+  }
+
+  .notepad-body {
+    height: 300px !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .surprise-body {
+    flex-direction: column !important;
+    text-align: center !important;
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+
+  .heart {
+    font-size: 48px !important;
+  }
+
+  .desktop-hint {
+    display: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .photos-window {
+    width: 90vw !important;
+    left: 5vw !important;
+  }
+
+  .photo-card {
+    height: 112px !important;
+  }
+
+  .welcome-window,
+  .message-window,
+  .about-window,
+  .surprise-window {
+    width: 90vw !important;
+    left: 5vw !important;
+  }
+
+  .notepad-body {
+    height: 280px !important;
+    font-size: 14px !important;
+  }
+}
+/* =====================================================
+   PRODUCT FLOW FINAL FIX
+   Birthday Retro Windows
+===================================================== */
+
+.photos-window {
+  width: 430px !important;
+  min-width: 0 !important;
+}
+
+.photos-body {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 14px !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.photo-card {
+  height: 140px !important;
+}
+
+@media (min-width: 769px) {
+  .welcome-window {
+    left: 11% !important;
+    top: 7% !important;
+    width: 440px !important;
+  }
+
+  .photos-window {
+    left: 46% !important;
+    top: 16% !important;
+    right: auto !important;
+    width: 430px !important;
+  }
+
+  .message-window {
+    right: 4% !important;
+    top: 10% !important;
+    width: 465px !important;
+  }
+
+  .alert-window {
+    left: 34% !important;
+    bottom: 12% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    top: 15vh !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .welcome-body {
+    min-height: auto !important;
+    padding: 18px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 25px !important;
+    line-height: 1.05 !important;
+  }
+
+  .welcome-body p {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+
+  .photos-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    top: 13vh !important;
+    right: auto !important;
+    bottom: auto !important;
+    min-width: 0 !important;
+    transform: none !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    max-height: 58vh !important;
+    overflow-y: auto !important;
+  }
+
+  .photo-card {
+    height: 125px !important;
+  }
+
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    right: auto !important;
+    top: 13vh !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .notepad-body {
+    height: 300px !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .surprise-body {
+    flex-direction: column !important;
+    text-align: center !important;
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+
+  .desktop-hint {
+    display: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 90vw !important;
+    left: 5vw !important;
+  }
+
+  .photo-card {
+    height: 108px !important;
+  }
+
+  .notepad-body {
+    height: 280px !important;
+    font-size: 14px !important;
+  }
+}
+/* =====================================================
+   FINAL MOBILE PRODUCT FIX - Birthday Retro Windows
+===================================================== */
+
+.photos-window {
+  width: 430px !important;
+  min-width: 0 !important;
+}
+
+.photos-body {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 14px !important;
+  background: #dcdcdc !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.photo-card {
+  height: 140px !important;
+}
+
+.photos-body .photo-card:nth-child(n + 5) {
+  display: none !important;
+}
+
+@media (min-width: 769px) {
+  .welcome-window {
+    left: 11% !important;
+    top: 7% !important;
+    width: 440px !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .photos-window {
+    left: 46% !important;
+    top: 15% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 430px !important;
+    transform: none !important;
+  }
+
+  .message-window {
+    right: 4% !important;
+    top: 10% !important;
+    width: 465px !important;
+  }
+
+  .about-window {
+    left: 52% !important;
+    top: 18% !important;
+    width: 360px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    right: auto !important;
+    top: 13vh !important;
+    bottom: auto !important;
+    transform: none !important;
+    max-width: 88vw !important;
+  }
+
+  .welcome-window {
+    top: 15vh !important;
+  }
+
+  .welcome-body {
+    min-height: auto !important;
+    padding: 18px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 10px !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 25px !important;
+    line-height: 1.05 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .welcome-body p {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+
+  .cake {
+    font-size: 54px !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    max-height: 56vh !important;
+    overflow-y: auto !important;
+  }
+
+  .photo-card {
+    height: 126px !important;
+  }
+
+  .notepad-body {
+    height: 300px !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .surprise-body,
+  .alert-body {
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+
+  .desktop-hint {
+    display: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 90vw !important;
+    left: 5vw !important;
+    max-width: 90vw !important;
+  }
+
+  .photo-card {
+    height: 108px !important;
+  }
+
+  .notepad-body {
+    height: 280px !important;
+    font-size: 14px !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 23px !important;
+  }
+}
+/* =====================================================
+   FINAL PRODUCT FIX - Birthday Retro Windows
+   2x2 Photo Grid + Mobile Safe Windows
+===================================================== */
+
+.photos-window {
+  width: 430px !important;
+  min-width: 0 !important;
+}
+
+.photos-body {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 14px !important;
+  background: #dcdcdc !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.photo-card {
+  height: 140px !important;
+}
+
+.photos-body .photo-card:nth-child(n + 5) {
+  display: none !important;
+}
+
+.window.active {
+  display: block !important;
+}
+
+@media (min-width: 769px) {
+  .welcome-window {
+    left: 11% !important;
+    top: 7% !important;
+    width: 440px !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .photos-window {
+    left: 46% !important;
+    top: 15% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 430px !important;
+    transform: none !important;
+  }
+
+  .message-window {
+    right: 4% !important;
+    top: 10% !important;
+    width: 465px !important;
+  }
+
+  .about-window {
+    left: 52% !important;
+    top: 18% !important;
+    width: 360px !important;
+  }
+
+  .alert-window {
+    left: 34% !important;
+    bottom: 12% !important;
+  }
+
+  .reminder-window {
+    left: 38% !important;
+    bottom: 12% !important;
+  }
+
+  .surprise-window {
+    right: 7% !important;
+    bottom: 7% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 88vw !important;
+    left: 6vw !important;
+    right: auto !important;
+    top: 13vh !important;
+    bottom: auto !important;
+    transform: none !important;
+    max-width: 88vw !important;
+  }
+
+  .welcome-window {
+    top: 15vh !important;
+  }
+
+  .welcome-body {
+    min-height: auto !important;
+    padding: 18px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 10px !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 25px !important;
+    line-height: 1.05 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .welcome-body p {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+
+  .cake {
+    font-size: 54px !important;
+  }
+
+  .photos-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    max-height: 56vh !important;
+    overflow-y: auto !important;
+  }
+
+  .photo-card {
+    height: 126px !important;
+  }
+
+  .notepad-body {
+    height: 300px !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .surprise-body,
+  .alert-body {
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+
+  .surprise-body {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .desktop-hint {
+    display: none !important;
+  }
+
+  .photo-viewer-window {
+    width: 92vw !important;
+    max-width: 92vw !important;
+    left: 4vw !important;
+    top: 10vh !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .welcome-window,
+  .photos-window,
+  .message-window,
+  .about-window,
+  .surprise-window,
+  .alert-window,
+  .reminder-window {
+    width: 90vw !important;
+    left: 5vw !important;
+    max-width: 90vw !important;
+  }
+
+  .photo-card {
+    height: 108px !important;
+  }
+
+  .notepad-body {
+    height: 280px !important;
+    font-size: 14px !important;
+  }
+
+  .welcome-body h2 {
+    font-size: 23px !important;
+  }
+}
+.message-window .notepad-body {
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 14px;
+  line-height: 1.65;
+}
+
+.message-window .notepad-body p {
+  margin: 0 0 16px;
+}
+
+.message-window .notepad-body p:last-child {
+  margin-bottom: 0;
+}
+
+.message-window .notepad-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.message-window .notepad-body::-webkit-scrollbar-thumb {
+  background: #e889b5;
+  border-radius: 10px;
+}
+
+.message-window .notepad-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.35);
+}

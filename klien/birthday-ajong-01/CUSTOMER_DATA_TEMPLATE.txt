@@ -1,0 +1,56 @@
+CUSTOMER DATA — BIRTHDAY RETRO WINDOWS
+
+Nama customer:
+Nama penerima:
+Nama pengirim:
+Tanggal order:
+Deadline:
+Status pembayaran:
+
+DATA UNTUK WEBSITE
+
+Website Title:
+Birthday Surprise
+
+Nama penerima yang tampil:
+-
+
+Welcome Text:
+Hari ini ada kejutan kecil buat kamu.
+Klik OK dulu ya, pelan-pelan kita buka satu per satu.
+
+Lagu:
+-
+
+File lagu:
+assets/music/birthday-song.mp3
+
+Foto:
+assets/images/foto1.jpg
+assets/images/foto2.jpg
+assets/images/foto3.jpg
+assets/images/foto4.jpg
+
+Message:
+-
+
+About You:
+-
+
+Alert Text:
+Ada kejutan kecil buat kamu!
+
+Reminder Text:
+Siap-siap senyum ya :)
+
+Final Surprise Text:
+-
+
+Final Surprise Subtext:
+-
+
+QR Code:
+Ya / Tidak
+
+Link final:
+https://kadolink.my.id/core/retro/birthday-retro-windows/
