@@ -9,9 +9,9 @@ window.BIRTHDAY_DATA = {
   songTitle: "Birthday Song For You",
   songTime: "Now Playing",
 
-  // File customer berada langsung di folder: klien/birthday-ajong-01/assets/
-  musicFile: "./assets/birthday-song.mp3?v=4",
-  coverImage: "./assets/foto4.jpg?v=4",
+  // Struktur file customer: assets/images/ untuk foto dan assets/music/ untuk lagu.
+  musicFile: "./assets/music/birthday-song.mp3?v=6",
+  coverImage: "./assets/images/foto4.jpg?v=6",
   coverText: "For You ♥",
 
   musicMessage: [
@@ -89,10 +89,10 @@ window.BIRTHDAY_DATA = {
   ],
 
   photos: [
-    "./assets/foto1.jpg?v=4",
-    "./assets/foto2.jpg?v=4",
-    "./assets/foto3.jpg?v=4",
-    "./assets/foto4.jpg?v=4"
+    "./assets/images/foto1.jpg?v=6",
+    "./assets/images/foto2.jpg?v=6",
+    "./assets/images/foto3.jpg?v=6",
+    "./assets/images/foto4.jpg?v=6"
   ],
 
   alertText: "Ada kejutan kecil buat kamu!",
